@@ -1,17 +1,26 @@
 package com.example.android.inventory;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android.inventory.data.ProductDbHelper;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
+import com.example.android.inventory.data.ProductDbHelper;
 
 public class MainActivity extends AppCompatActivity {
+
+    /** Database helper that will provide us access to the database */
+    private ProductDbHelper mDbHelper;
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // To access our database, we instantiate our subclass of SQLiteOpenHelper
+        // and pass the context, which is the current activity.
+        mDbHelper = new ProductDbHelper(this);
+
         displayDatabaseInfo();
+
     }
 
     /**
@@ -34,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
      * the products database.
      */
     private void displayDatabaseInfo() {
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
-        ProductDbHelper mDbHelper = new ProductDbHelper(this);
-
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -54,5 +65,50 @@ public class MainActivity extends AppCompatActivity {
             // resources and makes it invalid.
             cursor.close();
         }
+    }
+
+    /**
+     * Helper method to insert hardcoded product data into the database. For debugging purpose only.
+     */
+    private void insertProduct() {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ProductEntry.COLUMN_PRODUCT_NAME, "The Little Prince");
+        values.put(ProductEntry.COLUMN_PRICE, "8");
+        values.put(ProductEntry.COLUMN_QUANTITY, "10");
+        values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, "");
+        values.put(ProductEntry.COLUMN_SUPPLIER_NAME, "neho&becky");
+        values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
+        values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "(200) 222-2345");
+
+        long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
+
+        Log.v(LOG_TAG, "New row ID " + newRowId);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            // Respond to a click on the "Insert dummy data" menu option
+            case R.id.action_insert_dummy_data:
+                insertProduct();
+                displayDatabaseInfo();
+                return true;
+            // Respond to a click on the "Delete all entries" menu option
+            case R.id.action_delete_all_entries:
+                // Do nothing for now
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
