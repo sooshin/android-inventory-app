@@ -27,4 +27,10 @@
 
     <!-- Label for supplier phone information in the editor [CHAR LIMIT=30] -->
     <string name="category_supplier_phone">Supplier Phone</string>
+
+    <!-- Label for editor menu option to save product and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
 </resources>
