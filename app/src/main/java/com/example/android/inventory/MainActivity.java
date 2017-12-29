@@ -61,9 +61,26 @@ public class MainActivity extends AppCompatActivity {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Perform this raw SQL query "SELECT * FROM products"
-        // to get a Cursor that contains all rows from the products table.
-        Cursor cursor = db.rawQuery("SELECT * FROM " + ProductEntry.TABLE_NAME, null);
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRICE,
+                ProductEntry.COLUMN_QUANTITY,
+                ProductEntry.COLUMN_SUPPLIER_NAME,
+                ProductEntry.COLUMN_SUPPLIER_EMAIL,
+                ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
+        };
+
+        Cursor cursor = db.query(
+                ProductEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
             // products table in the database).
