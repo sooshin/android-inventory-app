@@ -6,4 +6,25 @@
 
     <!-- Label for overflow menu option that deletes all product data in the app [CHAR LIMIT=20] -->
     <string name="action_delete_all_entries">Delete All Products</string>
+
+    <!-- Title for the activity to add a new product [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_new_product">Add a Product</string>
+
+    <!-- Label for product name information in the editor [CHAR LIMIT=30] -->
+    <string name="category_product_name">Product Name</string>
+
+    <!-- Label for product price information in the editor [CHAR LIMIT=30] -->
+    <string name="category_price">Price</string>
+
+    <!-- Label for product quantity information in the editor [CHAR LIMIT=30] -->
+    <string name="category_quantity">Quantity</string>
+
+    <!-- Label for supplier name information in the editor [CHAR LIMIT=30] -->
+    <string name="category_supplier_name">Supplier Name</string>
+
+    <!-- Label for supplier email information in the editor [CHAR LIMIT=30] -->
+    <string name="category_supplier_email">Supplier Email</string>
+
+    <!-- Label for supplier phone information in the editor [CHAR LIMIT=30] -->
+    <string name="category_supplier_phone">Supplier Phone</string>
 </resources>
