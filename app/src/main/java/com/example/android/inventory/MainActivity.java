@@ -71,8 +71,11 @@ public class MainActivity extends AppCompatActivity {
      * Helper method to insert hardcoded product data into the database. For debugging purpose only.
      */
     private void insertProduct() {
+        // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+        // Create a ContentValues object where column names are the keys,
+        // and product attributes are the values.
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, "The Little Prince");
         values.put(ProductEntry.COLUMN_PRICE, "8");
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "(200) 222-2345");
 
+        // Insert a new row for "The Little Prince" in the database, returning the ID of that new row.
         long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
 
         Log.v(LOG_TAG, "New row ID " + newRowId);
