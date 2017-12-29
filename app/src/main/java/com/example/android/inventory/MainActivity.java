@@ -81,11 +81,52 @@ public class MainActivity extends AppCompatActivity {
                 null
         );
 
+        TextView displayView = findViewById(R.id.text_view_product);
+
         try {
-            // Display the number of rows in the Cursor (which reflects the number of rows in the
-            // products table in the database).
-            TextView displayView = findViewById(R.id.text_view_product);
-            displayView.setText("Number of rows in products database table: " + cursor.getCount());
+            // Create a header in the Text View that looks like this:
+            // The products table contains <number of rows in Cursor> products.
+            // _id - product_name - price - quantity - supplier_name - supplier_email - supplier_phone_number
+
+            displayView.setText("The products table contains " + cursor.getCount() + " products.\n\n");
+            displayView.append(ProductEntry._ID + " - " +
+                    ProductEntry.COLUMN_PRODUCT_NAME + " - " +
+                    ProductEntry.COLUMN_PRICE + " - " +
+                    ProductEntry.COLUMN_QUANTITY + " - " +
+                    ProductEntry.COLUMN_SUPPLIER_NAME + " - " +
+                    ProductEntry.COLUMN_SUPPLIER_EMAIL + " - " +
+                    ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER + "\n");
+
+            // Figure out the index of each column
+            int idColumnIndex = cursor.getColumnIndex(ProductEntry._ID);
+            int productNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME);
+            int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_EMAIL);
+            int supplierPhoneColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+
+            // Iterate through all the returned rows in the cursor
+            while (cursor.moveToNext()) {
+                // Use that index to extract the String or int value of the word
+                // at the current row the cursor is on.
+                int currentID = cursor.getInt(idColumnIndex);
+                String currentProductName = cursor.getString(productNameColumnIndex);
+                int currentPrice = cursor.getInt(priceColumnIndex);
+                int currentQuantity = cursor.getInt(quantityColumnIndex);
+                String currentSupplierName = cursor.getString(supplierNameColumnIndex);
+                String currentSupplierEmail = cursor.getString(supplierEmailColumnIndex);
+                String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
+
+                // Display the values from each column of the current row in the cursor in the TextView
+                displayView.append(("\n" + currentID + " - " +
+                        currentProductName + " - " +
+                        currentPrice + " - " +
+                        currentQuantity + " - " +
+                        currentSupplierName + " - " +
+                        currentSupplierEmail + " - " +
+                        currentSupplierPhone));
+            }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
