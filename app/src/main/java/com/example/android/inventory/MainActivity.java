@@ -1,7 +1,6 @@
 package com.example.android.inventory;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Create a header in the Text View that looks like this:
             // The products table contains <number of rows in Cursor> products.
-            // _id - product_name - price - quantity - supplier_name - supplier_email - supplier_phone_number
+            // _id - product_name -author - publisher - isbn - price - quantity - supplier_name - supplier_email - supplier_phone_number
 
             displayView.setText("The products table contains " + cursor.getCount() + " products.\n\n");
             displayView.append(ProductEntry._ID + " - " +
