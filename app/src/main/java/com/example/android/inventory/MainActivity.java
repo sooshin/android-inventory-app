@@ -88,32 +88,35 @@ public class MainActivity extends AppCompatActivity {
             int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_EMAIL);
             int supplierPhoneColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
 
-            // Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()) {
-                // Use that index to extract the String or int value of the word
-                // at the current row the cursor is on.
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentProductName = cursor.getString(productNameColumnIndex);
-                String currentProductAuthor = cursor.getString(productAuthorColumnIndex);
-                String currentProductPublisher = cursor.getString(productPublisherColumnIndex);
-                String currentProductIsbn = cursor.getString(productIsbnColumnIndex);
-                int currentPrice = cursor.getInt(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                String currentSupplierName = cursor.getString(supplierNameColumnIndex);
-                String currentSupplierEmail = cursor.getString(supplierEmailColumnIndex);
-                String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
+            // Check if the Cursor has items before calling the method moveToNext().
+            if (cursor.moveToFirst()) {
+                // Iterate through all the returned rows in the cursor
+                do {
+                    // Use that index to extract the String or int value of the word
+                    // at the current row the cursor is on.
+                    int currentID = cursor.getInt(idColumnIndex);
+                    String currentProductName = cursor.getString(productNameColumnIndex);
+                    String currentProductAuthor = cursor.getString(productAuthorColumnIndex);
+                    String currentProductPublisher = cursor.getString(productPublisherColumnIndex);
+                    String currentProductIsbn = cursor.getString(productIsbnColumnIndex);
+                    int currentPrice = cursor.getInt(priceColumnIndex);
+                    int currentQuantity = cursor.getInt(quantityColumnIndex);
+                    String currentSupplierName = cursor.getString(supplierNameColumnIndex);
+                    String currentSupplierEmail = cursor.getString(supplierEmailColumnIndex);
+                    String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
-                // Display the values from each column of the current row in the cursor in the TextView
-                displayView.append(("\n" + currentID + " - " +
-                        currentProductName + " - " +
-                        currentProductAuthor + " - " +
-                        currentProductPublisher + " - " +
-                        currentProductIsbn + " - " +
-                        currentPrice + " - " +
-                        currentQuantity + " - " +
-                        currentSupplierName + " - " +
-                        currentSupplierEmail + " - " +
-                        currentSupplierPhone));
+                    // Display the values from each column of the current row in the cursor in the TextView
+                    displayView.append(("\n" + currentID + " - " +
+                            currentProductName + " - " +
+                            currentProductAuthor + " - " +
+                            currentProductPublisher + " - " +
+                            currentProductIsbn + " - " +
+                            currentPrice + " - " +
+                            currentQuantity + " - " +
+                            currentSupplierName + " - " +
+                            currentSupplierEmail + " - " +
+                            currentSupplierPhone));
+                } while (cursor.moveToNext());
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
