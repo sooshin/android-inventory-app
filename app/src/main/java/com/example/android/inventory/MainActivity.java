@@ -58,31 +58,7 @@ public class MainActivity extends AppCompatActivity {
      * the products database.
      */
     private void displayDatabaseInfo() {
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        String[] projection = {
-                ProductEntry._ID,
-                ProductEntry.COLUMN_PRODUCT_NAME,
-                ProductEntry.COLUMN_PRODUCT_AUTHOR,
-                ProductEntry.COLUMN_PRODUCT_PUBLISHER,
-                ProductEntry.COLUMN_PRODUCT_ISBN,
-                ProductEntry.COLUMN_PRICE,
-                ProductEntry.COLUMN_QUANTITY,
-                ProductEntry.COLUMN_SUPPLIER_NAME,
-                ProductEntry.COLUMN_SUPPLIER_EMAIL,
-                ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
-        };
-
-        Cursor cursor = db.query(
-                ProductEntry.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+        Cursor cursor = queryProduct();
 
         TextView displayView = findViewById(R.id.text_view_product);
 
@@ -147,6 +123,38 @@ public class MainActivity extends AppCompatActivity {
             // resources and makes it invalid.
             cursor.close();
         }
+    }
+
+    /**
+     * Read product data and return a cursor object.
+     */
+    private Cursor queryProduct() {
+        // Create and/or open a database to read from it
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_AUTHOR,
+                ProductEntry.COLUMN_PRODUCT_PUBLISHER,
+                ProductEntry.COLUMN_PRODUCT_ISBN,
+                ProductEntry.COLUMN_PRICE,
+                ProductEntry.COLUMN_QUANTITY,
+                ProductEntry.COLUMN_SUPPLIER_NAME,
+                ProductEntry.COLUMN_SUPPLIER_EMAIL,
+                ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
+        };
+
+        Cursor cursor = db.query(
+                ProductEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        return cursor;
     }
 
     /**
