@@ -22,6 +22,15 @@ public class EditorActivity extends AppCompatActivity {
     /** EditText field to enter the product name */
     private EditText mProductNameEditText;
 
+    /** EditText field to enter the author */
+    private EditText mAuthorEditText;
+
+    /** EditText field to enter the publisher */
+    private EditText mPublisherEditText;
+
+    /** EditText field to enter the ISBN */
+    private EditText mIsbnEditText;
+
     /** EditText field to enter the price of the product */
     private EditText mPriceEditText;
 
@@ -44,6 +53,9 @@ public class EditorActivity extends AppCompatActivity {
 
         // Find all relevant views that we will need to read user input from
         mProductNameEditText = findViewById(R.id.edit_product_name);
+        mAuthorEditText = findViewById(R.id.edit_product_author);
+        mPublisherEditText = findViewById(R.id.edit_product_publisher);
+        mIsbnEditText = findViewById(R.id.edit_product_isbn);
         mPriceEditText = findViewById(R.id.edit_product_price);
         mQuantityEditText = findViewById(R.id.edit_product_quantity);
         mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
@@ -58,6 +70,9 @@ public class EditorActivity extends AppCompatActivity {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String productNameString = mProductNameEditText.getText().toString().trim();
+        String authorString = mAuthorEditText.getText().toString().trim();
+        String publisherString = mPublisherEditText.getText().toString().trim();
+        String isbnString = mIsbnEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
         int price = Integer.parseInt(priceString);
         String quantityString = mQuantityEditText.getText().toString().trim();
@@ -76,6 +91,9 @@ public class EditorActivity extends AppCompatActivity {
         // and product attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, productNameString);
+        values.put(ProductEntry.COLUMN_PRODUCT_AUTHOR, authorString);
+        values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, publisherString);
+        values.put(ProductEntry.COLUMN_PRODUCT_ISBN, isbnString);
         values.put(ProductEntry.COLUMN_PRICE, price);
         values.put(ProductEntry.COLUMN_QUANTITY, quantity);
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierNameString);

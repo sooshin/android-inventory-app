@@ -49,5 +49,13 @@ public final class ProductContract {
         /** Supplier phone number. Type: TEXT */
         public static final String COLUMN_SUPPLIER_PHONE_NUMBER = "supplier_phone_number";
 
+        /** Author of the product. Type: TEXT */
+        public static final String COLUMN_PRODUCT_AUTHOR = "author";
+
+        /** Publisher of the product. Type: Text */
+        public static final String COLUMN_PRODUCT_PUBLISHER = "publisher";
+
+        /** ISBN of the product. Type: Text */
+        public static final String COLUMN_PRODUCT_ISBN = "isbn";
     }
 }

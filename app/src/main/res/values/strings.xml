@@ -13,6 +13,10 @@
     <!-- Label for product name information in the editor [CHAR LIMIT=30] -->
     <string name="category_product_name">Product Name</string>
 
+    <string name="category_product_author">Author</string>
+    <string name="category_product_publisher">Publisher</string>
+    <string name="category_product_isbn">ISBN</string>
+
     <!-- Label for product price information in the editor [CHAR LIMIT=30] -->
     <string name="category_price">Price</string>
 

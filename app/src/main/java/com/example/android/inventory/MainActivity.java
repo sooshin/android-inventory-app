@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         String[] projection = {
                 ProductEntry._ID,
                 ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_AUTHOR,
+                ProductEntry.COLUMN_PRODUCT_PUBLISHER,
+                ProductEntry.COLUMN_PRODUCT_ISBN,
                 ProductEntry.COLUMN_PRICE,
                 ProductEntry.COLUMN_QUANTITY,
                 ProductEntry.COLUMN_SUPPLIER_NAME,
@@ -91,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
             displayView.setText("The products table contains " + cursor.getCount() + " products.\n\n");
             displayView.append(ProductEntry._ID + " - " +
                     ProductEntry.COLUMN_PRODUCT_NAME + " - " +
+                    ProductEntry.COLUMN_PRODUCT_AUTHOR + " - " +
+                    ProductEntry.COLUMN_PRODUCT_PUBLISHER + " - " +
+                    ProductEntry.COLUMN_PRODUCT_ISBN + " - " +
                     ProductEntry.COLUMN_PRICE + " - " +
                     ProductEntry.COLUMN_QUANTITY + " - " +
                     ProductEntry.COLUMN_SUPPLIER_NAME + " - " +
@@ -100,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
             // Figure out the index of each column
             int idColumnIndex = cursor.getColumnIndex(ProductEntry._ID);
             int productNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+            int productAuthorColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR);
+            int productPublisherColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PUBLISHER);
+            int productIsbnColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_ISBN);
             int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_QUANTITY);
             int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME);
@@ -112,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentProductName = cursor.getString(productNameColumnIndex);
+                String currentProductAuthor = cursor.getString(productAuthorColumnIndex);
+                String currentProductPublisher = cursor.getString(productPublisherColumnIndex);
+                String currentProductIsbn = cursor.getString(productIsbnColumnIndex);
                 int currentPrice = cursor.getInt(priceColumnIndex);
                 int currentQuantity = cursor.getInt(quantityColumnIndex);
                 String currentSupplierName = cursor.getString(supplierNameColumnIndex);
@@ -121,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
                         currentProductName + " - " +
+                        currentProductAuthor + " - " +
+                        currentProductPublisher + " - " +
+                        currentProductIsbn + " - " +
                         currentPrice + " - " +
                         currentQuantity + " - " +
                         currentSupplierName + " - " +
@@ -145,10 +160,13 @@ public class MainActivity extends AppCompatActivity {
         // and product attributes are the values.
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, "The Little Prince");
-        values.put(ProductEntry.COLUMN_PRICE, "8");
-        values.put(ProductEntry.COLUMN_QUANTITY, "10");
+        values.put(ProductEntry.COLUMN_PRODUCT_AUTHOR, "Antoine de Saint-Exupéry");
+        values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, "Reynal & Hitchcock ");
+        values.put(ProductEntry.COLUMN_PRODUCT_ISBN, "1234567890123");
+        values.put(ProductEntry.COLUMN_PRICE, 8);
+        values.put(ProductEntry.COLUMN_QUANTITY, 10);
         values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, "");
-        values.put(ProductEntry.COLUMN_SUPPLIER_NAME, "neho&becky");
+        values.put(ProductEntry.COLUMN_SUPPLIER_NAME, "Neho & Becky Supplier");
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "(200) 222-2345");
 
