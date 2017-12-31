@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private Cursor queryProduct() {
         // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        //SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
                 ProductEntry._ID,
@@ -148,11 +148,23 @@ public class MainActivity extends AppCompatActivity {
                 ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
         };
 
+        /*
         Cursor cursor = db.query(
                 ProductEntry.TABLE_NAME,
                 projection,
                 null,
                 null,
+                null,
+                null,
+                null
+        );
+        */
+
+        // Perform a query on the provider using the ContentResolver.
+        // Use the {@link ProductEntry.CONTENT_URI) to access the product data.
+        Cursor cursor = getContentResolver().query(
+                ProductEntry.CONTENT_URI,
+                projection,
                 null,
                 null,
                 null
