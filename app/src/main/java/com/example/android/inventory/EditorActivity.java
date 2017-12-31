@@ -1,17 +1,14 @@
 package com.example.android.inventory;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
-import com.example.android.inventory.data.ProductDbHelper;
 
 /**
  * Allows user to create a new product or edit an existing one.
@@ -81,12 +78,6 @@ public class EditorActivity extends AppCompatActivity {
         String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
 
-        // Create database helper
-        ProductDbHelper mDbHelper = new ProductDbHelper(this);
-
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
         // Create a ContentValues object where column names are the keys,
         // and product attributes from the editor are the values.
         ContentValues values = new ContentValues();
@@ -99,15 +90,6 @@ public class EditorActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL,supplierEmailString);
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
-
-        // Insert a new row for product in the database, returning the ID of that new row.
-        long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
-
-        if(newRowId == -1) {
-            Toast.makeText(this, "Error with saving product", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Product saved with id: " + newRowId, Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
