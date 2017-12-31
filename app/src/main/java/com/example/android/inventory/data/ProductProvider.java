@@ -47,7 +47,7 @@ public class ProductProvider extends ContentProvider{
     public boolean onCreate() {
         // Create and initialize a ProductDbHelper object to gain access to the products database.
         mDbHelper = new ProductDbHelper(getContext());
-        return false;
+        return true;
     }
 
     /**
