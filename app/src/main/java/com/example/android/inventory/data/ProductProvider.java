@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
@@ -114,7 +115,34 @@ public class ProductProvider extends ContentProvider{
      */
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        return null;
+        final int match = sUriMatcher.match(uri);
+        switch(match) {
+            case PRODUCTS:
+                return insertProduct(uri, contentValues);
+            default:
+                throw new IllegalArgumentException("Insertion is not supported for " + uri);
+        }
+    }
+
+    /**
+     * Insert a product into the database with the given content values. Return the new content URI
+     * for that specific row in the database.
+     */
+    private Uri insertProduct(Uri uri, ContentValues values) {
+        // Get writable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Insert the new product with the given values
+        long id = database.insert(ProductEntry.TABLE_NAME, null, values);
+
+        // If the ID is -1, then the insertion failed. Log an error and return null.
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            return null;
+        }
+
+        // Return the new URI with the ID (of the newly inserted row) append at the end
+        return ContentUris.withAppendedId(uri, id);
     }
 
     /**
