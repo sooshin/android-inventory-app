@@ -4,10 +4,10 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -179,10 +179,11 @@ public class MainActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "(200) 222-2345");
 
-        // Insert a new row for "The Little Prince" in the database, returning the ID of that new row.
-        long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
-
-        Log.v(LOG_TAG, "New row ID " + newRowId);
+        // Insert a new row for "The Little Prince" into the provider using the ContentResolver.
+        // Use the {@link ProductEntry.CONTENT_URI} to indicate that we want to insert
+        // into the products database table.
+        // Receive the new content UrI that will allow us to access The Little Prince's data in the future.
+        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
     }
 
     @Override
