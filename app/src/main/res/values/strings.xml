@@ -37,4 +37,10 @@
 
     <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
+
+    <!-- Toast message in editor when new product has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_product_successful">Product saved</string>
+
+    <!-- Toast message in editor when new product has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_product_failed">Error with saving product</string>
 </resources>
