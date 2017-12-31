@@ -3,7 +3,6 @@ package com.example.android.inventory;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,12 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
-import com.example.android.inventory.data.ProductDbHelper;
 
 public class MainActivity extends AppCompatActivity {
-
-    /** Database helper that will provide us access to the database */
-    private ProductDbHelper mDbHelper;
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -37,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
-        mDbHelper = new ProductDbHelper(this);
     }
 
 
@@ -162,9 +153,6 @@ public class MainActivity extends AppCompatActivity {
      * Helper method to insert hardcoded product data into the database. For debugging purpose only.
      */
     private void insertProduct() {
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
         // Create a ContentValues object where column names are the keys,
         // and product attributes are the values.
         ContentValues values = new ContentValues();
