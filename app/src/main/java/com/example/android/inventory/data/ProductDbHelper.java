@@ -35,13 +35,13 @@ public class ProductDbHelper extends SQLiteOpenHelper {
                 + ProductEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ProductEntry.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, "
                 + ProductEntry.COLUMN_PRODUCT_AUTHOR + " TEXT NOT NULL, "
-                + ProductEntry.COLUMN_PRODUCT_PUBLISHER + " TEXT NOT NULL, "
+                + ProductEntry.COLUMN_PRODUCT_PUBLISHER + " TEXT, "
                 + ProductEntry.COLUMN_PRODUCT_ISBN + " TEXT NOT NULL, "
-                + ProductEntry.COLUMN_PRICE + " INTEGER NOT NULL, "
-                + ProductEntry.COLUMN_QUANTITY + " INTEGER NOT NULL, "
+                + ProductEntry.COLUMN_PRICE + " REAL NOT NULL, "
+                + ProductEntry.COLUMN_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "
                 + ProductEntry.COLUMN_PRODUCT_IMAGE + " TEXT, "
                 + ProductEntry.COLUMN_SUPPLIER_NAME + " TEXT NOT NULL, "
-                + ProductEntry.COLUMN_SUPPLIER_EMAIL + " TEXT NOT NULL, "
+                + ProductEntry.COLUMN_SUPPLIER_EMAIL + " TEXT, "
                 + ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER + " TEXT NOT NULL);";
 
         // Execute the SQL statement

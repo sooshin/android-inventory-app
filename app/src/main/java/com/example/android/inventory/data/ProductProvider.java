@@ -151,9 +151,9 @@ public class ProductProvider extends ContentProvider{
         if (price == null || price < 0) {
             throw new IllegalArgumentException("Product requires a valid price");
         }
-        // Check that the quantity is valid
+        // If the quantity is provided, check that it's greater than or equal to 0
         Integer quantity = values.getAsInteger(ProductEntry.COLUMN_QUANTITY);
-        if (quantity == null || quantity < 0) {
+        if (quantity != null && quantity < 0) {
             throw new IllegalArgumentException("Product requires valid quantity");
         }
         // Check that the supplier name is valid
