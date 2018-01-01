@@ -190,7 +190,22 @@ public class ProductProvider extends ContentProvider{
      */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+       // Get writable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS:
+                // Delete all rows that match the selection and selection args
+                return database.delete(ProductEntry.TABLE_NAME, selection, selectionArgs);
+            case PRODUCT_ID:
+                // Delete a single row given by the ID in the URI
+                selection = ProductEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return database.delete(ProductEntry.TABLE_NAME, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
     }
 
     /**
