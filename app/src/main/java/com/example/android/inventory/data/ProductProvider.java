@@ -197,7 +197,100 @@ public class ProductProvider extends ContentProvider{
      * Updates the data at the given selection and selection arguments, with the new ContentValues.
      */
     @Override
-    public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-        return 0;
+    public int update(Uri uri, ContentValues contentValues, String selection,
+                      String[] selectionArgs) {
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS:
+                return updateProduct(uri, contentValues, selection, selectionArgs);
+            case PRODUCT_ID:
+                // For the PRODUCT_ID code, extract out the ID from the URI,
+                // so we know which row to update. Selection will be "_id=?" and selection
+                // arguments will be a String array containing the actual ID.
+                selection = ProductEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updateProduct(uri, contentValues, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+    }
+
+    /**
+     * Update products in the database with the given content values. Apply the changes to the rows
+     * specified in the selection ans selection arguments (which could be 0 or 1 or more products).
+     * Return the number of rows that were successfully updated.
+     */
+    private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // If the {@link ProductEntry#COLUMN_PRODUCT_NAME} key is present,
+        // check that the name value is not null.
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_NAME)) {
+            String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+            if (name == null) {
+                throw new IllegalArgumentException("Product requires a name");
+            }
+        }
+        // If the {@link ProductEntry#COLUMN_PRODUCT_AUTHOR} key is present,
+        // check that the author value is not null.
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_AUTHOR)) {
+            String author = values.getAsString(ProductEntry.COLUMN_PRODUCT_AUTHOR);
+            if (author == null) {
+                throw new IllegalArgumentException("Product requires an author name");
+            }
+        }
+
+        // No need to check the publisher, any value is valid (including null).
+
+        // If the {@link ProductEntry#COLUMN_PRODUCT_ISBN} key is present,
+        // check that the ISBN value is not null.
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_ISBN)) {
+            String isbn = values.getAsString(ProductEntry.COLUMN_PRODUCT_ISBN);
+            if (isbn == null) {
+                throw new IllegalArgumentException("Product requires valid ISBN");
+            }
+        }
+        // If the {@link ProductEntry#COLUMN_PRICE} key is present,
+        // check that the price value is valid.
+        if (values.containsKey(ProductEntry.COLUMN_PRICE)) {
+            Double price = values.getAsDouble(ProductEntry.COLUMN_PRICE);
+            if (price == null || price < 0) {
+                throw new IllegalArgumentException("Product requires a valid price");
+            }
+        }
+        // If the {@link ProductEntry#COLUMN_QUANTITY} key is present,
+        // check that the quantity value is valid.
+        if (values.containsKey(ProductEntry.COLUMN_QUANTITY)) {
+            Integer quantity = values.getAsInteger(ProductEntry.COLUMN_QUANTITY);
+            if (quantity != null && quantity < 0) {
+                throw new IllegalArgumentException("Product requires valid quantity");
+            }
+        }
+        // If the {@link ProductEntry#COLUMN_SUPPLIER_NAME} key is present,
+        // check that the supplier name value is not null.
+        if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_NAME)) {
+            String supplierName = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
+            if (supplierName == null) {
+                throw new IllegalArgumentException("Product requires a supplier name");
+            }
+        }
+        // No need to check the supplier email, any value is valid (including null).
+
+        // If the {@link ProductEntry#COLUMN_SUPPLIER_PHONE_NUMBER} key is present,
+        // check that the supplier phone number value is not null.
+        if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER)) {
+            String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+            if (supplierPhone == null) {
+                throw new IllegalArgumentException("Product requires supplier phone number");
+            }
+        }
+
+        // If there are no values to update, then don't try to update the database
+        if (values.size() == 0) {
+            return 0;
+        }
+
+        // Otherwise, get writable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        // Returns the number of database rows affected by the update statement
+        return database.update(ProductEntry.TABLE_NAME, values, selection, selectionArgs);
     }
 }
