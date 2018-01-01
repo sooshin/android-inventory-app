@@ -129,6 +129,46 @@ public class ProductProvider extends ContentProvider{
      * for that specific row in the database.
      */
     private Uri insertProduct(Uri uri, ContentValues values) {
+        // Check that the product name is not null
+        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+        if (name == null) {
+            throw new IllegalArgumentException("Product requires a name");
+        }
+        // Check that the product author is valid
+        String author = values.getAsString(ProductEntry.COLUMN_PRODUCT_AUTHOR);
+        if (author == null) {
+            throw new IllegalArgumentException("Product requires an author name");
+        }
+        // No need to check the publisher, any value is valid (including null).
+
+        // Check that the ISBN is valid
+        String isbn = values.getAsString(ProductEntry.COLUMN_PRODUCT_ISBN);
+        if (isbn == null) {
+            throw new IllegalArgumentException("Product requires valid ISBN");
+        }
+        // Check that the price is valid
+        Double price = values.getAsDouble(ProductEntry.COLUMN_PRICE);
+        if (price == null || price < 0) {
+            throw new IllegalArgumentException("Product requires a valid price");
+        }
+        // Check that the quantity is valid
+        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_QUANTITY);
+        if (quantity == null || quantity < 0) {
+            throw new IllegalArgumentException("Product requires valid quantity");
+        }
+        // Check that the supplier name is valid
+        String supplierName = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
+        if (supplierName == null) {
+            throw new IllegalArgumentException("Product requires a supplier name");
+        }
+        // No need to check the supplier email, any value is valid (including null).
+
+        // Check that the supplier phone number is valid
+        String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+        if (supplierPhone == null) {
+            throw new IllegalArgumentException("Product requires supplier phone number");
+        }
+
         // Get writable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
