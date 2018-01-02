@@ -14,6 +14,9 @@ import android.widget.ListView;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
+/**
+ * Displays list of products that were entered and stored in the app.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
      * the products database.
      */
     private void displayDatabaseInfo() {
+        // Read product data and return a cursor object.
         Cursor cursor = queryProduct();
 
         // Find the ListView which will be populated with the product data
@@ -63,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
      * Read product data and return a cursor object.
      */
     private Cursor queryProduct() {
-
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
         String[] projection = {
                 ProductEntry._ID,
                 ProductEntry.COLUMN_PRODUCT_NAME,
