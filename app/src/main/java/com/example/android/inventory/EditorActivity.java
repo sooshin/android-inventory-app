@@ -86,11 +86,11 @@ public class EditorActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_PRODUCT_AUTHOR, authorString);
         values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, publisherString);
         values.put(ProductEntry.COLUMN_PRODUCT_ISBN, isbnString);
-        values.put(ProductEntry.COLUMN_PRICE, price);
-        values.put(ProductEntry.COLUMN_QUANTITY, quantity);
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
+        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL,supplierEmailString);
-        values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
+        values.put(ProductEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
 
         // Insert a new product into the provider, returning the content URI for the new product.
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);

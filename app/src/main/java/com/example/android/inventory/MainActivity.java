@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 ProductEntry.COLUMN_PRODUCT_AUTHOR,
                 ProductEntry.COLUMN_PRODUCT_PUBLISHER,
                 ProductEntry.COLUMN_PRODUCT_ISBN,
-                ProductEntry.COLUMN_PRICE,
-                ProductEntry.COLUMN_QUANTITY,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
+                ProductEntry.COLUMN_PRODUCT_QUANTITY,
                 ProductEntry.COLUMN_SUPPLIER_NAME,
                 ProductEntry.COLUMN_SUPPLIER_EMAIL,
-                ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
+                ProductEntry.COLUMN_SUPPLIER_PHONE
         };
 
         // Perform a query on the provider using the ContentResolver.
@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_PRODUCT_AUTHOR, "Antoine de Saint-Exupéry");
         values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, "Reynal & Hitchcock ");
         values.put(ProductEntry.COLUMN_PRODUCT_ISBN, "1234567890123");
-        values.put(ProductEntry.COLUMN_PRICE, 8);
-        values.put(ProductEntry.COLUMN_QUANTITY, 10);
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, 8);
+        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 10);
         values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, "");
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, "Neho & Becky Supplier");
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
-        values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "(200) 222-2345");
+        values.put(ProductEntry.COLUMN_SUPPLIER_PHONE, "(200) 222-2345");
 
         // Insert a new row for "The Little Prince" into the provider using the ContentResolver.
         // Use the {@link ProductEntry.CONTENT_URI} to indicate that we want to insert

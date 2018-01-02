@@ -61,7 +61,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         // Find the columns of product attributes that we're interested in
         int productNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         int authorColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR);
-        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_QUANTITY);
+        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
 
         // Read the product attributes from the Cursor for the current product
         String productName = cursor.getString(productNameColumnIndex);

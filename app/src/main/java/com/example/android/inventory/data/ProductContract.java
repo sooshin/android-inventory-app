@@ -72,10 +72,10 @@ public final class ProductContract {
         public static final String COLUMN_PRODUCT_NAME = "product_name";
 
         /** Price of the product. Type: INTEGER */
-        public static final String COLUMN_PRICE = "price";
+        public static final String COLUMN_PRODUCT_PRICE = "price";
 
         /** Quantity of the product. Type: INTEGER */
-        public static final String COLUMN_QUANTITY = "quantity";
+        public static final String COLUMN_PRODUCT_QUANTITY = "quantity";
 
         /** Image of the product.  */
         public static final String COLUMN_PRODUCT_IMAGE = "product_image";
@@ -87,7 +87,7 @@ public final class ProductContract {
         public static final String COLUMN_SUPPLIER_EMAIL = "supplier_email";
 
         /** Supplier phone number. Type: TEXT */
-        public static final String COLUMN_SUPPLIER_PHONE_NUMBER = "supplier_phone_number";
+        public static final String COLUMN_SUPPLIER_PHONE= "supplier_phone";
 
         /** Author of the product. Type: TEXT */
         public static final String COLUMN_PRODUCT_AUTHOR = "author";

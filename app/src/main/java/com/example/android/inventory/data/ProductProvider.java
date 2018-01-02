@@ -155,12 +155,12 @@ public class ProductProvider extends ContentProvider{
             throw new IllegalArgumentException("Product requires valid ISBN");
         }
         // Check that the price is valid
-        Double price = values.getAsDouble(ProductEntry.COLUMN_PRICE);
+        Double price = values.getAsDouble(ProductEntry.COLUMN_PRODUCT_PRICE);
         if (price == null || price < 0) {
             throw new IllegalArgumentException("Product requires a valid price");
         }
         // If the quantity is provided, check that it's greater than or equal to 0
-        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_QUANTITY);
+        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
         if (quantity != null && quantity < 0) {
             throw new IllegalArgumentException("Product requires valid quantity");
         }
@@ -172,7 +172,7 @@ public class ProductProvider extends ContentProvider{
         // No need to check the supplier email, any value is valid (including null).
 
         // Check that the supplier phone number is valid
-        String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+        String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE);
         if (supplierPhone == null) {
             throw new IllegalArgumentException("Product requires supplier phone number");
         }
@@ -273,16 +273,16 @@ public class ProductProvider extends ContentProvider{
         }
         // If the {@link ProductEntry#COLUMN_PRICE} key is present,
         // check that the price value is valid.
-        if (values.containsKey(ProductEntry.COLUMN_PRICE)) {
-            Double price = values.getAsDouble(ProductEntry.COLUMN_PRICE);
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_PRICE)) {
+            Double price = values.getAsDouble(ProductEntry.COLUMN_PRODUCT_PRICE);
             if (price == null || price < 0) {
                 throw new IllegalArgumentException("Product requires a valid price");
             }
         }
         // If the {@link ProductEntry#COLUMN_QUANTITY} key is present,
         // check that the quantity value is valid.
-        if (values.containsKey(ProductEntry.COLUMN_QUANTITY)) {
-            Integer quantity = values.getAsInteger(ProductEntry.COLUMN_QUANTITY);
+        if (values.containsKey(ProductEntry.COLUMN_PRODUCT_QUANTITY)) {
+            Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
             if (quantity != null && quantity < 0) {
                 throw new IllegalArgumentException("Product requires valid quantity");
             }
@@ -299,8 +299,8 @@ public class ProductProvider extends ContentProvider{
 
         // If the {@link ProductEntry#COLUMN_SUPPLIER_PHONE_NUMBER} key is present,
         // check that the supplier phone number value is not null.
-        if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER)) {
-            String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+        if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_PHONE)) {
+            String supplierPhone = values.getAsString(ProductEntry.COLUMN_SUPPLIER_PHONE);
             if (supplierPhone == null) {
                 throw new IllegalArgumentException("Product requires supplier phone number");
             }
