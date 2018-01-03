@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -102,12 +103,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String publisherString = mPublisherEditText.getText().toString().trim();
         String isbnString = mIsbnEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
-        double price = Double.parseDouble(priceString);
         String quantityString = mQuantityEditText.getText().toString().trim();
-        int quantity = Integer.parseInt(quantityString);
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
         String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
+
+        // Check if this is supposed to be a new product
+        // and check if all the fields in the editor are blank
+        if (mCurrentProductUri == null &&
+                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(authorString) &&
+                TextUtils.isEmpty(publisherString) && TextUtils.isEmpty(isbnString) &&
+                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString) &&
+                TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierEmailString) &&
+                TextUtils.isEmpty(supplierPhoneString)) {
+
+            // Since no fields were modified, we can return early without creating a new product.
+            // No need to create ContentValues and no need to do any ContentProvider operations.
+            return;
+        }
 
         // Create a ContentValues object where column names are the keys,
         // and product attributes from the editor are the values.
@@ -116,6 +129,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         values.put(ProductEntry.COLUMN_PRODUCT_AUTHOR, authorString);
         values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, publisherString);
         values.put(ProductEntry.COLUMN_PRODUCT_ISBN, isbnString);
+        // If the price is not provided by the user, don't try to parse the string into a
+        // double value. Use 0.0 by default.
+        double price = 0.0;
+        if(!TextUtils.isEmpty(priceString)) {
+            price = Double.parseDouble(priceString);
+        }
+        // If the quantity is not provided by the user, don't try to parse the string into an
+        // Integer value. Use 0 by default.
+        int quantity = 0;
+        if(!TextUtils.isEmpty(quantityString)) {
+            quantity = Integer.parseInt(quantityString);
+        }
+
         values.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
