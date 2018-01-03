@@ -10,6 +10,9 @@
     <!-- Title for the activity to add a new product [CHAR LIMIT=20] -->
     <string name="editor_activity_title_new_product">Add a Product</string>
 
+    <!-- Title for the activity to edit an existing product [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_edit_product">Edit Product</string>
+
     <!-- Label for product name information in the editor [CHAR LIMIT=30] -->
     <string name="category_product_name">Product Name</string>
 

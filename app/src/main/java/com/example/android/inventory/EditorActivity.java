@@ -1,6 +1,7 @@
 package com.example.android.inventory;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -48,6 +49,21 @@ public class EditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        // Examine the intent that was used to launch this activity,
+        // in order to figure out if we're creating a new product or editing an existing one.
+        Intent intent = getIntent();
+        Uri currentProductUri = intent.getData();
+
+        // If the intent DOES NOT contain a product content URI, then we know that we are
+        // creating a new pet.
+        if (currentProductUri == null) {
+            // This is a new product, so change the app bar to say "Add a Product"
+            setTitle(R.string.editor_activity_title_new_product);
+        } else {
+            // Otherwise this is an existing product, so change app bar to say "Edit Pet"
+            setTitle(R.string.editor_activity_title_edit_product);
+        }
 
         // Find all relevant views that we will need to read user input from
         mProductNameEditText = findViewById(R.id.edit_product_name);
