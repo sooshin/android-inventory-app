@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -56,6 +58,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /** EditText field to enter supplier's phone number */
     private EditText mSupplierPhoneEditText;
 
+    /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
+    private boolean mProductHasChanged = false;
+
+    /**
+     * OnTouchListener that listens for any user touches on a View, implying that they are modifying
+     * the view, and we change the mProductHasChanged boolean to true.
+     */
+    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            mProductHasChanged = true;
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +107,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
         mSupplierEmailEditText = findViewById(R.id.edit_supplier_email);
         mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
+
+        // Setup OnTouchListeners on all the input fields, so we can determine if the user
+        // has touched or modified them. This will let us know if there are unsaved changes
+        // or not, if the user tries to leave the editor without saving.
+        mProductNameEditText.setOnTouchListener(mTouchListener);
+        mAuthorEditText.setOnTouchListener(mTouchListener);
+        mPublisherEditText.setOnTouchListener(mTouchListener);
+        mIsbnEditText.setOnTouchListener(mTouchListener);
+        mPriceEditText.setOnTouchListener(mTouchListener);
+        mQuantityEditText.setOnTouchListener(mTouchListener);
+        mSupplierNameEditText.setOnTouchListener(mTouchListener);
+        mSupplierEmailEditText.setOnTouchListener(mTouchListener);
+        mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
     }
 
     /**
