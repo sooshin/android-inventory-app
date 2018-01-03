@@ -197,6 +197,7 @@ public class ProductProvider extends ContentProvider{
         }
 
         // Notify all listeners that the data has changed for the pet content URI
+        // uri: content://com.example.android.inventory/products
         getContext().getContentResolver().notifyChange(uri, null);
 
         // Return the new URI with the ID (of the newly inserted row) append at the end
