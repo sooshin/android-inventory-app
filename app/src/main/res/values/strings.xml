@@ -47,6 +47,12 @@
     <!-- Toast message in editor when new product has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_product_failed">Error with saving product</string>
 
+    <!-- Toast message in editor when current product was successfully updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_product_successful">Product updated</string>
+
+    <!-- Toast message in editor when current product has failed to be updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_product_failed">Error with updating product</string>
+
     <!-- Title text for the empty view [CHAR LIMIT=50] -->
     <string name="empty_view_title_text">It\'s a bit quite in here&#8230;</string>
 

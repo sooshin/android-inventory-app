@@ -122,18 +122,39 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL,supplierEmailString);
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
 
-        // Insert a new product into the provider, returning the content URI for the new product.
-        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
+        // Determine if this is a new or existing product by checking if mCurrentProductUri is null or not
+        if (mCurrentProductUri == null) {
+            // This is a NEW product, so insert a new product into the provider,
+            // returning the content URI for the new pet.
+            Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
 
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newUri == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.editor_insert_product_failed),
-                    Toast.LENGTH_SHORT).show();
+            // Show a toast message depending on whether or not the insertion was successful
+            if (newUri == null) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(this, getString(R.string.editor_insert_product_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_insert_product_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
         } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_insert_product_successful),
-                    Toast.LENGTH_SHORT).show();
+            // Otherwise this is an EXISTING product, so update the product with content URI: mCurrentProductUri
+            // and pass in the new ContentValues. Pass in null for the selection and selection args
+            // because mCurrentProductUri will already identify the correct row in the database that
+            // we want to modify.
+            int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
+                    null, null);
+            // Show a toast message depending on whether or not the update was successful.
+            if (rowsAffected == 0) {
+                // If no rows are affected, then there was an error with the update.
+                Toast.makeText(this, getString(R.string.editor_update_product_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the update was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_update_product_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
