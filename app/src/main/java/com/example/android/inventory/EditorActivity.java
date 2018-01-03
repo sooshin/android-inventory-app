@@ -1,7 +1,11 @@
 package com.example.android.inventory;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -16,7 +20,13 @@ import com.example.android.inventory.data.ProductContract.ProductEntry;
 /**
  * Allows user to create a new product or edit an existing one.
  */
-public class EditorActivity extends AppCompatActivity {
+public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+
+    /** Identifier for the product data loader */
+    private static final int EXISTING_PRODUCT_LOADER = 0;
+
+    /** Content URI for the existing product (null if it's a new product) */
+    private Uri mCurrentProductUri;
 
     /** EditText field to enter the product name */
     private EditText mProductNameEditText;
@@ -53,16 +63,20 @@ public class EditorActivity extends AppCompatActivity {
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new product or editing an existing one.
         Intent intent = getIntent();
-        Uri currentProductUri = intent.getData();
+        mCurrentProductUri = intent.getData();
 
         // If the intent DOES NOT contain a product content URI, then we know that we are
         // creating a new pet.
-        if (currentProductUri == null) {
+        if (mCurrentProductUri == null) {
             // This is a new product, so change the app bar to say "Add a Product"
             setTitle(R.string.editor_activity_title_new_product);
         } else {
             // Otherwise this is an existing product, so change app bar to say "Edit Pet"
             setTitle(R.string.editor_activity_title_edit_product);
+
+            // Initialize a loader to read the product data from the database
+            // and display the current values in the editor
+            getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER, null, this);
         }
 
         // Find all relevant views that we will need to read user input from
@@ -153,5 +167,89 @@ public class EditorActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Since the editor shows all product attributes, define a projection that contains
+        // all columns from the product table
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_AUTHOR,
+                ProductEntry.COLUMN_PRODUCT_PUBLISHER,
+                ProductEntry.COLUMN_PRODUCT_ISBN,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
+                ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                ProductEntry.COLUMN_SUPPLIER_NAME,
+                ProductEntry.COLUMN_SUPPLIER_EMAIL,
+                ProductEntry.COLUMN_SUPPLIER_PHONE};
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                mCurrentProductUri,             // Query the content URI for the current product
+                projection,                        // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,               // No selection arguments
+                null);                 // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            // Find the columns of product attributes that we're interested in
+            int titleColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+            int authorColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR);
+            int publisherColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PUBLISHER);
+            int isbnColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_ISBN);
+            int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME);
+            int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_EMAIL);
+            int supplierPhoneColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE);
+
+            // Extract out the value from the Cursor for the given column index
+            String title = cursor.getString(titleColumnIndex);
+            String author = cursor.getString(authorColumnIndex);
+            String publisher = cursor.getString(publisherColumnIndex);
+            String isbn = cursor.getString(isbnColumnIndex);
+            double price = cursor.getDouble(priceColumnIndex);
+            int quantity = cursor.getInt(quantityColumnIndex);
+            String supplierName = cursor.getString(supplierNameColumnIndex);
+            String supplierEmail = cursor.getString(supplierEmailColumnIndex);
+            String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
+
+            // Update the views on the screen with the values from the database
+            mProductNameEditText.setText(title);
+            mAuthorEditText.setText(author);
+            mPublisherEditText.setText(publisher);
+            mIsbnEditText.setText(isbn);
+            mPriceEditText.setText(String.valueOf(price));
+            mQuantityEditText.setText(String.valueOf(quantity));
+            mSupplierNameEditText.setText(supplierName);
+            mSupplierEmailEditText.setText(supplierEmail);
+            mSupplierPhoneEditText.setText(supplierPhone);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // If the loader is invalidated, clear out all the data from the input fields.
+        mProductNameEditText.setText("");
+        mAuthorEditText.setText("");
+        mPublisherEditText.setText("");
+        mIsbnEditText.setText("");
+        mPriceEditText.setText(String.valueOf(""));
+        mQuantityEditText.setText(String.valueOf(""));
+        mSupplierNameEditText.setText("");
+        mSupplierEmailEditText.setText("");
+        mSupplierPhoneEditText.setText("");
     }
 }
