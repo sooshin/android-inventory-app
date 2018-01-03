@@ -18,10 +18,10 @@
         </activity>
         <activity
             android:name=".EditorActivity"
-            android:label="@string/editor_activity_title_new_product"
-            android:theme="@style/EditorTheme"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/EditorTheme">
         </activity>
+
         <provider
             android:name=".data.ProductProvider"
             android:authorities="com.example.android.inventory"
