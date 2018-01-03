@@ -66,12 +66,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mCurrentProductUri = intent.getData();
 
         // If the intent DOES NOT contain a product content URI, then we know that we are
-        // creating a new pet.
+        // creating a new product.
         if (mCurrentProductUri == null) {
             // This is a new product, so change the app bar to say "Add a Product"
             setTitle(R.string.editor_activity_title_new_product);
         } else {
-            // Otherwise this is an existing product, so change app bar to say "Edit Pet"
+            // Otherwise this is an existing product, so change app bar to say "Edit Product"
             setTitle(R.string.editor_activity_title_edit_product);
 
             // Initialize a loader to read the product data from the database
