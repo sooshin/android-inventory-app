@@ -196,7 +196,7 @@ public class ProductProvider extends ContentProvider{
             return null;
         }
 
-        // Notify all listeners that the data has changed for the pet content URI
+        // Notify all listeners that the data has changed for the product content URI
         // uri: content://com.example.android.inventory/products
         getContext().getContentResolver().notifyChange(uri, null);
 

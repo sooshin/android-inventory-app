@@ -183,7 +183,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Determine if this is a new or existing product by checking if mCurrentProductUri is null or not
         if (mCurrentProductUri == null) {
             // This is a NEW product, so insert a new product into the provider,
-            // returning the content URI for the new pet.
+            // returning the content URI for the new product.
             Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful
