@@ -102,7 +102,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String publisherString = mPublisherEditText.getText().toString().trim();
         String isbnString = mIsbnEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
-        int price = Integer.parseInt(priceString);
+        double price = Double.parseDouble(priceString);
         String quantityString = mQuantityEditText.getText().toString().trim();
         int quantity = Integer.parseInt(quantityString);
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
