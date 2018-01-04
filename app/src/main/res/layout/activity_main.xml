@@ -3,15 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
     tools:context="com.example.android.inventory.MainActivity">
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:scrollbars="none" />
+        android:layout_height="match_parent" />
 
     <!-- Empty view for the list -->
     <RelativeLayout
@@ -41,6 +38,7 @@
             android:text="@string/empty_view_subtitle_text"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="#A2AAB0" />
+
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
