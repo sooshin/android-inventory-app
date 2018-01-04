@@ -56,21 +56,25 @@ public class ProductCursorAdapter extends CursorAdapter {
         // Find individual views that we want to modify in the list item layout
         TextView productNameTextView = view.findViewById(R.id.product_name);
         TextView authorTextView = view.findViewById(R.id.product_author);
+        TextView priceTextView = view.findViewById(R.id.product_price);
         TextView quantityTextView = view.findViewById(R.id.product_quantity);
 
         // Find the columns of product attributes that we're interested in
         int productNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         int authorColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR);
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
 
         // Read the product attributes from the Cursor for the current product
         String productName = cursor.getString(productNameColumnIndex);
         String author = cursor.getString(authorColumnIndex);
+        double price = cursor.getDouble(priceColumnIndex);
         int quantity = cursor.getInt(quantityColumnIndex);
 
         // Update the TextViews with the attributes for the current product
         productNameTextView.setText(productName);
         authorTextView.setText(author);
+        priceTextView.setText(String.valueOf(price));
         quantityTextView.setText(String.valueOf(quantity));
     }
 }
