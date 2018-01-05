@@ -142,7 +142,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 if (quantity > 0) {
                     quantity = quantity - 1;
                 } else if (quantity == 0) {
-                    Toast.makeText(DetailActivity.this, "0 is the lowest amount",
+                    Toast.makeText(DetailActivity.this, getString(R.string.detail_update_zero_quantity),
                             Toast.LENGTH_SHORT).show();
                 }
 

@@ -47,6 +47,9 @@
     <!-- Label for supplier phone information in the editor [CHAR LIMIT=30] -->
     <string name="category_supplier_phone">Supplier Phone</string>
 
+    <!-- Toast message in detail activity to ensure that no negative quantities display -->
+    <string name="detail_update_zero_quantity">0 is the lowest amount</string>
+
     <!-- Toast message in editor when new product has been successfully inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_product_successful">Product saved</string>
 
