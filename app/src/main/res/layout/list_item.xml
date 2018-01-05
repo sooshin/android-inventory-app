@@ -41,4 +41,12 @@
         android:textColor="#2B3D4D"
         tools:text="quantity" />
 
+    <Button
+        android:id="@+id/product_sale_button"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="sell" />
+
 </LinearLayout>
