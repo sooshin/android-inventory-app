@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".DetailActivity"
+            android:label="@string/app_product_details">
+        </activity>
+        <activity
             android:name=".EditorActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/EditorTheme">

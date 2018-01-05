@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Inventory</string>
 
+    <!-- Label for detail activity -->
+    <string name="app_product_details">Product Details</string>
+
+    <!-- Label for detail menu option to edit the current product[CHAR LIMIT=20]-->
+    <string name="action_edit">Edit</string>
+
+    <!-- Label for editor menu option to save product and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
     <!-- Label for overflow menu option that inserts fake product data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
 
@@ -34,12 +46,6 @@
 
     <!-- Label for supplier phone information in the editor [CHAR LIMIT=30] -->
     <string name="category_supplier_phone">Supplier Phone</string>
-
-    <!-- Label for editor menu option to save product and leave editor [CHAR LIMIT=20] -->
-    <string name="action_save">Save</string>
-
-    <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
-    <string name="action_delete">Delete</string>
 
     <!-- Toast message in editor when new product has been successfully inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_product_successful">Product saved</string>

@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                // Create a new intent to go to {@link EditorActivity}
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                // Create a new intent to go to {@link DetailActivity}
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
 
                 // Form the content URI that represents the specific product that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // Set the URI on the data field of the intent
                 intent.setData(currentProductUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current product.
+                // Launch the {@link DetailActivity} to display the data for the current product.
                 startActivity(intent);
             }
         });
