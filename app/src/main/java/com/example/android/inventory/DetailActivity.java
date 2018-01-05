@@ -62,7 +62,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
     private boolean mProductHasChanged = false;
 
+    /** Button to increment quantity */
     private Button mPlusButton;
+
+    /** Button to decrement quantity*/
     private Button mMinusButton;
 
     /**
@@ -82,9 +85,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        // Examine the intent that was used to launch this activity
         Intent intent = getIntent();
         mCurrentProductUri = intent.getData();
 
+        // Find all relevant views that we will need to read text fields from
         mProductNameTextView = findViewById(R.id.detail_product_name);
         mAuthorTextView = findViewById(R.id.detail_product_author);
         mPublisherTextView = findViewById(R.id.detail_product_publisher);
@@ -94,7 +99,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameTextView = findViewById(R.id.detail_supplier_name);
         mSupplierEmailTextView = findViewById(R.id.detail_supplier_email);
         mSupplierPhoneTextView = findViewById(R.id.detail_supplier_phone);
-
+        // Find all relevant button that we will need to increment and decrement the quantity
         mPlusButton = findViewById(R.id.detail_plus_button);
         mMinusButton = findViewById(R.id.detail_minus_button);
 
@@ -124,6 +129,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         // and display the current values in the editor
         getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER, null, this);
 
+        // Allow Up navigation with the app icon in the app bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
@@ -132,14 +138,22 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
      * Increment the available quantity displayed by 1.
      */
     private void increment() {
+        // Read from text fields
         String quantityString = mQuantityTextView.getText().toString().trim();
 
+        // Parse the string into an Integer value.
         int quantity = Integer.parseInt(quantityString);
         quantity = quantity + 1;
 
+        // Create a ContentValues object where column names are the keys,
+        // and product attributes from the textView fields are the values.
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
 
+        // Update the product with content URI: mCurrentProductUri
+        // and pass in the new ContentValues. Pass in null for the selection and selection args
+        // because mCurrentProductUri will already identify the correct row in the database that
+        // we want to modify.
         int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
                 null, null);
 
@@ -156,12 +170,16 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     /**
-     * Decrement the available quantity displayed by 1.
+     * Decrement the available quantity displayed by 1 and check that no negative quantities display.
      */
     private void decrement() {
+        // Read from text fields
         String quantityString = mQuantityTextView.getText().toString().trim();
 
+        // Parse the string into an Integer value.
         int quantity = Integer.parseInt(quantityString);
+        // If the quantity is more than 0, decrement the quantity by 1.
+        // If quantity is 0, show a toast message.
         if (quantity > 0) {
             quantity = quantity - 1;
         } else if (quantity == 0) {
@@ -169,9 +187,15 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     Toast.LENGTH_SHORT).show();
         }
 
+        // Create a ContentValues object where column names are the keys,
+        // and product attributes from the textView fields are the values.
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
 
+        // Update the product with content URI: mCurrentProductUri
+        // and pass in the new ContentValues. Pass in null for the selection and selection args
+        // because mCurrentProductUri will already identify the correct row in the database that
+        // we want to modify.
         int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
                 null, null);
 
