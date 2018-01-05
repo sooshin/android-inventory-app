@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Keep the background image of the plus and minus button with a darkened appearance on press -->
+<!-- Keep the background image of the minus button with a darkened appearance on press -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <bitmap android:src="@drawable/ic_add_circle_white_24dp" />
+        <bitmap android:src="@drawable/ic_remove_circle" />
     </item>
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android"

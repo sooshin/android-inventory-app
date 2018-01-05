@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/detail_product_name"
@@ -17,7 +16,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textSize="22sp"
-            tools:text="The Little Prince"/>
+            tools:text="The Little Prince" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -26,13 +25,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_product_author"/>
+                android:text="@string/category_product_author" />
+
             <TextView
                 android:id="@+id/detail_product_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="Antoine de Saint-Exupery"/>
+                tools:text="Antoine de Saint-Exupery" />
 
         </LinearLayout>
 
@@ -43,14 +43,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_product_publisher"/>
+                android:text="@string/category_product_publisher" />
 
             <TextView
                 android:id="@+id/detail_product_publisher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="Reynal and Hitchcock"/>
+                tools:text="Reynal and Hitchcock" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -60,14 +61,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_product_isbn"/>
+                android:text="@string/category_product_isbn" />
 
             <TextView
                 android:id="@+id/detail_product_isbn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="1234567890123"/>
+                tools:text="1234567890123" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -77,14 +79,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_price"/>
+                android:text="@string/category_price" />
 
             <TextView
                 android:id="@+id/detail_product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="$ 8.0"/>
+                tools:text="$ 8.0" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -94,14 +97,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_quantity"/>
+                android:text="@string/category_quantity" />
 
             <Button
                 android:id="@+id/detail_minus_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/circle_button"
-                android:gravity="center_vertical" />
+                android:background="@drawable/circle_button_remove"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_remove_circle" />
 
             <TextView
                 android:id="@+id/detail_product_quantity"
@@ -109,15 +114,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
                 android:layout_marginRight="@dimen/activity_margin"
-                tools:text="10"/>
+                tools:text="10" />
 
             <Button
                 android:id="@+id/detail_plus_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/circle_button"
-                android:src="@drawable/ic_add_circle_white_24dp"
-                android:gravity="center_vertical"/>
+                android:background="@drawable/circle_button_add"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_add_circle" />
 
         </LinearLayout>
 
@@ -128,14 +134,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_supplier_name"/>
+                android:text="@string/category_supplier_name" />
 
             <TextView
                 android:id="@+id/detail_supplier_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="Neho and Becky Supplier"/>
+                tools:text="Neho and Becky Supplier" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -145,14 +152,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_supplier_email"/>
+                android:layout_gravity="center_vertical"
+                android:text="@string/category_supplier_email" />
 
             <TextView
                 android:id="@+id/detail_supplier_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="nehoandbecky@gmail.com"/>
+                tools:text="nehoandbecky@gmail.com" />
+
+            <Button
+                android:id="@+id/detail_email_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -162,14 +179,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_supplier_phone"/>
+                android:layout_gravity="center_vertical"
+                android:text="@string/category_supplier_phone" />
 
             <TextView
                 android:id="@+id/detail_supplier_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="(200) 222-2345"/>
+                tools:text="(200) 222-2345" />
+
+            <Button
+                android:id="@+id/detail_phone_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp" />
+
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
