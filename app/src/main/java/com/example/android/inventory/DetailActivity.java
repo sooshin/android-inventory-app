@@ -108,27 +108,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String quantityString = mQuantityTextView.getText().toString().trim();
-
-                int quantity = Integer.parseInt(quantityString);
-                quantity = quantity + 1;
-
-                ContentValues values = new ContentValues();
-                values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-
-                int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
-                        null, null);
-
-                // Show a toast message depending on whether or not the update was successful.
-                if (rowsAffected == 0) {
-                    // If no rows are affected, then there was an error with the update.
-                    Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_failed),
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    // Otherwise, the update was successful and we can display a toast.
-                    Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
-                            Toast.LENGTH_SHORT).show();
-                }
+                increment();
             }
         });
 
@@ -136,32 +116,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String quantityString = mQuantityTextView.getText().toString().trim();
-
-                int quantity = Integer.parseInt(quantityString);
-                if (quantity > 0) {
-                    quantity = quantity - 1;
-                } else if (quantity == 0) {
-                    Toast.makeText(DetailActivity.this, getString(R.string.detail_update_zero_quantity),
-                            Toast.LENGTH_SHORT).show();
-                }
-
-                ContentValues values = new ContentValues();
-                values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-
-                int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
-                        null, null);
-
-                // Show a toast message depending on whether or not the update was successful.
-                if (rowsAffected == 0) {
-                    // If no rows are affected, then there was an error with the update.
-                    Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_failed),
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    // Otherwise, the update was successful and we can display a toast.
-                    Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
-                            Toast.LENGTH_SHORT).show();
-                }
+                decrement();
             }
         });
 
@@ -171,6 +126,65 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    /**
+     * Increment the available quantity displayed by 1.
+     */
+    private void increment() {
+        String quantityString = mQuantityTextView.getText().toString().trim();
+
+        int quantity = Integer.parseInt(quantityString);
+        quantity = quantity + 1;
+
+        ContentValues values = new ContentValues();
+        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+
+        int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
+                null, null);
+
+        // Show a toast message depending on whether or not the update was successful.
+        if (rowsAffected == 0) {
+            // If no rows are affected, then there was an error with the update.
+            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_failed),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the update was successful and we can display a toast.
+            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Decrement the available quantity displayed by 1.
+     */
+    private void decrement() {
+        String quantityString = mQuantityTextView.getText().toString().trim();
+
+        int quantity = Integer.parseInt(quantityString);
+        if (quantity > 0) {
+            quantity = quantity - 1;
+        } else if (quantity == 0) {
+            Toast.makeText(DetailActivity.this, getString(R.string.detail_update_zero_quantity),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+
+        int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
+                null, null);
+
+        // Show a toast message depending on whether or not the update was successful.
+        if (rowsAffected == 0) {
+            // If no rows are affected, then there was an error with the update.
+            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_failed),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the update was successful and we can display a toast.
+            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
