@@ -274,8 +274,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                // User clicked "Discard" button, navigate to parent activity
-                                NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                                // User clicked "Discard" button, close the activity
+                                finish();
                             }
                         };
 
