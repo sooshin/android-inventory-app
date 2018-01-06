@@ -68,6 +68,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     /** Button to decrement quantity*/
     private Button mMinusButton;
 
+    private Button mSupplierEmailButton;
+    private Button mSupplierPhoneButton;
+
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
      * the view, and we change the mProductHasChanged boolean to true.
@@ -103,6 +106,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mPlusButton = findViewById(R.id.detail_plus_button);
         mMinusButton = findViewById(R.id.detail_minus_button);
 
+        mSupplierEmailButton = findViewById(R.id.detail_email_button);
+        mSupplierPhoneButton = findViewById(R.id.detail_phone_button);
+
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
         // or not, if the user tries to leave the editor without saving.
@@ -122,6 +128,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             @Override
             public void onClick(View view) {
                 decrement();
+            }
+        });
+
+        mSupplierEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create order message and email to the supplier of the product.
+                composeEmail();
             }
         });
 
@@ -208,6 +222,46 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             // Otherwise, the update was successful and we can display a toast.
             Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * If a user clicks the email button, creates order message and email to the supplier of the product.
+     */
+    private void composeEmail() {
+        // Read from text fields
+        String productNameString = mProductNameTextView.getText().toString().trim();
+        String authorString = mAuthorTextView.getText().toString().trim();
+        String publisherString = mPublisherTextView.getText().toString().trim();
+        String isbnString = mIsbnTextView.getText().toString().trim();
+        String[] supplierEmailString = {mSupplierEmailTextView.getText().toString().trim()};
+
+        // Create order message
+        String subject = getString(R.string.email_subject) + " " + productNameString;
+        String message = getString(R.string.place_an_order) + " " + getString(R.string.copies_of) +
+                " " + productNameString + getString(R.string.period);
+        message += getString(R.string.nn) + getString(R.string.app_product_details);
+        message += getString(R.string.nn) + getString(R.string.category_product_name) +
+                getString(R.string.colon) + " " + productNameString;
+        message += getString(R.string.n) + getString(R.string.category_product_author) +
+                getString(R.string.colon) + " " + authorString;
+        message += getString(R.string.n) + getString(R.string.category_product_publisher) +
+                getString(R.string.colon) + " " + publisherString;
+        message += getString(R.string.n) + getString(R.string.category_product_isbn) +
+                getString(R.string.colon) + " "+ isbnString;
+        message += getString(R.string.nn) + getString(R.string.best);
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse(getString(R.string.mailto)));
+        // Email address
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, supplierEmailString);
+        // Email subject
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        // The body of the email
+        emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+
+        if(emailIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(emailIntent, getString(R.string.compose_email)));
         }
     }
 

@@ -94,4 +94,16 @@
 
     <!-- Dialog message to ask the user to confirm deleting all products [CHAR LIMIT=NONE] -->
     <string name="delete_all_dialog_msg">Delete all products?</string>
+
+    <!-- Order email message -->
+    <string name="email_subject">Order for more</string>
+    <string name="place_an_order">I\'d like to place an order for</string>
+    <string name="period">.</string>
+    <string name="copies_of">( ) copies of</string>
+    <string name="best">Best,</string>
+    <string name="colon">:</string>
+    <string name="compose_email">Compose email</string>
+    <string name="mailto">mailto:</string>
+    <string name="n">\n</string>
+    <string name="nn">\n\n</string>
 </resources>
