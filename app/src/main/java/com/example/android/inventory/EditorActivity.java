@@ -481,7 +481,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-        // Close the activity
-        finish();
+        // Navigate to parent activity
+        NavUtils.navigateUpFromSameTask(EditorActivity.this);
     }
 }
