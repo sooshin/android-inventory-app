@@ -1,12 +1,17 @@
 package com.example.android.inventory;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
@@ -57,19 +62,56 @@ public class ProductCursorAdapter extends CursorAdapter {
         TextView productNameTextView = view.findViewById(R.id.product_name);
         TextView authorTextView = view.findViewById(R.id.product_author);
         TextView priceTextView = view.findViewById(R.id.product_price);
-        TextView quantityTextView = view.findViewById(R.id.product_quantity);
+        final TextView quantityTextView = view.findViewById(R.id.product_quantity);
+        Button saleButton = view.findViewById(R.id.product_sale_button);
 
         // Find the columns of product attributes that we're interested in
         int productNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         int authorColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR);
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        int idColumnIndex = cursor.getColumnIndex(ProductEntry._ID);
 
         // Read the product attributes from the Cursor for the current product
         String productName = cursor.getString(productNameColumnIndex);
         String author = cursor.getString(authorColumnIndex);
         double price = cursor.getDouble(priceColumnIndex);
         int quantity = cursor.getInt(quantityColumnIndex);
+        final long id = cursor.getLong(idColumnIndex);
+
+        //Set OnClickListener on the sale button. We can decrement the available quantity by one.
+        saleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Read from text fields
+                String quantityString = quantityTextView.getText().toString().trim();
+
+                // Parse the string into an Integer value.
+                int quantity = Integer.parseInt(quantityString);
+                // If the quantity is more than 0, decrement the quantity by 1.
+                // If quantity is 0, show a toast message.
+                if (quantity > 0) {
+                    quantity = quantity - 1;
+                } else if (quantity == 0) {
+                    Toast.makeText(view.getContext(),
+                            view.getContext().getString(R.string.detail_update_zero_quantity),
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                // Create a ContentValues object where column names are the keys,
+                // and product attributes from the textView fields are the values.
+                ContentValues values = new ContentValues();
+                values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+
+                // Update the product with content URI: mCurrentProductUri
+                // and pass in the new ContentValues. Pass in null for the selection and selection args
+                // because mCurrentProductUri will already identify the correct row in the database that
+                // we want to modify.
+                Uri mCurrentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
+                int rowsAffected = view.getContext().getContentResolver().update(mCurrentProductUri, values,
+                        null, null);
+            }
+        });
 
         // Update the TextViews with the attributes for the current product
         productNameTextView.setText(productName);
