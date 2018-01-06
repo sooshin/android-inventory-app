@@ -261,10 +261,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // If the product hasn't changed, continue with navigating up to parent activity
-                // which is the {@link MainActivity}.
+                // If the product hasn't changed, close the activity.
                 if (!mProductHasChanged) {
-                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                    finish();
                     return true;
                 }
 
