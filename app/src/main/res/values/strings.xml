@@ -28,8 +28,16 @@
     <!-- Label for product name information in the editor [CHAR LIMIT=30] -->
     <string name="category_product_name">Product Name</string>
 
+    <!-- Label for product title in the editor [CHAR LIMIT=30] -->
+    <string name="category_product_title">Title</string>
+
+    <!-- Label for product author in the editor [CHAR LIMIT=30] -->
     <string name="category_product_author">Author</string>
+
+    <!-- Label for product publisher in the editor [CHAR LIMIT=30] -->
     <string name="category_product_publisher">Publisher</string>
+
+    <!-- Label for product isbn in the editor [CHAR LIMIT=30] -->
     <string name="category_product_isbn">ISBN</string>
 
     <!-- Label for product price information in the editor [CHAR LIMIT=30] -->
@@ -106,6 +114,12 @@
     <string name="mailto">mailto:</string>
     <string name="n">\n</string>
     <string name="nn">\n\n</string>
+
+    <!-- Content description of the image -->
+    <string name="content_desc">product image</string>
+
+    <!-- String for the supplier text view -->
+    <string name="supplier">Supplier</string>
 
     <!-- Toast message in detail activity when the user granted phone call permission -->
     <string name="permission_granted">Permission granted</string>
