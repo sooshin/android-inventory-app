@@ -1,5 +1,6 @@
 package com.example.android.inventory;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -8,27 +9,47 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Allows user to create a new product or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
+    /** Tag for the log messages */
+    private static final String LOG_TAG = EditorActivity.class.getSimpleName();
+
     /** Identifier for the product data loader */
     private static final int EXISTING_PRODUCT_LOADER = 0;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+
+    private static final String STATE_URI = "STATE_URI";
+
+    /** URI for the product image */
+    private Uri mImageUri;
 
     /** Content URI for the existing product (null if it's a new product) */
     private Uri mCurrentProductUri;
@@ -59,6 +80,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     /** EditText field to enter supplier's phone number */
     private EditText mSupplierPhoneEditText;
+
+    /** Button to add image */
+    private Button mAddImageButton;
+
+    /** ImageView for the product image */
+    private ImageView mImageView;
 
     /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
     private boolean mProductHasChanged = false;
@@ -113,6 +140,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
         mSupplierEmailEditText = findViewById(R.id.edit_supplier_email);
         mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
+        mAddImageButton = findViewById(R.id.edit_add_image_button);
+        mImageView = findViewById(R.id.edit_product_image);
+
+        mAddImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Allow the user to select and return existing documents.
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                // Only files that can be opened are displayed
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                // Display image files of all format.
+                intent.setType("image/*");
+                // Start a file picker activity with an intent to pick a file and receive a result back.
+                // To receive a result, call startActivityForResult(). The result will be the URI of the file picked.
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
@@ -126,6 +170,112 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText.setOnTouchListener(mTouchListener);
         mSupplierEmailEditText.setOnTouchListener(mTouchListener);
         mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
+        mAddImageButton.setOnTouchListener(mTouchListener);
+        mImageView.setOnTouchListener(mTouchListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (mImageUri != null)
+            outState.putString(STATE_URI, mImageUri.toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState.containsKey(STATE_URI) &&
+                !savedInstanceState.getString(STATE_URI).equals("")) {
+            mImageUri = Uri.parse(savedInstanceState.getString(STATE_URI));
+
+            // Attach a ViewTreeObserver listener to ImageView.
+            ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    mImageView.setImageBitmap(getBitmapFromUri(mImageUri));
+                }
+            });
+        }
+    }
+
+    /**
+     * Handles the result for the "pick a file" intent
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // The ACTION_OPEN_DOCUMENT intent was sent with the request code READ_REQUEST_CODE.
+        // If the request code seen here doesn't match, it's the response to some other intent,
+        // and the below code shouldn't run at all.
+
+        // Check which request we're responding to and make sure the request was successful
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            // The location of the image is delivered to us in the URI data type.
+            if (data != null) {
+                mImageUri = data.getData();
+                Log.i(LOG_TAG, "Uri: " + mImageUri.toString());
+
+                // Display the image on the ImageView
+                mImageView.setImageBitmap(getBitmapFromUri(mImageUri));
+            }
+        }
+    }
+
+    /**
+     * Returns a Bitmap object from the URI which is the location of the image.
+     */
+    public Bitmap getBitmapFromUri(Uri uri) {
+        // Check the Uri is null or empty
+        if (uri == null || uri.toString().isEmpty()) {
+            return null;
+        }
+
+        // Get the dimensions of the View
+        int targetW = mImageView.getWidth();
+        int targetH = mImageView.getHeight();
+
+        InputStream inputStream = null;
+        try {
+            inputStream = this.getContentResolver().openInputStream(uri);
+
+            // Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(inputStream, null, bmOptions);
+            inputStream.close();
+
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            inputStream = this.getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, bmOptions);
+            inputStream.close();
+            return bitmap;
+
+        } catch (FileNotFoundException fne) {
+            Log.e(LOG_TAG, "Failed to open the image file.", fne);
+            return null;
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to load image.", e);
+            return null;
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Problem with loading a file.");
+            }
+        }
     }
 
     /**
@@ -151,7 +301,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 TextUtils.isEmpty(publisherString) && TextUtils.isEmpty(isbnString) &&
                 TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString) &&
                 TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierEmailString) &&
-                TextUtils.isEmpty(supplierPhoneString)) {
+                TextUtils.isEmpty(supplierPhoneString) &&
+                mImageUri == null) {
 
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
@@ -180,6 +331,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         values.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        if (mImageUri != null) {
+            values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, mImageUri.toString());
+        }
+
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL,supplierEmailString);
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
@@ -324,6 +479,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ProductEntry.COLUMN_PRODUCT_ISBN,
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                ProductEntry.COLUMN_PRODUCT_IMAGE,
                 ProductEntry.COLUMN_SUPPLIER_NAME,
                 ProductEntry.COLUMN_SUPPLIER_EMAIL,
                 ProductEntry.COLUMN_SUPPLIER_PHONE};
@@ -354,6 +510,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int isbnColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_ISBN);
             int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int imageColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_IMAGE);
             int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME);
             int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_EMAIL);
             int supplierPhoneColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE);
@@ -365,6 +522,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             String isbn = cursor.getString(isbnColumnIndex);
             double price = cursor.getDouble(priceColumnIndex);
             int quantity = cursor.getInt(quantityColumnIndex);
+            final String imageString = cursor.getString(imageColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierEmail = cursor.getString(supplierEmailColumnIndex);
             String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
@@ -376,6 +534,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mIsbnEditText.setText(isbn);
             mPriceEditText.setText(String.valueOf(price));
             mQuantityEditText.setText(String.valueOf(quantity));
+            mImageView.setImageURI(Uri.parse(imageString));
             mSupplierNameEditText.setText(supplierName);
             mSupplierEmailEditText.setText(supplierEmail);
             mSupplierPhoneEditText.setText(supplierPhone);

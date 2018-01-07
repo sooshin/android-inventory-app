@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         TextView authorTextView = view.findViewById(R.id.product_author);
         TextView priceTextView = view.findViewById(R.id.product_price);
         final TextView quantityTextView = view.findViewById(R.id.product_quantity);
+        ImageView imageView = view.findViewById(R.id.product_image);
         Button saleButton = view.findViewById(R.id.product_sale_button);
 
         // Find the columns of product attributes that we're interested in
@@ -70,6 +72,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         int authorColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR);
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        int imageColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_IMAGE);
         int idColumnIndex = cursor.getColumnIndex(ProductEntry._ID);
 
         // Read the product attributes from the Cursor for the current product
@@ -77,6 +80,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         String author = cursor.getString(authorColumnIndex);
         double price = cursor.getDouble(priceColumnIndex);
         int quantity = cursor.getInt(quantityColumnIndex);
+        String imageString = cursor.getString(imageColumnIndex);
         final long id = cursor.getLong(idColumnIndex);
 
         //Set OnClickListener on the sale button. We can decrement the available quantity by one.

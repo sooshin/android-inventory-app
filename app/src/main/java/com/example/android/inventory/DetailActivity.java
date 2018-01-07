@@ -8,23 +8,35 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * DetailActivity displays the product details which are stored in the database.
  */
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+
+    /** Tag for the log messages */
+    private static final String LOG_TAG = DetailActivity.class.getSimpleName();
 
     /** Identifier for the product data loader */
     private static final int EXISTING_PRODUCT_LOADER = 0;
@@ -49,6 +61,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     /** TextView field to enter the quantity of the product */
     private TextView mQuantityTextView;
+
+    /** ImageView for the product */
+    private ImageView mImageView;
 
     /** TextView field to enter supplier's name */
     private  TextView mSupplierNameTextView;
@@ -102,6 +117,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameTextView = findViewById(R.id.detail_supplier_name);
         mSupplierEmailTextView = findViewById(R.id.detail_supplier_email);
         mSupplierPhoneTextView = findViewById(R.id.detail_supplier_phone);
+        mImageView = findViewById(R.id.detail_product_image);
+
         // Find all relevant button that we will need to increment and decrement the quantity
         mPlusButton = findViewById(R.id.detail_plus_button);
         mMinusButton = findViewById(R.id.detail_minus_button);
@@ -420,6 +437,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 ProductEntry.COLUMN_PRODUCT_ISBN,
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                ProductEntry.COLUMN_PRODUCT_IMAGE,
                 ProductEntry.COLUMN_SUPPLIER_NAME,
                 ProductEntry.COLUMN_SUPPLIER_EMAIL,
                 ProductEntry.COLUMN_SUPPLIER_PHONE};
@@ -450,6 +468,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             int isbnColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_ISBN);
             int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int imageColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_IMAGE);
             int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME);
             int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_EMAIL);
             int supplierPhoneColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_PHONE);
@@ -461,6 +480,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             String isbn = cursor.getString(isbnColumnIndex);
             double price = cursor.getDouble(priceColumnIndex);
             int quantity = cursor.getInt(quantityColumnIndex);
+            final String imageString = cursor.getString(imageColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierEmail = cursor.getString(supplierEmailColumnIndex);
             String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
@@ -472,9 +492,20 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             mIsbnTextView.setText(isbn);
             mPriceTextView.setText(String.valueOf(price));
             mQuantityTextView.setText(String.valueOf(quantity));
+            mImageView.setImageURI(Uri.parse(imageString));
             mSupplierNameTextView.setText(supplierName);
             mSupplierEmailTextView.setText(supplierEmail);
             mSupplierPhoneTextView.setText(supplierPhone);
+
+            // Attach a ViewTreeObserver listener to ImageView.
+            ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    mImageView.setImageBitmap(getBitmapFromUri(Uri.parse(imageString)));
+                }
+            });
         }
     }
 
@@ -490,5 +521,59 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameTextView.setText("");
         mSupplierEmailTextView.setText("");
         mSupplierPhoneTextView.setText("");
+    }
+
+    /**
+     * Returns a Bitmap object from the URI which is the location of the image.
+     */
+    public Bitmap getBitmapFromUri(Uri uri) {
+        // Check the Uri is null or empty
+        if (uri == null || uri.toString().isEmpty()) {
+            return null;
+        }
+
+        // Get the dimensions of the View
+        int targetW = mImageView.getWidth();
+        int targetH = mImageView.getHeight();
+
+        InputStream inputStream = null;
+        try {
+            inputStream = this.getContentResolver().openInputStream(uri);
+
+            // Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(inputStream, null, bmOptions);
+            inputStream.close();
+
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            inputStream = this.getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, bmOptions);
+            inputStream.close();
+            return bitmap;
+
+        } catch (FileNotFoundException fne) {
+            Log.e(LOG_TAG, "Failed to open the image file.", fne);
+            return null;
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to load image.", e);
+            return null;
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Problem with loading a file.");
+            }
+        }
     }
 }
