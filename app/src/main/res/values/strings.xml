@@ -106,4 +106,9 @@
     <string name="mailto">mailto:</string>
     <string name="n">\n</string>
     <string name="nn">\n\n</string>
+
+    <!-- Toast message in detail activity when the user granted phone call permission -->
+    <string name="permission_granted">Permission granted</string>
+    <!-- Toast message in detail activity when the user denied phone call permission -->
+    <string name="permission_denied">Permission denied</string>
 </resources>

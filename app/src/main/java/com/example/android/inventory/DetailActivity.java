@@ -1,5 +1,6 @@
 package com.example.android.inventory;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -7,11 +8,13 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -33,7 +36,7 @@ import java.io.InputStream;
 /**
  * DetailActivity displays the product details which are stored in the database.
  */
-public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     /** Tag for the log messages */
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
@@ -66,7 +69,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private ImageView mImageView;
 
     /** TextView field to enter supplier's name */
-    private  TextView mSupplierNameTextView;
+    private TextView mSupplierNameTextView;
 
     /** TextView field to enter supplier's email */
     private TextView mSupplierEmailTextView;
@@ -85,6 +88,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private Button mSupplierEmailButton;
     private Button mSupplierPhoneButton;
+    private static final int MY_PERMISSONS_REQUEST_READ_CONTACTS = 1;
 
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
@@ -156,6 +160,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
+        mSupplierPhoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Make a phone call
+                call();
+            }
+        });
+
         // Initialize a loader to read the product data from the database
         // and display the current values in the editor
         getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER, null, this);
@@ -163,6 +175,55 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         // Allow Up navigation with the app icon in the app bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSONS_REQUEST_READ_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the contacts-related task you need to do.
+                    Toast.makeText(this, getString(R.string.permission_granted),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // permission denied, boo! Disable the functionality that depends on this permission.
+                    Toast.makeText(this, getString(R.string.permission_denied),
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            // other 'case' lines to check for other permissions this app might request
+        }
+    }
+
+    /**
+     * Start a phone call intent when supplier phone button is clicked.
+     */
+    private  void call() {
+        // Read from text field
+        String phoneString = mSupplierPhoneTextView.getText().toString().trim();
+
+        Intent phoneIntent = new Intent(Intent.ACTION_CALL);
+        phoneIntent.setData(Uri.parse("tel:" + phoneString));
+        // Check whether the app has a given permission
+        if (ActivityCompat.checkSelfPermission(DetailActivity.this,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DetailActivity.this,
+                    Manifest.permission.CALL_PHONE)) {
+
+            } else {
+                // Request permission to be granted to this application
+                ActivityCompat.requestPermissions(DetailActivity.this,
+                        new String[]{ Manifest.permission.CALL_PHONE},
+                        MY_PERMISSONS_REQUEST_READ_CONTACTS);
+            }
+            return;
+        }
+        startActivity(phoneIntent);
     }
 
     /**
