@@ -553,20 +553,23 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             mIsbnTextView.setText(isbn);
             mPriceTextView.setText(String.valueOf(price));
             mQuantityTextView.setText(String.valueOf(quantity));
-            mImageView.setImageURI(Uri.parse(imageString));
+
+            if(imageString != null) {
+                mImageView.setImageURI(Uri.parse(imageString));
+
+                // Attach a ViewTreeObserver listener to ImageView.
+                ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
+                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        mImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        mImageView.setImageBitmap(getBitmapFromUri(Uri.parse(imageString)));
+                    }
+                });
+            }
             mSupplierNameTextView.setText(supplierName);
             mSupplierEmailTextView.setText(supplierEmail);
             mSupplierPhoneTextView.setText(supplierPhone);
-
-            // Attach a ViewTreeObserver listener to ImageView.
-            ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    mImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    mImageView.setImageBitmap(getBitmapFromUri(Uri.parse(imageString)));
-                }
-            });
         }
     }
 

@@ -534,7 +534,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mIsbnEditText.setText(isbn);
             mPriceEditText.setText(String.valueOf(price));
             mQuantityEditText.setText(String.valueOf(quantity));
-            mImageView.setImageURI(Uri.parse(imageString));
+            if (imageString != null ) {
+                mImageView.setImageURI(Uri.parse(imageString));
+            }
             mSupplierNameEditText.setText(supplierName);
             mSupplierEmailEditText.setText(supplierEmail);
             mSupplierPhoneEditText.setText(supplierPhone);
