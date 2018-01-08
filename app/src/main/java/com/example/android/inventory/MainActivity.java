@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         values.put(ProductEntry.COLUMN_PRODUCT_ISBN, "1234567890123");
         values.put(ProductEntry.COLUMN_PRODUCT_PRICE, 8);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 10);
-        values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, "");
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, "Neho & Becky Supplier");
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE, "(200) 222-2345");
