@@ -33,11 +33,13 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layout_product_name"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/edit_product_name"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_product_title"
@@ -47,11 +49,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_product_author"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_product_author"
@@ -65,6 +69,7 @@
             android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
@@ -72,6 +77,7 @@
 
                 <EditText
                     android:id="@+id/edit_product_price"
+                    style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/category_price"
@@ -79,6 +85,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -86,6 +93,7 @@
 
                 <EditText
                     android:id="@+id/edit_product_quantity"
+                    style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/category_quantity"
@@ -95,11 +103,13 @@
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_product_publisher"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_product_publisher"
@@ -108,11 +118,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_product_isbn"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_product_isbn"
@@ -129,11 +141,13 @@
             android:textSize="16sp" />
 
         <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyleSupplier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_supplier_name"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_supplier_name"
@@ -141,11 +155,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyleSupplier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_supplier_email"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_supplier_email"
@@ -153,11 +169,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyleSupplier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_supplier_phone"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/category_supplier_phone"

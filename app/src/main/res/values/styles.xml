@@ -13,4 +13,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="TextInputLayoutStyle">
+        <item name="android:background">#b2dfdb</item>
+        <item name="android:paddingTop">@dimen/input_layout_padding_top</item>
+        <item name="android:layout_marginBottom">@dimen/input_layout_margin</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:paddingLeft">@dimen/margin_horizontal</item>
+        <item name="android:paddingRight">@dimen/margin_horizontal</item>
+        <item name="android:paddingTop">@dimen/margin_vertical</item>
+        <item name="android:paddingBottom">@dimen/margin_vertical</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="TextInputLayoutStyleSupplier">
+        <item name="android:background">#b2dfdb</item>
+        <item name="android:paddingTop">@dimen/input_layout_padding_top</item>
+        <item name="android:layout_marginBottom">@dimen/input_layout_margin</item>
+    </style>
 </resources>

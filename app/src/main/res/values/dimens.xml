@@ -5,4 +5,9 @@
 
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
+
+    <dimen name="margin_horizontal">8dp</dimen>
+    <dimen name="margin_vertical">4dp</dimen>
+    <dimen name="input_layout_margin">8dp</dimen>
+    <dimen name="input_layout_padding_top">2dp</dimen>
 </resources>
