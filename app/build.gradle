@@ -27,4 +27,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     implementation 'com.android.support:design:27.0.2'
+
+    compile 'pub.devrel:easypermissions:0.2.1'
 }

@@ -1,5 +1,6 @@
 package com.example.android.inventory;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -32,6 +33,8 @@ import com.example.android.inventory.data.ProductContract.ProductEntry;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Allows user to create a new product or edit an existing one.
@@ -102,6 +105,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
     };
 
+    private String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,15 +153,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mAddImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Allow the user to select and return existing documents.
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                // Only files that can be opened are displayed
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                // Display image files of all format.
-                intent.setType("image/*");
-                // Start a file picker activity with an intent to pick a file and receive a result back.
-                // To receive a result, call startActivityForResult(). The result will be the URI of the file picked.
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                if (EasyPermissions.hasPermissions(EditorActivity.this, galleryPermissions)) {
+                    pickImageFromGallery();
+                } else {
+                    EasyPermissions.requestPermissions(EditorActivity.this, "Access for storage",
+                            101, galleryPermissions);
+                }
             }
         });
 
@@ -172,6 +176,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
         mAddImageButton.setOnTouchListener(mTouchListener);
         mImageView.setOnTouchListener(mTouchListener);
+    }
+
+    private void  pickImageFromGallery() {
+        // Allow the user to select and return existing documents.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        // Only files that can be opened are displayed
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        // Display image files of all format.
+        intent.setType("image/*");
+        // Start a file picker activity with an intent to pick a file and receive a result back.
+        // To receive a result, call startActivityForResult(). The result will be the URI of the file picked.
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     @Override
