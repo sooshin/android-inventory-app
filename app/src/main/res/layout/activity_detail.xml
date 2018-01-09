@@ -4,95 +4,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
 
-        <TextView
-            android:id="@+id/detail_product_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="22sp"
-            tools:text="The Little Prince" />
-
-        <ImageView
-            android:id="@+id/detail_product_image"
-            android:layout_width="100dp"
-            android:layout_height="110dp"
-            android:scaleType="centerCrop"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/detail_product_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/category_product_author" />
+                android:padding="8dp"
+                android:textSize="22sp"
+                tools:text="The Little Prince" />
 
-            <TextView
-                android:id="@+id/detail_product_author"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="Antoine de Saint-Exupery" />
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_product_author" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/detail_product_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_margin"
+                    tools:text="Antoine de Saint-Exupery" />
 
-            <TextView
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category_product_publisher" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detail_product_publisher"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_product_publisher" />
+
+                <TextView
+                    android:id="@+id/detail_product_publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_margin"
+                    tools:text="Reynal and Hitchcock" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="Reynal and Hitchcock" />
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_product_isbn" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/detail_product_isbn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_margin"
+                    tools:text="1234567890123" />
 
-            <TextView
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category_product_isbn" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detail_product_isbn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="1234567890123" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_price" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/detail_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_margin"
+                    tools:text="$ 8.0" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category_price" />
-
-            <TextView
-                android:id="@+id/detail_product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="$ 8.0" />
+            <ImageView
+                android:id="@+id/detail_product_image"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/content_desc"
+                android:scaleType="centerCrop" />
 
         </LinearLayout>
 

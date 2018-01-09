@@ -3,25 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="#f5f5f5"
-    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
-    android:paddingBottom="4dp">
+    android:paddingTop="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/product_image"
             android:layout_width="100dp"
             android:layout_height="120dp"
             android:layout_alignParentEnd="true"
-            android:scaleType="centerCrop"/>
+            android:contentDescription="@string/content_desc"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
