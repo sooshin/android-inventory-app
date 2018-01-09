@@ -229,17 +229,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         // we want to modify.
         int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
                 null, null);
-
-        // Show a toast message depending on whether or not the update was successful.
-        if (rowsAffected == 0) {
-            // If no rows are affected, then there was an error with the update.
-            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_failed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the update was successful and we can display a toast.
-            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
@@ -271,17 +260,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         // we want to modify.
         int rowsAffected = getContentResolver().update(mCurrentProductUri, values,
                 null, null);
-
-        // Show a toast message depending on whether or not the update was successful.
-        if (rowsAffected == 0) {
-            // If no rows are affected, then there was an error with the update.
-            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_failed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the update was successful and we can display a toast.
-            Toast.makeText(DetailActivity.this, getString(R.string.editor_update_product_successful),
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
