@@ -29,4 +29,5 @@ dependencies {
     implementation 'com.android.support:design:27.0.2'
 
     compile 'pub.devrel:easypermissions:0.2.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

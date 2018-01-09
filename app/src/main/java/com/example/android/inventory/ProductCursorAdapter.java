@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
+import com.squareup.picasso.Picasso;
 
 /**
  * {@link ProductCursorAdapter} is an adapter for a list or grid view
@@ -84,6 +86,16 @@ public class ProductCursorAdapter extends CursorAdapter {
         int quantity = cursor.getInt(quantityColumnIndex);
         String imageString = cursor.getString(imageColumnIndex);
         final long id = cursor.getLong(idColumnIndex);
+
+        // Load image in the ListView with Picasso
+        if (TextUtils.isEmpty(imageString)) {
+            imageView.setVisibility(View.GONE);
+        } else {
+            imageView.setVisibility(View.VISIBLE);
+            Picasso.with(mContext.getApplicationContext())
+                    .load(imageString)
+                    .into(imageView);
+        }
 
         // If the quantity is more than 0, set the text of a sale button to display 'sell'.
         // Otherwise, set the text of a sale button to display 'sold out'.
