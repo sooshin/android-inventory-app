@@ -171,6 +171,8 @@ public class ProductProvider extends ContentProvider{
         if (quantity != null && quantity < 0) {
             throw new IllegalArgumentException("Product requires valid quantity");
         }
+        // No need to check the image, any value is valid
+
         // Check that the supplier name is valid
         String supplierName = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
         if (supplierName == null) {
@@ -312,6 +314,8 @@ public class ProductProvider extends ContentProvider{
                 throw new IllegalArgumentException("Product requires valid quantity");
             }
         }
+        // No need to check the image, any value is valid
+
         // If the {@link ProductEntry#COLUMN_SUPPLIER_NAME} key is present,
         // check that the supplier name value is not null.
         if (values.containsKey(ProductEntry.COLUMN_SUPPLIER_NAME)) {

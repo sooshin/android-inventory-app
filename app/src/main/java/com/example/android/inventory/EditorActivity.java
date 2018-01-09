@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -23,6 +25,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -93,6 +96,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
     private boolean mProductHasChanged = false;
 
+    /** TextInputLayout to display the floating label on EditText */
+    private TextInputLayout layoutProductName;
+    private TextInputLayout layoutProductAuthor;
+    private TextInputLayout layoutProductIsbn;
+    private TextInputLayout layoutProductPrice;
+    private TextInputLayout layoutProductQuantity;
+    private TextInputLayout layoutSupplierName;
+    private TextInputLayout layoutSupplierPhone;
+
+    /** The boolean isValidate value is false if this is supposed to be a new product and
+     * all the fields in the editor are blank. Otherwise, the isValidate value is true.
+     */
+    private boolean isValidate = true;
+
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
      * the view, and we change the mProductHasChanged boolean to true.
@@ -149,6 +166,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
         mAddImageButton = findViewById(R.id.edit_add_image_button);
         mImageView = findViewById(R.id.edit_product_image);
+
+        // Find all relevant text input layout that we will need to set error messages.
+        layoutProductName = findViewById(R.id.layout_product_name);
+        layoutProductAuthor = findViewById(R.id.layout_product_author);
+        layoutProductIsbn = findViewById(R.id.layout_product_isbn);
+        layoutProductPrice = findViewById(R.id.layout_product_price);
+        layoutProductQuantity = findViewById(R.id.layout_product_quantity);
+        layoutSupplierName = findViewById(R.id.layout_supplier_name);
+        layoutSupplierPhone = findViewById(R.id.layout_supplier_phone);
 
         mAddImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,21 +336,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
 
-        // Check if this is supposed to be a new product
-        // and check if all the fields in the editor are blank
-        if (mCurrentProductUri == null &&
-                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(authorString) &&
-                TextUtils.isEmpty(publisherString) && TextUtils.isEmpty(isbnString) &&
-                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString) &&
-                TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierEmailString) &&
-                TextUtils.isEmpty(supplierPhoneString) &&
-                mImageUri == null) {
-
-            // Since no fields were modified, we can return early without creating a new product.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
-            return;
-        }
-
         // Create a ContentValues object where column names are the keys,
         // and product attributes from the editor are the values.
         ContentValues values = new ContentValues();
@@ -420,10 +431,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save product to database
-                saveProduct();
-                // Exit activity
-                finish();
+                // Check user input is validated. No null values are accepted for the product name,
+                // author, isbn, price, quantity, supplier name, supplier phone.
+                if (isValidateInput()) {
+                    // If a user input is valid, save the product to database and exit activity.
+                    saveProduct();
+                    finish();
+                } else if (!isValidate) {
+                    // If isValidate value is false, exit activity.
+                    // Since no fields were modified, we can finish activity without creating a new product.
+                    // No need to create ContentValues and no need to do any ContentProvider operations.
+                    finish();
+                }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -659,5 +678,120 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         // Navigate to parent activity
         NavUtils.navigateUpFromSameTask(EditorActivity.this);
+    }
+
+    /**
+     * Check user input is validated. No null values are accepted for the product name, author,
+     * isbn, price, quantity, supplier name, supplier phone.
+     */
+    private boolean isValidateInput() {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String productNameString = mProductNameEditText.getText().toString().trim();
+        String authorString = mAuthorEditText.getText().toString().trim();
+        String publisherString = mPublisherEditText.getText().toString().trim();
+        String isbnString = mIsbnEditText.getText().toString().trim();
+        String priceString = mPriceEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
+        String supplierNameString = mSupplierNameEditText.getText().toString().trim();
+        String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
+        String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
+
+        // The boolean isValidate value is false if this is supposed to be a new product
+        // and all the fields in the editor are blank
+        if (mCurrentProductUri == null &&
+                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(authorString) &&
+                TextUtils.isEmpty(publisherString) && TextUtils.isEmpty(isbnString) &&
+                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString) &&
+                TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierEmailString) &&
+                TextUtils.isEmpty(supplierPhoneString) &&
+                mImageUri == null) {
+            isValidate = false;
+            return false;
+        }
+
+        // If the boolean isValidate value is true (all the fields are not blank) and user input
+        // is not validated, display a red error message below the edit text and
+        // make a Toast message that prompts the user to input the correct information
+        if (isValidate && TextUtils.isEmpty(productNameString)) {
+            layoutProductName.setError(getString(R.string.error_product_name));
+            Toast.makeText(this, getString(R.string.empty_product_name),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutProductName.setErrorEnabled(false);
+        }
+
+        if (isValidate && TextUtils.isEmpty(authorString)) {
+            layoutProductAuthor.setError(getString(R.string.error_product_author));
+            Toast.makeText(this, getString(R.string.empty_product_author),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutProductAuthor.setErrorEnabled(false);
+        }
+
+        if (isValidate && TextUtils.isEmpty(isbnString)) {
+            layoutProductIsbn.setError(getString(R.string.error_product_isbn));
+            // hide the keyboard to allow a user to see isbn edit text field
+            hideKeyboard();
+            Toast.makeText(this, getString(R.string.empty_product_isbn),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutProductIsbn.setErrorEnabled(false);
+        }
+
+        if (isValidate && TextUtils.isEmpty(priceString)) {
+            layoutProductPrice.setError(getString(R.string.error_product_price));
+            Toast.makeText(this, getString(R.string.empty_product_price),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutProductPrice.setErrorEnabled(false);
+        }
+
+        if (isValidate && TextUtils.isEmpty(quantityString)) {
+            layoutProductQuantity.setError(getString(R.string.error_product_quantity));
+            Toast.makeText(this, getString(R.string.empty_product_quantity),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutProductQuantity.setErrorEnabled(false);
+        }
+
+        if (isValidate && TextUtils.isEmpty(supplierNameString)) {
+            layoutSupplierName.setError(getString(R.string.error_supplier_name));
+            // hide the keyboard to allow a user to see the supplier name edit text field
+            hideKeyboard();
+            Toast.makeText(this, getString(R.string.empty_supplier_name),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutSupplierName.setErrorEnabled(false);
+        }
+
+        if (isValidate && TextUtils.isEmpty(supplierPhoneString)) {
+            layoutSupplierPhone.setError(getString(R.string.error_supplier_phone));
+            // hide the keyboard to allow a user to see the supplier phone edit text field
+            hideKeyboard();
+            Toast.makeText(this, getString(R.string.empty_supplier_phone),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            layoutSupplierPhone.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    /**
+     * When checking user input is validated, hide the keyboard to allow a user to see the blank field.
+     */
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

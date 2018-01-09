@@ -125,4 +125,23 @@
     <string name="permission_granted">Permission granted</string>
     <!-- Toast message in detail activity when the user denied phone call permission -->
     <string name="permission_denied">Permission denied</string>
+
+    <!-- Toast message for the input validation in editor activity -->
+    <string name="empty_product_name">Title cannot be empty.</string>
+    <string name="empty_product_author">Author cannot be empty.</string>
+    <string name="empty_product_isbn">ISBN cannot be empty</string>
+    <string name="empty_product_price">Price cannot be empty</string>
+    <string name="empty_product_quantity">Quantity cannot be empty</string>
+    <string name="empty_supplier_name">Supplier name cannot be empty</string>
+    <string name="empty_supplier_phone">Supplier phone number cannot be empty</string>
+
+    <!--Text input layout error message -->
+    <string name="error_product_name">Please enter a valid title.</string>
+    <string name="error_product_author">Please enter a valid author.</string>
+    <string name="error_product_isbn">Please enter a valid ISBN.</string>
+    <string name="error_product_price">Please enter a valid price.</string>
+    <string name="error_product_quantity">Please enter a valid quantity.</string>
+    <string name="error_supplier_name">Please enter a valid supplier name.</string>
+    <string name="error_supplier_phone">Please enter a valid supplier phone number.</string>
+
 </resources>
