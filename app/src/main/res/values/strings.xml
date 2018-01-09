@@ -144,4 +144,7 @@
     <string name="error_supplier_name">Please enter a valid supplier name.</string>
     <string name="error_supplier_phone">Please enter a valid supplier phone number.</string>
 
+    <!-- Text of the sale button -->
+    <string name="sell">sell</string>
+    <string name="sold_out">sold out</string>
 </resources>

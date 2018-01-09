@@ -23,6 +23,7 @@ import com.example.android.inventory.data.ProductContract.ProductEntry;
  */
 public class ProductCursorAdapter extends CursorAdapter {
 
+    private Context mContext;
     /**
      * Constructs a new {@link ProductCursorAdapter}.
      *
@@ -31,6 +32,7 @@ public class ProductCursorAdapter extends CursorAdapter {
      */
     public ProductCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
+        mContext = context;
     }
 
     /**
@@ -65,7 +67,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         TextView priceTextView = view.findViewById(R.id.product_price);
         final TextView quantityTextView = view.findViewById(R.id.product_quantity);
         ImageView imageView = view.findViewById(R.id.product_image);
-        Button saleButton = view.findViewById(R.id.product_sale_button);
+        final Button saleButton = view.findViewById(R.id.product_sale_button);
 
         // Find the columns of product attributes that we're interested in
         int productNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
@@ -83,6 +85,14 @@ public class ProductCursorAdapter extends CursorAdapter {
         String imageString = cursor.getString(imageColumnIndex);
         final long id = cursor.getLong(idColumnIndex);
 
+        // If the quantity is more than 0, set the text of a sale button to display 'sell'.
+        // Otherwise, set the text of a sale button to display 'sold out'.
+        if (quantity > 0) {
+            saleButton.setText(mContext.getString(R.string.sell));
+        } else{
+            saleButton.setText(mContext.getString(R.string.sold_out));
+        }
+
         //Set OnClickListener on the sale button. We can decrement the available quantity by one.
         saleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,8 +105,12 @@ public class ProductCursorAdapter extends CursorAdapter {
                 // If the quantity is more than 0, decrement the quantity by 1.
                 // If quantity is 0, show a toast message.
                 if (quantity > 0) {
+                    // Set the text of a sale button to display 'sell'.
+                    saleButton.setText(mContext.getString(R.string.sell));
                     quantity = quantity - 1;
                 } else if (quantity == 0) {
+                    // Set the text of a sale button to display 'sold out'
+                    saleButton.setText(mContext.getString(R.string.sold_out));
                     Toast.makeText(view.getContext(),
                             view.getContext().getString(R.string.detail_update_zero_quantity),
                             Toast.LENGTH_SHORT).show();
