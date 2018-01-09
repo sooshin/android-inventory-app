@@ -19,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -90,18 +89,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private Button mSupplierPhoneButton;
     private static final int MY_PERMISSONS_REQUEST_READ_CONTACTS = 1;
 
-    /**
-     * OnTouchListener that listens for any user touches on a View, implying that they are modifying
-     * the view, and we change the mProductHasChanged boolean to true.
-     */
-    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            mProductHasChanged = true;
-            return false;
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,12 +116,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEmailButton = findViewById(R.id.detail_email_button);
         mSupplierPhoneButton = findViewById(R.id.detail_phone_button);
-
-        // Setup OnTouchListeners on all the input fields, so we can determine if the user
-        // has touched or modified them. This will let us know if there are unsaved changes
-        // or not, if the user tries to leave the editor without saving.
-        mPlusButton.setOnTouchListener(mTouchListener);
-        mMinusButton.setOnTouchListener(mTouchListener);
 
         // Set OnClickListener on the plus button. We can increment the available quantity displayed.
         mPlusButton.setOnClickListener(new View.OnClickListener() {
@@ -371,28 +352,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // If the product hasn't changed, continue with navigating up to parent activity
-                // which is the {@link MainActivity}.
-                if (!mProductHasChanged) {
-                    finish();
-                    return true;
-                }
-
-                // Otherwise if there are unsaved changes, setup a dialog to warn the user.
-                // Create a click listener to handle the user confirming that
-                // changes should be discarded.
-                DialogInterface.OnClickListener discardButtonClickListener =
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // User clicked "Discard" button, navigate to parent activity
-                                //NavUtils.navigateUpFromSameTask(DetailActivity.this);
-                                finish();
-                            }
-                        };
-
-                // Show a dialog that notifies the user they have unsaved changes
-                showUnsavedChangesDialog(discardButtonClickListener);
+                // Exit activity
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -444,36 +405,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             @Override
             public void onClick(DialogInterface dialogInterface, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the product.
-                if (dialogInterface != null) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    /**
-     * Show a dialog that warns the user there are unsaved changes that will be lost
-     * if they continue leaving the editor.
-     *
-     * @param discardButtonClickListener is the click listener for what to do when
-     *                                        the user confirms they want to discard their changes
-     */
-    private void showUnsavedChangesDialog(
-            DialogInterface.OnClickListener discardButtonClickListener) {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.unsaved_changes_dialog_msg);
-        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
-        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int id) {
-                // User clicked the "Keep editing" button, so dismiss the dialog
                 // and continue editing the product.
                 if (dialogInterface != null) {
                     dialogInterface.dismiss();
