@@ -216,34 +216,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        if (mImageUri != null)
-            outState.putString(STATE_URI, mImageUri.toString());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        if (savedInstanceState.containsKey(STATE_URI) &&
-                !savedInstanceState.getString(STATE_URI).equals("")) {
-            mImageUri = Uri.parse(savedInstanceState.getString(STATE_URI));
-
-            // Attach a ViewTreeObserver listener to ImageView.
-            ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    mImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    mImageView.setImageBitmap(getBitmapFromUri(mImageUri));
-                }
-            });
-        }
-    }
-
     /**
      * Handles the result for the "pick a file" intent
      */
@@ -358,8 +330,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         values.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+
+        // Check if the mImageUri is not null and then convert it to string
         if (mImageUri != null) {
             values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, mImageUri.toString());
+            Log.e(LOG_TAG, "Uri saveProduct() : " + mImageUri.toString());
         }
 
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
@@ -569,9 +544,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mIsbnEditText.setText(isbn);
             mPriceEditText.setText(String.valueOf(price));
             mQuantityEditText.setText(String.valueOf(quantity));
-            if (imageString != null ) {
-                mImageView.setImageURI(Uri.parse(imageString));
+
+            if(imageString != null) {
+
+                // Attach a ViewTreeObserver listener to ImageView.
+                ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
+                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        mImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        Log.e(LOG_TAG, "mImageUri onLoadFinished: " + mImageUri);
+                        mImageUri = Uri.parse(imageString);
+                        mImageView.setImageBitmap(getBitmapFromUri(mImageUri));
+                    }
+                });
+            } else {
+                mImageView.setImageResource(R.drawable.ic_image_black_24dp);
             }
+
             mSupplierNameEditText.setText(supplierName);
             mSupplierEmailEditText.setText(supplierEmail);
             mSupplierPhoneEditText.setText(supplierPhone);

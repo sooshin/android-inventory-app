@@ -464,7 +464,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             mQuantityTextView.setText(String.valueOf(quantity));
 
             if(imageString != null) {
-                mImageView.setImageURI(Uri.parse(imageString));
 
                 // Attach a ViewTreeObserver listener to ImageView.
                 ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
@@ -475,7 +474,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         mImageView.setImageBitmap(getBitmapFromUri(Uri.parse(imageString)));
                     }
                 });
+            } else {
+                mImageView.setImageResource(R.drawable.ic_image_black_24dp);
             }
+
             mSupplierNameTextView.setText(supplierName);
             mSupplierEmailTextView.setText(supplierEmail);
             mSupplierPhoneTextView.setText(supplierPhone);
