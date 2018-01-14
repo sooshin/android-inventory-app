@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#ab47bc</color>
+    <color name="colorPrimaryDark">#790e8b</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- Primary color for the editor -->
+    <color name="editor_colorPrimary">#66bb6a</color>
+
+    <!-- Primary dark color for the editor -->
+    <color name="editor_colorPrimaryDark">#338a3e</color>
 
     <color name="gradient_center_color">#880d0d0f</color>
     <color name="gradient_end_color">#885d5d5e</color>
     <color name="gradient_start_color">#880f0f10</color>
+
+    <!-- Color for the text input layout background -->
+    <color name="color_text_input_layout">#f3e5f5</color>
+
+    <!-- Color for the button in the detail activity -->
+    <color name="color_detail_button">#ff9800</color>
+
+    <!-- Color for the scroll view background -->
+    <color name="color_scroll_view_bg">#fafafa</color>
+
+    <!-- Text color for the detail text view -->
+    <color name="color_detail_text">#004d40</color>
+
+    <!-- Category text color in the detail activity -->
+    <color name="color_category_text">#338a3e</color>
+
+    <!-- Category background color in the detail activity -->
+    <color name="color_category_bg">#e8f5e9</color>
 </resources>

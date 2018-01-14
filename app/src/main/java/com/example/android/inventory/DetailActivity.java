@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,8 +86,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     /** Button to decrement quantity*/
     private Button mMinusButton;
 
-    private Button mSupplierEmailButton;
-    private Button mSupplierPhoneButton;
+    private ImageButton mSupplierEmailButton;
+    private ImageButton mSupplierPhoneButton;
     private static final int MY_PERMISSONS_REQUEST_READ_CONTACTS = 1;
 
     @Override

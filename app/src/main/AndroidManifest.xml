@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:label="@string/app_product_details">
+            android:label="@string/app_product_details"
+            android:theme="@style/EditorTheme">
         </activity>
         <activity
             android:name=".EditorActivity"

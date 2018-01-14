@@ -55,6 +55,16 @@
     <!-- Label for supplier phone information in the editor [CHAR LIMIT=30] -->
     <string name="category_supplier_phone">Supplier Phone</string>
 
+    <!-- Label for supplier name information in the detail activity [CHAR LIMIT=20] -->
+    <string name="category_name">Name</string>
+
+    <!-- Label for supplier email information in the detail activity [CHAR LIMIT=20] -->
+    <string name="category_email">Email</string>
+
+    <!-- Label for supplier phone information in the detail activity [CHAR LIMIT=20] -->
+    <string name="category_phone">Phone</string>
+
+
     <!-- Toast message in detail activity to ensure that no negative quantities display -->
     <string name="detail_update_zero_quantity">0 is the lowest amount</string>
 
@@ -117,6 +127,8 @@
 
     <!-- Content description of the image -->
     <string name="content_desc">product image</string>
+    <string name="content_desc_email">email image</string>
+    <string name="content_desc_phone">phone image</string>
 
     <!-- String for the supplier text view -->
     <string name="supplier">Supplier</string>

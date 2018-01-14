@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_view_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,120 +16,164 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detail_product_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textSize="22sp"
-                tools:text="The Little Prince" />
+            <ImageView
+                android:id="@+id/detail_product_image"
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/content_desc"
+                android:scaleType="centerCrop" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/title"
+                    style="@style/CategoryDetailTextStyle"
+                    android:layout_width="72dp"
                     android:layout_height="wrap_content"
+                    android:text="@string/category_product_title" />
+
+                <TextView
+                    android:id="@+id/detail_product_name"
+                    style="@style/DetailTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/publisher"
+                    tools:text="The Little Prince" />
+
+                <TextView
+                    android:id="@+id/author"
+                    style="@style/CategoryDetailTextStyle"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
                     android:text="@string/category_product_author" />
 
                 <TextView
                     android:id="@+id/detail_product_author"
-                    android:layout_width="wrap_content"
+                    style="@style/DetailTextStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_below="@+id/title"
+                    android:layout_toEndOf="@+id/publisher"
                     tools:text="Antoine de Saint-Exupery" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/isbn"
+                    style="@style/CategoryDetailTextStyle"
+                    android:layout_width="72dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/category_product_publisher" />
-
-                <TextView
-                    android:id="@+id/detail_product_publisher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_margin"
-                    tools:text="Reynal and Hitchcock" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/author"
                     android:text="@string/category_product_isbn" />
 
                 <TextView
                     android:id="@+id/detail_product_isbn"
-                    android:layout_width="wrap_content"
+                    style="@style/DetailTextStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_below="@+id/author"
+                    android:layout_toEndOf="@+id/publisher"
                     tools:text="1234567890123" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/price"
+                    style="@style/CategoryDetailTextStyle"
+                    android:layout_width="72dp"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/isbn"
                     android:text="@string/category_price" />
 
                 <TextView
                     android:id="@+id/detail_product_price"
-                    android:layout_width="wrap_content"
+                    style="@style/DetailTextStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_below="@+id/isbn"
+                    android:layout_toEndOf="@+id/publisher"
                     tools:text="$ 8.0" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/publisher"
+                    style="@style/CategoryDetailTextStyle"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price"
+                    android:text="@string/category_product_publisher" />
 
-            <ImageView
-                android:id="@+id/detail_product_image"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:layout_alignParentEnd="true"
-                android:contentDescription="@string/content_desc"
-                android:scaleType="centerCrop" />
+                <TextView
+                    android:id="@+id/detail_product_publisher"
+                    style="@style/DetailTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price"
+                    android:layout_toEndOf="@+id/publisher"
+                    tools:text="Reynal and Hitchcock" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/detail_margin"
+            android:paddingTop="@dimen/detail_margin">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/detail_margin"
+                android:layout_weight="1"
+                android:background="@color/editor_colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/category_quantity"
+                android:textColor="@color/color_detail_text"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/detail_margin"
+                android:layout_weight="1"
+                android:background="@color/editor_colorPrimary" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category_quantity" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp">
 
             <Button
                 android:id="@+id/detail_minus_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/circle_button_remove"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/color_detail_button"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_remove_circle" />
 
             <TextView
                 android:id="@+id/detail_product_quantity"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_margin"
                 android:layout_marginRight="@dimen/activity_margin"
+                android:gravity="center"
+                android:textColor="@color/color_detail_text"
+                android:textSize="16sp"
                 tools:text="10" />
 
             <Button
@@ -136,83 +181,124 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/circle_button_add"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/color_detail_button"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_add_circle" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/detail_margin"
+            android:paddingTop="@dimen/detail_margin">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/detail_margin"
+                android:layout_weight="1"
+                android:background="@color/editor_colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/category_supplier_name" />
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/supplier"
+                android:textColor="@color/color_detail_text"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/detail_margin"
+                android:layout_weight="1"
+                android:background="@color/editor_colorPrimary" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/category_name" />
 
             <TextView
                 android:id="@+id/detail_supplier_name"
-                android:layout_width="wrap_content"
+                style="@style/DetailTextStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_toEndOf="@+id/name"
                 tools:text="Neho and Becky Supplier" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/email"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
                 android:layout_gravity="center_vertical"
-                android:text="@string/category_supplier_email" />
+                android:text="@string/category_email" />
 
             <TextView
                 android:id="@+id/detail_supplier_email"
+                style="@style/DetailTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_toEndOf="@+id/name"
                 tools:text="nehoandbecky@gmail.com" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/detail_email_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/name"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/color_detail_button"
+                android:contentDescription="@string/content_desc_email"
+                android:src="@drawable/ic_email" />
 
             <TextView
-                android:layout_width="wrap_content"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/email"
                 android:layout_gravity="center_vertical"
-                android:text="@string/category_supplier_phone" />
+                android:text="@string/category_phone" />
 
             <TextView
                 android:id="@+id/detail_supplier_phone"
+                style="@style/DetailTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/email"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_margin"
-                tools:text="(200) 222-2345" />
+                android:layout_toEndOf="@id/name"
+                tools:text="(200) 000-0000" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/detail_phone_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/email"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp" />
+                android:backgroundTint="@color/color_detail_button"
+                android:contentDescription="@string/content_desc_phone"
+                android:src="@drawable/ic_phone" />
 
-        </LinearLayout>
-
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

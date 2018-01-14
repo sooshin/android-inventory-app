@@ -10,4 +10,7 @@
     <dimen name="margin_vertical">4dp</dimen>
     <dimen name="input_layout_margin">8dp</dimen>
     <dimen name="input_layout_padding_top">2dp</dimen>
+
+    <!-- Margin for the detail activity -->
+    <dimen name="detail_margin">8dp</dimen>
 </resources>

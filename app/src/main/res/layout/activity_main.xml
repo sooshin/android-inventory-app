@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:drawSelectorOnTop="true"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
 
     <!-- Empty view for the list -->
     <RelativeLayout

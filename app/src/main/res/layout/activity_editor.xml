@@ -11,26 +11,6 @@
         android:padding="@dimen/activity_margin"
         tools:context=".EditorActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/edit_product_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="@string/content_desc"
-                android:scaleType="centerCrop" />
-
-            <Button
-                android:id="@+id/edit_add_image_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Add Image" />
-        </LinearLayout>
-
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layout_product_name"
             style="@style/TextInputLayoutStyle"
@@ -64,46 +44,68 @@
                 android:textAppearance="?android:textAppearanceMedium" />
         </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layout_product_price"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1">
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edit_product_price"
-                    style="@style/EditTextStyle"
-                    android:layout_width="match_parent"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layout_product_price"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/category_price"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginRight="8dp">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layout_product_quantity"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
+                    <EditText
+                        android:id="@+id/edit_product_price"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/category_price"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layout_product_quantity"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp">
+
+                    <EditText
+                        android:id="@+id/edit_product_quantity"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/category_quantity"
+                        android:inputType="number" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/edit_product_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/content_desc"
+                android:scaleType="centerCrop" />
+
+            <Button
+                android:id="@+id/edit_add_image_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1">
+                android:layout_alignBottom="@+id/edit_product_image"
+                android:layout_gravity="center_horizontal"
+                android:layout_toLeftOf="@+id/edit_product_image"
+                android:text="Add Image" />
 
-                <EditText
-                    android:id="@+id/edit_product_quantity"
-                    style="@style/EditTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/category_quantity"
-                    android:inputType="number" />
-
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <android.support.design.widget.TextInputLayout
             style="@style/TextInputLayoutStyle"
@@ -140,13 +142,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
+            android:fontFamily="sans-serif"
             android:padding="5dp"
             android:text="@string/supplier"
-            android:textSize="16sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layout_supplier_name"
-            style="@style/TextInputLayoutStyleSupplier"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -160,7 +165,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            style="@style/TextInputLayoutStyleSupplier"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -175,7 +180,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layout_supplier_phone"
-            style="@style/TextInputLayoutStyleSupplier"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

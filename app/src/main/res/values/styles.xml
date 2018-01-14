@@ -9,13 +9,13 @@
     </style>
 
     <style name="EditorTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/editor_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/editor_colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="TextInputLayoutStyle">
-        <item name="android:background">#b2dfdb</item>
+        <item name="android:background">@color/color_text_input_layout</item>
         <item name="android:paddingTop">@dimen/input_layout_padding_top</item>
         <item name="android:layout_marginBottom">@dimen/input_layout_margin</item>
     </style>
@@ -28,9 +28,26 @@
         <item name="android:background">@null</item>
     </style>
 
-    <style name="TextInputLayoutStyleSupplier">
-        <item name="android:background">#b2dfdb</item>
-        <item name="android:paddingTop">@dimen/input_layout_padding_top</item>
-        <item name="android:layout_marginBottom">@dimen/input_layout_margin</item>
+    <!-- Style for the detail text view in the detail activity -->
+    <style name="DetailTextStyle">
+        <item name="android:layout_marginRight">@dimen/detail_margin</item>
+        <item name="android:layout_marginTop">@dimen/detail_margin</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/color_detail_text</item>
+    </style>
+
+    <!-- Style for the category text view in the detail activity -->
+    <style name="CategoryDetailTextStyle">
+        <item name="android:layout_marginLeft">@dimen/detail_margin</item>
+        <item name="android:layout_marginRight">@dimen/detail_margin</item>
+        <item name="android:layout_marginTop">@dimen/detail_margin</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/color_category_text</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/color_category_bg</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

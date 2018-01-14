@@ -15,54 +15,62 @@
         android:background="@android:color/white"
         android:padding="8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#000a12"
+            tools:text="Product name" />
 
-            <TextView
-                android:id="@+id/product_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="#2B3D4D"
-                tools:text="Product name" />
+        <TextView
+            android:id="@+id/product_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_name"
+            android:fontFamily="sans-serif"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="#b0bec5"
+            tools:text="Author" />
 
-            <TextView
-                android:id="@+id/product_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="#AEB6BD"
-                tools:text="Author" />
+        <TextView
+            android:id="@+id/currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_author"
+            android:layout_marginRight="8dp"
+            android:text="$"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:textAppearance="?android:textAppearanceSmall"
-                tools:text="Price" />
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_author"
+            android:layout_toEndOf="@+id/currency"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
+            tools:text="10.0" />
 
-            <TextView
-                android:id="@+id/product_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="#2B3D4D"
-                tools:text="quantity" />
+        <TextView
+            android:id="@+id/product_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_price"
+            android:fontFamily="sans-serif"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"
+            tools:text="20" />
 
-            <Button
-                android:id="@+id/product_sale_button"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:focusable="false"
-                android:focusableInTouchMode="false" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/product_sale_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
 
     </RelativeLayout>
 
