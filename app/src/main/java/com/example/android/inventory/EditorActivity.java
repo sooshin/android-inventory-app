@@ -131,6 +131,34 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
+        // Find all relevant views that we will need to read user input from
+        mProductNameEditText = findViewById(R.id.edit_product_name);
+        mAuthorEditText = findViewById(R.id.edit_product_author);
+        mPublisherEditText = findViewById(R.id.edit_product_publisher);
+        mIsbnEditText = findViewById(R.id.edit_product_isbn);
+        mPriceEditText = findViewById(R.id.edit_product_price);
+        mQuantityEditText = findViewById(R.id.edit_product_quantity);
+        mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
+        mSupplierEmailEditText = findViewById(R.id.edit_supplier_email);
+        mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
+        mAddImageButton = findViewById(R.id.edit_add_image_button);
+        mImageView = findViewById(R.id.edit_product_image);
+
+
+
+        if(getIntent().hasExtra("title")) {
+            Intent intent = getIntent();
+            String title = intent.getStringExtra("title");
+            mProductNameEditText.setText(title);
+            String author = intent.getStringExtra("author");
+            mAuthorEditText.setText(author);
+            String isbn = intent.getStringExtra("isbn");
+            mIsbnEditText.setText(isbn);
+            String publisher = intent.getStringExtra("publisher");
+            mPublisherEditText.setText(publisher);
+        }
+
+
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new product or editing an existing one.
         Intent intent = getIntent();
@@ -154,18 +182,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER, null, this);
         }
 
-        // Find all relevant views that we will need to read user input from
-        mProductNameEditText = findViewById(R.id.edit_product_name);
-        mAuthorEditText = findViewById(R.id.edit_product_author);
-        mPublisherEditText = findViewById(R.id.edit_product_publisher);
-        mIsbnEditText = findViewById(R.id.edit_product_isbn);
-        mPriceEditText = findViewById(R.id.edit_product_price);
-        mQuantityEditText = findViewById(R.id.edit_product_quantity);
-        mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
-        mSupplierEmailEditText = findViewById(R.id.edit_supplier_email);
-        mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
-        mAddImageButton = findViewById(R.id.edit_add_image_button);
-        mImageView = findViewById(R.id.edit_product_image);
+
 
         // Find all relevant text input layout that we will need to set error messages.
         layoutProductName = findViewById(R.id.layout_product_name);
@@ -411,12 +428,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 if (isValidateInput()) {
                     // If a user input is valid, save the product to database and exit activity.
                     saveProduct();
-                    finish();
+                    //finish();
+                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
                 } else if (!isValidate) {
                     // If isValidate value is false, exit activity.
                     // Since no fields were modified, we can finish activity without creating a new product.
                     // No need to create ContentValues and no need to do any ContentProvider operations.
-                    finish();
+                    //finish();
+                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
@@ -428,7 +447,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case android.R.id.home:
                 // If the product hasn't changed, close the activity.
                 if (!mProductHasChanged) {
-                    finish();
+                    //finish();
+                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
                 }
 
@@ -440,7 +460,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // User clicked "Discard" button, close the activity
-                                finish();
+                                //finish();
+                                NavUtils.navigateUpFromSameTask(EditorActivity.this);
                             }
                         };
 
@@ -469,7 +490,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // User clicked "Discard" button, close the current activity.
-                        finish();
+                        //finish();
+                        NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     }
                 };
 

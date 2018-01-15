@@ -13,18 +13,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
 /**
  * Displays list of products that were entered and stored in the app.
  */
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -141,6 +145,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // Pop up confirmation dialog for deletion
                 showDeleteConfirmationDialog();
                 return true;
+            //
+            case R.id.action_add:
+                showIsbnDialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -205,6 +213,64 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private  void showIsbnDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.add_by_isbn_dialog_msg);
+
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.dialog_isbn, null));
+
+        //final EditText isbnEditText = findViewById(R.id.edit_dialog_isbn);
+
+
+        // Set click listeners for the positive and negative buttons on the dialog
+        // Do not dismiss AlertDialog after clicking Positive button
+        builder.setPositiveButton(R.string.enter_an_isbn, null);
+        builder.setNegativeButton(R.string.add_manually, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Create the AlertDialog
+        final AlertDialog alertDialog = builder.create();
+        //
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+
+                final EditText isbnEditText = alertDialog.findViewById(R.id.edit_dialog_isbn);
+
+                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String isbnStringDialog = isbnEditText.getText().toString().trim();
+                        Toast.makeText(MainActivity.this, "Enter 13-digit ISBN" + isbnStringDialog ,
+                                Toast.LENGTH_SHORT).show();
+
+                        if (isbnStringDialog.length() == 13) {
+                            Intent intent = new Intent(MainActivity.this, IsbnActivity.class);
+                            intent.putExtra("ISBN in a Dialog", isbnStringDialog);
+                            startActivity(intent);
+                        }
+                    }
+
+                });
+
+
+            }
+        });
+
+        // Show the AlertDialog
         alertDialog.show();
     }
 }

@@ -13,6 +13,9 @@
     <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
 
+    <!-- Label for main menu option to add a product [CHAR LIMIT=20]-->
+    <string name="action_add">Add</string>
+
     <!-- Label for overflow menu option that inserts fake product data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
 
@@ -112,6 +115,15 @@
 
     <!-- Dialog message to ask the user to confirm deleting all products [CHAR LIMIT=NONE] -->
     <string name="delete_all_dialog_msg">Delete all products?</string>
+
+    <!-- Dialog message to ask the user to use ISBN when adding a product [CHAR LIMIT=NONE] -->
+    <string name="add_by_isbn_dialog_msg">Add a book by an ISBN?</string>
+
+    <!-- Dialog button text for the option to enter an ISBN -->
+    <string name="enter_an_isbn">Enter\nan ISBN</string>
+
+    <!-- Dialog button text for the option to add a product manually -->
+    <string name="add_manually">Add\nmanually</string>
 
     <!-- Order email message -->
     <string name="email_subject">Order for more</string>
