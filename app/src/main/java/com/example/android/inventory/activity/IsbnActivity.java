@@ -1,4 +1,4 @@
-package com.example.android.inventory;
+package com.example.android.inventory.activity;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.inventory.Book;
+import com.example.android.inventory.BookLoader;
 import com.example.android.inventory.utils.Constants;
 
 import java.util.List;

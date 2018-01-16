@@ -1,4 +1,4 @@
-package com.example.android.inventory;
+package com.example.android.inventory.activity;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.android.inventory.ProductCursorAdapter;
+import com.example.android.inventory.R;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
 /**

@@ -1,4 +1,4 @@
-package com.example.android.inventory;
+package com.example.android.inventory.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.android.inventory.R;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
