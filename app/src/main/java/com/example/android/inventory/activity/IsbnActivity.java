@@ -73,11 +73,12 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
 
         Intent intent = getIntent();
         String isbnStringFromDialog = intent.getStringExtra("ISBN in a Dialog");
+        isbnStringFromDialog = "isbn:" + isbnStringFromDialog;
 
         Log.e(LOG_TAG, "isbnStringFromDialog: " + isbnStringFromDialog);
         uriBuilder.appendQueryParameter("q", isbnStringFromDialog);
 
-        return new BookLoader(this, uriBuilder.toString());
+        return new BookLoader(this,  uriBuilder.toString());
     }
 
     @Override
