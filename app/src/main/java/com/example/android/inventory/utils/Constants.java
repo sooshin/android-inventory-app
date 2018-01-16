@@ -12,8 +12,16 @@ public class Constants {
     private Constants() {
     }
 
-    /** Extract the key associated with the JSONObject */
-
+    /** Extract the key associated with the JSONObject and JSONArray */
+    static final String JSON_KEY_ITEMS = "items";
+    static final String JSON_KEY_VOLUME_INFO = "volumeInfo";
+    static final String JSON_KEY_TITLE = "title";
+    static final String JSON_KEY_AUTHORS = "authors";
+    static final String JSON_KEY_INDUSTRY_IDENTIFIERS = "industryIdentifiers";
+    static final String JSON_KEY_TYPE = "type";
+    static final String JSON_KEY_ISBN_13 = "ISBN_13";
+    static final String JSON_KEY_IDENTIFIER = "identifier";
+    static final String JSON_KEY_PUBLISHER = "publisher";
 
     /** Read timeout for setting up the HTTP request */
     static final int READ_TIMEOUT = 10000; /* milliseconds */

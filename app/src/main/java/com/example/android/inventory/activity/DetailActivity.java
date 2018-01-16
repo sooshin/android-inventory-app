@@ -190,7 +190,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         String phoneString = mSupplierPhoneTextView.getText().toString().trim();
 
         Intent phoneIntent = new Intent(Intent.ACTION_CALL);
-        phoneIntent.setData(Uri.parse("tel:" + phoneString));
+        phoneIntent.setData(Uri.parse(getString(R.string.tel_colon) + phoneString));
         // Check whether the app has a given permission
         if (ActivityCompat.checkSelfPermission(DetailActivity.this,
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {

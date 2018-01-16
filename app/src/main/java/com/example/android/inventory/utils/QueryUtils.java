@@ -155,19 +155,19 @@ public class QueryUtils {
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
 
             // Extract the JSONArray associated with the key called "items"
-            JSONArray bookArray = baseJsonResponse.getJSONArray("items");
+            JSONArray bookArray = baseJsonResponse.getJSONArray(Constants.JSON_KEY_ITEMS);
 
             // Extract the first JSONObject in the bookArray
             JSONObject firstItemObject = bookArray.getJSONObject(0);
 
             // Extract the JSONObject associated with the key called "volumeInfo"
-            JSONObject volumeInfoObject = firstItemObject.getJSONObject("volumeInfo");
+            JSONObject volumeInfoObject = firstItemObject.getJSONObject(Constants.JSON_KEY_VOLUME_INFO);
 
             // For a given book, extract the value for the key called "title"
-            String title = volumeInfoObject.getString("title");
+            String title = volumeInfoObject.getString(Constants.JSON_KEY_TITLE);
 
             // For a given book, extract the JSONArray associated with the key called "authors"
-            JSONArray authorsArray = volumeInfoObject.getJSONArray("authors");
+            JSONArray authorsArray = volumeInfoObject.getJSONArray(Constants.JSON_KEY_AUTHORS);
 
             // For a given book, if there are authors, extract the value in the first
             String author = null;
@@ -176,20 +176,21 @@ public class QueryUtils {
             }
 
             // For a given book, extract the JSONArray associated with the key called "industryIdentifiers"
-            JSONArray industryIdentifiersArray = volumeInfoObject.getJSONArray("industryIdentifiers");
+            JSONArray industryIdentifiersArray =
+                    volumeInfoObject.getJSONArray(Constants.JSON_KEY_INDUSTRY_IDENTIFIERS);
             String isbn = null;
             // If there is element in the JSONArray, for each element create a JSONObject.
             if (industryIdentifiersArray.length() != 0) {
                 for (int i = 0; i < industryIdentifiersArray.length(); i++) {
                     JSONObject currentObject = industryIdentifiersArray.getJSONObject(i);
-                    if (currentObject.has("type")) {
+                    if (currentObject.has(Constants.JSON_KEY_TYPE)) {
                         // Extract the value for the key "type" and the value will be "ISBN_13" or
                         // "ISBN_10".
-                        String isbnType = currentObject.getString("type");
+                        String isbnType = currentObject.getString(Constants.JSON_KEY_TYPE);
                         // If the value for the key "type" is "ISBN_13", extract the value for the
                         // key "identifier"
-                        if (isbnType.equals("ISBN_13")) {
-                            isbn = currentObject.getString("identifier");
+                        if (isbnType.equals(Constants.JSON_KEY_ISBN_13)) {
+                            isbn = currentObject.getString(Constants.JSON_KEY_IDENTIFIER);
                         }
                     }
                 }
@@ -198,8 +199,8 @@ public class QueryUtils {
             // For a given book, if it contains the key called "publisher", extract the value for the
             // key called "publisher"
             String publisher = null;
-            if (volumeInfoObject.has("publisher")) {
-                publisher = volumeInfoObject.getString("publisher");
+            if (volumeInfoObject.has(Constants.JSON_KEY_PUBLISHER)) {
+                publisher = volumeInfoObject.getString(Constants.JSON_KEY_PUBLISHER);
             }
 
             // Create a new {@link Book} object with the title, author, ISBN, and publisher from

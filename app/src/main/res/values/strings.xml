@@ -159,6 +159,9 @@
     <string name="empty_supplier_name">Supplier name cannot be empty</string>
     <string name="empty_supplier_phone">Supplier phone number cannot be empty</string>
 
+    <!-- Toast message when a user do not enter the 13 digit ISBN in MainActivity -->
+    <string name="enter_13_digit_isbn">Enter 13-digit ISBN</string>
+
     <!--Text input layout error message -->
     <string name="error_product_name">Please enter a valid title.</string>
     <string name="error_product_author">Please enter a valid author.</string>
@@ -171,4 +174,25 @@
     <!-- Text of the sale button -->
     <string name="sell">sell</string>
     <string name="sold_out">sold out</string>
+
+    <!-- String for the Extra key name -->
+    <string name="title">title</string>
+    <string name="author">author</string>
+    <string name="isbn">isbn</string>
+    <string name="publisher">publisher</string>
+    <string name="isbn_in_a_dialog">ISBN in a Dialog</string>
+
+    <!-- Title for the intent in the pickImageFromGallery -->
+    <string name="select_picture">Select Picture</string>
+    <!-- image type in the pickImageFromGallery -->
+    <string name="image_all_format">image/*</string>
+
+    <!-- String for the phone intent -->
+    <string name="tel_colon">tel:</string>
+
+    <!-- String for the query "isbn:" -->
+    <string name="query_isbn">isbn:</string>
+    <!-- String for the query parameter -->
+    <string name="q">q</string>
+
 </resources>

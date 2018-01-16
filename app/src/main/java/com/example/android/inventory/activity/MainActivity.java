@@ -269,11 +269,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                             // Create a new intent to open the {@link IsbnActivity}
                             Intent intent = new Intent(MainActivity.this, IsbnActivity.class);
                             // Send the data
-                            intent.putExtra("ISBN in a Dialog", isbnStringDialog);
+                            intent.putExtra(getString(R.string.isbn_in_a_dialog), isbnStringDialog);
                             // Start a new activity
                             startActivity(intent);
                         } else {
-                            Toast.makeText(MainActivity.this, "Enter 13-digit ISBN",
+                            Toast.makeText(MainActivity.this, getString(R.string.enter_13_digit_isbn),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

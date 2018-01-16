@@ -56,13 +56,13 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
         Intent intent = getIntent();
 
         // Get String ISBN from the user input in the isbn dialog of the MainActivity
-        String isbnStringFromDialog = intent.getStringExtra("ISBN in a Dialog");
+        String isbnStringFromDialog = intent.getStringExtra(getString(R.string.isbn_in_a_dialog));
 
         // To query a book by ISBN, use "isbn:"
-        isbnStringFromDialog = "isbn:" + isbnStringFromDialog;
+        isbnStringFromDialog = getString(R.string.query_isbn) + isbnStringFromDialog;
 
         // Append query parameter and its value. (e.g. the 'q=isbn:9780553902808')
-        uriBuilder.appendQueryParameter("q", isbnStringFromDialog);
+        uriBuilder.appendQueryParameter(getString(R.string.q), isbnStringFromDialog);
 
         // Create a new loader for the given URL
         return new BookLoader(this,  uriBuilder.toString());
@@ -85,10 +85,10 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
             // Create a new intent to open the {@link EditorActivity}
             Intent intent = new Intent(this, EditorActivity.class);
             // Send the data
-            intent.putExtra("title", title);
-            intent.putExtra("author", author);
-            intent.putExtra("isbn", isbn);
-            intent.putExtra("publisher", publisher);
+            intent.putExtra(getString(R.string.title), title);
+            intent.putExtra(getString(R.string.author), author);
+            intent.putExtra(getString(R.string.isbn), isbn);
+            intent.putExtra(getString(R.string.publisher), publisher);
             // start the new activity
             startActivity(intent);
         }

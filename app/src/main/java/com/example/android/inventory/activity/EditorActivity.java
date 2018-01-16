@@ -126,6 +126,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+    private static final int GALLERY_PERMISSION_REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,17 +148,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Receive the data from the IsbnActivity. Check if an extra with "title" (or "author" or
         // "isbn" or "publisher") was passed in the intent.
-        if(getIntent().hasExtra("title") || getIntent().hasExtra("author") ||
-                getIntent().hasExtra("isbn") || getIntent().hasExtra("publisher")) {
+        if( getIntent().hasExtra(getString(R.string.title)) || getIntent().hasExtra(getString(R.string.author)) ||
+                getIntent().hasExtra(getString(R.string.isbn)) || getIntent().hasExtra(getString(R.string.publisher)) ) {
+
             // Get the data from the IsbnActivity and set the data in the EditText field.
             Intent intent = getIntent();
-            String title = intent.getStringExtra("title");
+            String title = intent.getStringExtra(getString(R.string.title));
             mProductNameEditText.setText(title);
-            String author = intent.getStringExtra("author");
+            String author = intent.getStringExtra(getString(R.string.author));
             mAuthorEditText.setText(author);
-            String isbn = intent.getStringExtra("isbn");
+            String isbn = intent.getStringExtra(getString(R.string.isbn));
             mIsbnEditText.setText(isbn);
-            String publisher = intent.getStringExtra("publisher");
+            String publisher = intent.getStringExtra(getString(R.string.publisher));
             mPublisherEditText.setText(publisher);
         }
 
@@ -200,7 +202,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     pickImageFromGallery();
                 } else {
                     EasyPermissions.requestPermissions(EditorActivity.this, "Access for storage",
-                            101, galleryPermissions);
+                            GALLERY_PERMISSION_REQUEST_CODE, galleryPermissions);
                 }
             }
         });
@@ -227,10 +229,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Only files that can be opened are displayed
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         // Display image files of all format.
-        intent.setType("image/*");
+        intent.setType(getString(R.string.image_all_format));
         // Start a file picker activity with an intent to pick a file and receive a result back.
         // To receive a result, call startActivityForResult(). The result will be the URI of the file picked.
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_IMAGE_REQUEST);
     }
 
     /**
