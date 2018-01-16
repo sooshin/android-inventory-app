@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return true;
             //
             case R.id.action_add:
+                // Pop up isbn edit text dialog for adding a product
                 showIsbnDialog();
                 return true;
         }
@@ -218,7 +219,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         alertDialog.show();
     }
 
+    /**
+     * Prompt the user to select how to add a product. When a user wants to add a product,
+     * the user can add a book by entering an ISBN in the edit text field or add it manually.
+     */
     private  void showIsbnDialog() {
+        // Create an AlertDialog.Builder and set the message.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.add_by_isbn_dialog_msg);
 
@@ -228,46 +234,51 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.dialog_isbn, null));
 
-        //final EditText isbnEditText = findViewById(R.id.edit_dialog_isbn);
-
-
         // Set click listeners for the positive and negative buttons on the dialog
         // Do not dismiss AlertDialog after clicking Positive button
         builder.setPositiveButton(R.string.enter_an_isbn, null);
         builder.setNegativeButton(R.string.add_manually, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                // Create a new intent to open the {@link EditorActivity}
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                // Start a new activity
                 startActivity(intent);
             }
         });
 
         // Create the AlertDialog
         final AlertDialog alertDialog = builder.create();
-        //
+        // To prevent a dialog from closing when the positive button clicked, set onShowListener to
+        // the AlertDialog
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-
+                // Find the isbn edit text
                 final EditText isbnEditText = alertDialog.findViewById(R.id.edit_dialog_isbn);
 
                 Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        // Read from isbn input field
                         String isbnStringDialog = isbnEditText.getText().toString().trim();
-                        Toast.makeText(MainActivity.this, "Enter 13-digit ISBN" + isbnStringDialog ,
-                                Toast.LENGTH_SHORT).show();
-
+                        // If the length of the isbn String is 13, create a new intent.
+                        // Otherwise, show toast message "Enter 13-digit ISBN".
                         if (isbnStringDialog.length() == 13) {
+                            // Create a new intent to open the {@link IsbnActivity}
                             Intent intent = new Intent(MainActivity.this, IsbnActivity.class);
+                            // Send the data
                             intent.putExtra("ISBN in a Dialog", isbnStringDialog);
+                            // Start a new activity
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Enter 13-digit ISBN",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 
                 });
-
 
             }
         });

@@ -145,9 +145,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mAddImageButton = findViewById(R.id.edit_add_image_button);
         mImageView = findViewById(R.id.edit_product_image);
 
-
-
-        if(getIntent().hasExtra("title")) {
+        // Receive the data from the IsbnActivity. Check if an extra with "title" (or "author" or
+        // "isbn" or "publisher") was passed in the intent.
+        if(getIntent().hasExtra("title") || getIntent().hasExtra("author") ||
+                getIntent().hasExtra("isbn") || getIntent().hasExtra("publisher")) {
+            // Get the data from the IsbnActivity and set the data in the EditText field.
             Intent intent = getIntent();
             String title = intent.getStringExtra("title");
             mProductNameEditText.setText(title);
@@ -158,7 +160,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             String publisher = intent.getStringExtra("publisher");
             mPublisherEditText.setText(publisher);
         }
-
 
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new product or editing an existing one.
@@ -182,8 +183,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER, null, this);
         }
-
-
 
         // Find all relevant text input layout that we will need to set error messages.
         layoutProductName = findViewById(R.id.layout_product_name);

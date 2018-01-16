@@ -1,11 +1,14 @@
 package com.example.android.inventory.utils;
 
 /**
- * Created by sj on 1/14/2018.
+ * Store constants for the inventory app.
  */
 
 public class Constants {
 
+    /**
+     * Creates a private constructor because no one should ever create a {@link Constants} object.
+     */
     private Constants() {
     }
 
@@ -15,6 +18,7 @@ public class Constants {
     /** Read timeout for setting up the HTTP request */
     static final int READ_TIMEOUT = 10000; /* milliseconds */
 
+    /** Connect timeout for setting up the HTTP request */
     static final int CONNECT_TIMEOUT = 15000; /* milliseconds */
 
     /** HTTP response code when the request is successful */

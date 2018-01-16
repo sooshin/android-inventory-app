@@ -21,10 +21,4 @@
             android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/text_dialog"
-        android:layout_below="@+id/layout_dialog_isbn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 </RelativeLayout>

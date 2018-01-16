@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sj on 1/14/2018.
+ * Helper methods related to requesting and receiving book data from the Google Books.
  */
 
 public class QueryUtils {
@@ -30,10 +30,15 @@ public class QueryUtils {
     /** Tag for the log messages */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
+    /**
+     * Create a private constructor because no one should ever create a {@link QueryUtils} object.
+     */
     private QueryUtils() {
-
     }
 
+    /**
+     * Query the Google Books data set and return a list of {@link Book} objects.
+     */
     public static List<Book> fetchBookData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -46,11 +51,11 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of {@link Book}
-        List<Book> book = extractFeatureFromJSON(jsonResponse);
+        // Extract relevant fields from the JSON response and create a list of {@link Book}s
+        List<Book> books = extractFeatureFromJSON(jsonResponse);
 
-        // Return
-        return book;
+        // Return the list of {@link Book}s
+        return books;
     }
 
     /**
@@ -129,77 +134,90 @@ public class QueryUtils {
         return output.toString();
     }
 
+    /**
+     * Return a list of {@link Book}s objects that has been built up from
+     * parsing the given JSON response. In this app, returns only {@link Book} that matches ISBN
+     * number.
+     */
     private static List<Book> extractFeatureFromJSON(String bookJSON) {
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(bookJSON)) {
             return null;
         }
 
+        // Create an empty ArrayList that we can start adding books to
         List<Book> bookList = new ArrayList<>();
 
+        // Try to parse the JSON response string. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
         try {
+            // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
 
+            // Extract the JSONArray associated with the key called "items"
             JSONArray bookArray = baseJsonResponse.getJSONArray("items");
 
-
-
+            // Extract the first JSONObject in the bookArray
             JSONObject firstItemObject = bookArray.getJSONObject(0);
 
+            // Extract the JSONObject associated with the key called "volumeInfo"
             JSONObject volumeInfoObject = firstItemObject.getJSONObject("volumeInfo");
-            // title
+
+            // For a given book, extract the value for the key called "title"
             String title = volumeInfoObject.getString("title");
 
-            Log.e(LOG_TAG, "queryUtils title: " + title);
-            // author
+            // For a given book, extract the JSONArray associated with the key called "authors"
             JSONArray authorsArray = volumeInfoObject.getJSONArray("authors");
 
+            // For a given book, if there are authors, extract the value in the first
             String author = null;
             if (authorsArray.length() != 0) {
                 author = authorsArray.getString(0);
             }
-            // isbn_13
 
+            // For a given book, extract the JSONArray associated with the key called "industryIdentifiers"
             JSONArray industryIdentifiersArray = volumeInfoObject.getJSONArray("industryIdentifiers");
             String isbn = null;
+            // If there is element in the JSONArray, for each element create a JSONObject.
             if (industryIdentifiersArray.length() != 0) {
-                 for (int i = 0; i < industryIdentifiersArray.length(); i++) {
+                for (int i = 0; i < industryIdentifiersArray.length(); i++) {
                     JSONObject currentObject = industryIdentifiersArray.getJSONObject(i);
-                    if (currentObject.has("type")){
-                       String isbnType = currentObject.getString("type");
-                       if (isbnType.equals("ISBN_13")) {
+                    if (currentObject.has("type")) {
+                        // Extract the value for the key "type" and the value will be "ISBN_13" or
+                        // "ISBN_10".
+                        String isbnType = currentObject.getString("type");
+                        // If the value for the key "type" is "ISBN_13", extract the value for the
+                        // key "identifier"
+                        if (isbnType.equals("ISBN_13")) {
                             isbn = currentObject.getString("identifier");
-                       }
-
+                        }
                     }
-
-                 }
-
-            }
-
-/*
-                JSONObject secondObject = industryIdentifiersArray.getJSONObject(1);
-                if (secondObject.getString("type").equalsIgnoreCase("ISBN_13")
-                        && secondObject.has("identifier") ) {
-                    isbn = secondObject.getString("identifier");
                 }
             }
-*/
-            // publisher
+
+            // For a given book, if it contains the key called "publisher", extract the value for the
+            // key called "publisher"
             String publisher = null;
             if (volumeInfoObject.has("publisher")) {
                 publisher = volumeInfoObject.getString("publisher");
             }
 
+            // Create a new {@link Book} object with the title, author, ISBN, and publisher from
+            // the JSON response.
             Book book = new Book(title, author, isbn, publisher);
 
+            // Add the new {@link Book} to the list of books.
             bookList.add(book);
 
-
         } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
             Log.e(LOG_TAG, "Problem parsing the book JSON results", e);
         }
 
+        // Returns the list of books. In this app, since searching for the book that matches the ISBN number,
+        // returns only one book that matches the ISBN number.
         return bookList;
     }
 }
