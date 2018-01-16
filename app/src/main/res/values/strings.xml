@@ -195,4 +195,6 @@
     <!-- String for the query parameter -->
     <string name="q">q</string>
 
+    <string name="no_matches_found">No matches found.\n\nAn ISBN is usually found on the back cover, near the barcode.</string>
+    <string name="no_internet_connection">You are offline. Please check your Internet connection.</string>
 </resources>

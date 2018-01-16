@@ -9,8 +9,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.android.inventory.Book;
 import com.example.android.inventory.BookLoader;
@@ -32,6 +33,9 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
     /**Constant value for the book loader ID */
     private static final int BOOK_LOADER_ID = 1;
 
+    /** TextView that is displayed when there is no data or when there is no internet connectivity */
+    private TextView mEmptyTextView;
+
     /** Loading indicator that is displayed before the first load is completed */
     private View mLoadingIndicator;
 
@@ -40,8 +44,16 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_isbn);
 
+        mEmptyTextView = findViewById(R.id.empty_isbn_view);
+
+        mLoadingIndicator = findViewById(R.id.loading_indicator);
+
         // Check for network connectivity and initialize the loader
         initializeLoader(isConnected());
+
+        // Navigate with the app icon in the app bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -70,6 +82,10 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> booksData) {
+        // Hide loading indicator because the data has been loaded
+        mLoadingIndicator.setVisibility(View.GONE);
+
+
 
         // If there is a valid list of {@link Book}, actually in this app there will be one list item,
         // then send the data to the EditorActivity.
@@ -91,6 +107,10 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
             intent.putExtra(getString(R.string.publisher), publisher);
             // start the new activity
             startActivity(intent);
+        } else {
+            // Set empty text to display "No matches found.
+            // An ISBN is usually found on the back cover, near the barcode."
+            mEmptyTextView.setText(getString(R.string.no_matches_found));
         }
     }
 
@@ -129,11 +149,23 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
             loaderManager.initLoader(BOOK_LOADER_ID, null, this);
         } else {
             // Otherwise, display error.
-
-            // Show toast with no connection error message
-            Toast.makeText(this,
-                    "You are offline. Please check your Internet connection.",
-                    Toast.LENGTH_SHORT).show();
+            // First, hide loading indicator so error message will be visible
+            mLoadingIndicator.setVisibility(View.GONE);
+            // Set empty text to display no connection error message
+            mEmptyTextView.setText(getString(R.string.no_internet_connection));
+            mEmptyTextView.setCompoundDrawablesWithIntrinsicBounds(Constants.DEFAULT_NUMBER,
+                    R.drawable.ic_network_check,Constants.DEFAULT_NUMBER,Constants.DEFAULT_NUMBER);
         }
+    }
+
+    // Go back to the MainActivity when up button in app bar is clicked on.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

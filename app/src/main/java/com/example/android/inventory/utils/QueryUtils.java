@@ -153,63 +153,63 @@ public class QueryUtils {
         try {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
+            if (baseJsonResponse.has(Constants.JSON_KEY_ITEMS)) {
+                // Extract the JSONArray associated with the key called "items"
+                JSONArray bookArray = baseJsonResponse.getJSONArray(Constants.JSON_KEY_ITEMS);
 
-            // Extract the JSONArray associated with the key called "items"
-            JSONArray bookArray = baseJsonResponse.getJSONArray(Constants.JSON_KEY_ITEMS);
+                // Extract the first JSONObject in the bookArray
+                JSONObject firstItemObject = bookArray.getJSONObject(0);
 
-            // Extract the first JSONObject in the bookArray
-            JSONObject firstItemObject = bookArray.getJSONObject(0);
+                // Extract the JSONObject associated with the key called "volumeInfo"
+                JSONObject volumeInfoObject = firstItemObject.getJSONObject(Constants.JSON_KEY_VOLUME_INFO);
 
-            // Extract the JSONObject associated with the key called "volumeInfo"
-            JSONObject volumeInfoObject = firstItemObject.getJSONObject(Constants.JSON_KEY_VOLUME_INFO);
+                // For a given book, extract the value for the key called "title"
+                String title = volumeInfoObject.getString(Constants.JSON_KEY_TITLE);
 
-            // For a given book, extract the value for the key called "title"
-            String title = volumeInfoObject.getString(Constants.JSON_KEY_TITLE);
+                // For a given book, extract the JSONArray associated with the key called "authors"
+                JSONArray authorsArray = volumeInfoObject.getJSONArray(Constants.JSON_KEY_AUTHORS);
 
-            // For a given book, extract the JSONArray associated with the key called "authors"
-            JSONArray authorsArray = volumeInfoObject.getJSONArray(Constants.JSON_KEY_AUTHORS);
+                // For a given book, if there are authors, extract the value in the first
+                String author = null;
+                if (authorsArray.length() != 0) {
+                    author = authorsArray.getString(0);
+                }
 
-            // For a given book, if there are authors, extract the value in the first
-            String author = null;
-            if (authorsArray.length() != 0) {
-                author = authorsArray.getString(0);
-            }
-
-            // For a given book, extract the JSONArray associated with the key called "industryIdentifiers"
-            JSONArray industryIdentifiersArray =
-                    volumeInfoObject.getJSONArray(Constants.JSON_KEY_INDUSTRY_IDENTIFIERS);
-            String isbn = null;
-            // If there is element in the JSONArray, for each element create a JSONObject.
-            if (industryIdentifiersArray.length() != 0) {
-                for (int i = 0; i < industryIdentifiersArray.length(); i++) {
-                    JSONObject currentObject = industryIdentifiersArray.getJSONObject(i);
-                    if (currentObject.has(Constants.JSON_KEY_TYPE)) {
-                        // Extract the value for the key "type" and the value will be "ISBN_13" or
-                        // "ISBN_10".
-                        String isbnType = currentObject.getString(Constants.JSON_KEY_TYPE);
-                        // If the value for the key "type" is "ISBN_13", extract the value for the
-                        // key "identifier"
-                        if (isbnType.equals(Constants.JSON_KEY_ISBN_13)) {
-                            isbn = currentObject.getString(Constants.JSON_KEY_IDENTIFIER);
+                // For a given book, extract the JSONArray associated with the key called "industryIdentifiers"
+                JSONArray industryIdentifiersArray =
+                        volumeInfoObject.getJSONArray(Constants.JSON_KEY_INDUSTRY_IDENTIFIERS);
+                String isbn = null;
+                // If there is element in the JSONArray, for each element create a JSONObject.
+                if (industryIdentifiersArray.length() != 0) {
+                    for (int i = 0; i < industryIdentifiersArray.length(); i++) {
+                        JSONObject currentObject = industryIdentifiersArray.getJSONObject(i);
+                        if (currentObject.has(Constants.JSON_KEY_TYPE)) {
+                            // Extract the value for the key "type" and the value will be "ISBN_13" or
+                            // "ISBN_10".
+                            String isbnType = currentObject.getString(Constants.JSON_KEY_TYPE);
+                            // If the value for the key "type" is "ISBN_13", extract the value for the
+                            // key "identifier"
+                            if (isbnType.equals(Constants.JSON_KEY_ISBN_13)) {
+                                isbn = currentObject.getString(Constants.JSON_KEY_IDENTIFIER);
+                            }
                         }
                     }
                 }
+
+                // For a given book, if it contains the key called "publisher", extract the value for the
+                // key called "publisher"
+                String publisher = null;
+                if (volumeInfoObject.has(Constants.JSON_KEY_PUBLISHER)) {
+                    publisher = volumeInfoObject.getString(Constants.JSON_KEY_PUBLISHER);
+                }
+
+                // Create a new {@link Book} object with the title, author, ISBN, and publisher from
+                // the JSON response.
+                Book book = new Book(title, author, isbn, publisher);
+
+                // Add the new {@link Book} to the list of books.
+                bookList.add(book);
             }
-
-            // For a given book, if it contains the key called "publisher", extract the value for the
-            // key called "publisher"
-            String publisher = null;
-            if (volumeInfoObject.has(Constants.JSON_KEY_PUBLISHER)) {
-                publisher = volumeInfoObject.getString(Constants.JSON_KEY_PUBLISHER);
-            }
-
-            // Create a new {@link Book} object with the title, author, ISBN, and publisher from
-            // the JSON response.
-            Book book = new Book(title, author, isbn, publisher);
-
-            // Add the new {@link Book} to the list of books.
-            bookList.add(book);
-
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message

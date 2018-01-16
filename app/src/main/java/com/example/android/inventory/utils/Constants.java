@@ -38,4 +38,6 @@ public class Constants {
     /** URL for the book data from the Google books data set */
     public static final String BOOK_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?";
 
+    /** Default number to set the image on the top of the textView */
+    public static final int DEFAULT_NUMBER = 0;
 }

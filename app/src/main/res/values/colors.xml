@@ -31,4 +31,5 @@
 
     <!-- Category background color in the detail activity -->
     <color name="color_category_bg">#e8f5e9</color>
+
 </resources>

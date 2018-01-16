@@ -482,6 +482,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // If the product hasn't changed, continue with handling back button press
         if (!mProductHasChanged) {
             super.onBackPressed();
+            NavUtils.navigateUpFromSameTask(EditorActivity.this);
             return;
         }
 
