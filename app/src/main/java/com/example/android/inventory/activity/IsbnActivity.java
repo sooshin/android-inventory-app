@@ -111,6 +111,7 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
             // Set empty text to display "No matches found.
             // An ISBN is usually found on the back cover, near the barcode."
             mEmptyTextView.setText(getString(R.string.no_matches_found));
+            mEmptyTextView.setTextColor(getResources().getColor(R.color.color_no_matches_found_text));
         }
     }
 
@@ -153,6 +154,7 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
             mLoadingIndicator.setVisibility(View.GONE);
             // Set empty text to display no connection error message
             mEmptyTextView.setText(getString(R.string.no_internet_connection));
+            mEmptyTextView.setTextColor(getResources().getColor(R.color.color_grey_text));
             mEmptyTextView.setCompoundDrawablesWithIntrinsicBounds(Constants.DEFAULT_NUMBER,
                     R.drawable.ic_network_check,Constants.DEFAULT_NUMBER,Constants.DEFAULT_NUMBER);
         }

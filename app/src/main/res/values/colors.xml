@@ -32,4 +32,11 @@
     <!-- Category background color in the detail activity -->
     <color name="color_category_bg">#e8f5e9</color>
 
+    <!-- Text color for the empty text view in isbnActivity -->
+    <color name="color_no_matches_found_text">#7986cb</color>
+    <color name="color_grey_text">#9e9e9e</color>
+
+    <!-- Text color for the empty text view in the activity_main.xml -->
+    <color name="color_empty_title_text">#494949</color>
+    <color name="color_empty_subtitle_text">#a4a4a4</color>
 </resources>
