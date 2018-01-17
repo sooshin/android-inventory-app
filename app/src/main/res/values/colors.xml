@@ -39,4 +39,17 @@
     <!-- Text color for the empty text view in the activity_main.xml -->
     <color name="color_empty_title_text">#494949</color>
     <color name="color_empty_subtitle_text">#a4a4a4</color>
+
+    <!-- Background color for LinearLayout in the list_item.xml -->
+    <color name="color_list_item_bg">#f5f5f5</color>
+
+    <!-- Text color for the product name in the list_item.xml -->
+    <color name="color_list_product_name">#000a12</color>
+
+    <!-- Text color for the author in the list_item.xml -->
+    <color name="color_list_author">#b0bec5</color>
+
+    <!-- Text color for the quantity in the list_item.xml -->
+    <color name="color_list_quantity">#2B3D4D</color>
+
 </resources>
