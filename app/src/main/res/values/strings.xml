@@ -23,10 +23,10 @@
     <string name="action_delete_all_entries">Delete All Products</string>
 
     <!-- Title for the activity to add a new product [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_new_product">Add a Product</string>
+    <string name="editor_activity_title_new_product">Add a Book</string>
 
     <!-- Title for the activity to edit an existing product [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_edit_product">Edit Product</string>
+    <string name="editor_activity_title_edit_product">Edit Book</string>
 
     <!-- Label for product name information in the editor [CHAR LIMIT=30] -->
     <string name="category_product_name">Product Name</string>
@@ -89,7 +89,7 @@
     <string name="empty_view_title_text">It\'s a bit quite in here&#8230;</string>
 
     <!-- Subtitle text for the empty view that prompts the user to add a product [CHAR LIMIT=50] -->
-    <string name="empty_view_subtitle_text">Get started by adding a product</string>
+    <string name="empty_view_subtitle_text">Click + button in the bottom right corner to add a new product</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
