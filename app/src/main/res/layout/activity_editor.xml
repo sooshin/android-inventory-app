@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_view_bg">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -102,8 +103,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/edit_product_image"
                 android:layout_gravity="center_horizontal"
-                android:layout_toLeftOf="@+id/edit_product_image"
-                android:text="Add Image" />
+                android:layout_marginRight="4dp"
+                android:layout_toStartOf="@+id/edit_product_image"
+                android:backgroundTint="@color/color_detail_button"
+                android:text="@string/add_image"
+                android:textColor="@android:color/white" />
 
         </RelativeLayout>
 

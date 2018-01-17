@@ -67,6 +67,8 @@
     <!-- Label for supplier phone information in the detail activity [CHAR LIMIT=20] -->
     <string name="category_phone">Phone</string>
 
+    <!-- Text for the button -->
+    <string name="add_image">Add image</string>
 
     <!-- Toast message in detail activity to ensure that no negative quantities display -->
     <string name="detail_update_zero_quantity">0 is the lowest amount</string>
