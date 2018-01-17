@@ -204,4 +204,6 @@
 
     <!-- Intent title -->
     <string name="make_a_phone_call">Make a phone call</string>
+
+    <string name="currency">$</string>
 </resources>

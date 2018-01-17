@@ -38,7 +38,7 @@
                 android:id="@+id/currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$"
+                android:text="@string/currency"
                 android:textColor="@color/color_detail_button"
                 android:textSize="16sp" />
 
