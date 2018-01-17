@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Layout for a single list item in the list of products -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LinearLayoutListStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_list_item_bg"
-    android:baselineAligned="false"
-    android:paddingBottom="@dimen/margin_vertical"
-    android:paddingLeft="@dimen/list_layout_margin"
-    android:paddingRight="@dimen/list_layout_margin"
-    android:paddingTop="@dimen/margin_vertical">
+    android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -20,26 +17,16 @@
 
         <TextView
             android:id="@+id/product_name"
+            style="@style/ProductNameListStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            android:maxLines="2"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/color_list_product_name"
             tools:text="Product name" />
 
         <TextView
             android:id="@+id/product_author"
+            style="@style/ProductAuthorListStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_vertical"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:maxLines="1"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/color_list_author"
             tools:text="Author" />
 
         <LinearLayout
@@ -57,13 +44,9 @@
 
             <TextView
                 android:id="@+id/product_price"
+                style="@style/ProductPriceListStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_vertical"
-                android:layout_marginRight="@dimen/margin_vertical"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/color_detail_button"
-                android:textSize="16sp"
                 tools:text="10.0" />
 
         </LinearLayout>
@@ -79,13 +62,10 @@
 
         <TextView
             android:id="@+id/product_quantity"
+            style="@style/ProductQuantityListStyle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/color_list_quantity"
             tools:text="200" />
 
         <Button

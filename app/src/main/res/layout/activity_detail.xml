@@ -129,11 +129,9 @@
             android:paddingTop="@dimen/detail_margin">
 
             <View
+                style="@style/ViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/view_height"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginStart="@dimen/detail_margin"
                 android:layout_weight="1"
                 android:background="@color/editor_colorPrimary" />
 
@@ -146,11 +144,9 @@
                 android:textSize="20sp" />
 
             <View
+                style="@style/ViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/view_height"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginStart="@dimen/detail_margin"
                 android:layout_weight="1"
                 android:background="@color/editor_colorPrimary" />
 
@@ -200,11 +196,9 @@
             android:paddingTop="@dimen/detail_margin">
 
             <View
+                style="@style/ViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/view_height"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginStart="@dimen/detail_margin"
                 android:layout_weight="1"
                 android:background="@color/editor_colorPrimary" />
 
@@ -217,11 +211,9 @@
                 android:textSize="20sp" />
 
             <View
+                style="@style/ViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/view_height"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginStart="@dimen/detail_margin"
                 android:layout_weight="1"
                 android:background="@color/editor_colorPrimary" />
 

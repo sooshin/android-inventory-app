@@ -54,4 +54,51 @@
         <item name="android:background">@color/color_category_bg</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="ProductNameListStyle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/color_list_product_name</item>
+    </style>
+
+    <style name="ProductAuthorListStyle">
+        <item name="android:layout_marginBottom">@dimen/margin_vertical</item>
+        <item name="android:layout_marginTop">@dimen/margin_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/color_list_author</item>
+    </style>
+
+    <style name="ProductPriceListStyle">
+        <item name="android:layout_marginLeft">@dimen/margin_vertical</item>
+        <item name="android:layout_marginRight">@dimen/margin_vertical</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/color_detail_button</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ProductQuantityListStyle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:textColor">@color/color_list_quantity</item>
+    </style>
+
+    <style name="LinearLayoutListStyle">
+        <item name="android:paddingBottom">@dimen/margin_vertical</item>
+        <item name="android:paddingLeft">@dimen/list_layout_margin</item>
+        <item name="android:paddingRight">@dimen/list_layout_margin</item>
+        <item name="android:paddingTop">@dimen/margin_vertical</item>
+    </style>
+
+    <style name="ViewStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/activity_margin</item>
+        <item name="android:layout_marginStart">@dimen/activity_margin</item>
+    </style>
+
 </resources>
