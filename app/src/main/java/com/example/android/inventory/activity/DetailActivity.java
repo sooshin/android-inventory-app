@@ -207,7 +207,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
             return;
         }
-        startActivity(phoneIntent);
+        startActivity(Intent.createChooser(phoneIntent, getString(R.string.make_a_phone_call)));
     }
 
     /**
