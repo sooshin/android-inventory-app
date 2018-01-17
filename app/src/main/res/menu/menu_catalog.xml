@@ -5,12 +5,6 @@
     tools:context=".activity.MainActivity">
 
     <item
-        android:id="@+id/action_add"
-        android:title="@string/action_add"
-        android:icon="@drawable/ic_add"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_insert_dummy_data"
         android:title="@string/action_insert_dummy_data"
         app:showAsAction="never" />

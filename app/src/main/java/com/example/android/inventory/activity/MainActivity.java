@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
-                startActivity(intent);
+                // Pop up isbn edit text dialog for adding a product
+                showIsbnDialog();
             }
         });
 
@@ -146,11 +146,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case R.id.action_delete_all_entries:
                 // Pop up confirmation dialog for deletion
                 showDeleteConfirmationDialog();
-                return true;
-            //
-            case R.id.action_add:
-                // Pop up isbn edit text dialog for adding a product
-                showIsbnDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
