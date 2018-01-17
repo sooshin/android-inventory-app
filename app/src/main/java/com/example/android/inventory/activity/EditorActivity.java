@@ -86,9 +86,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /** EditText field to enter supplier's phone number */
     private EditText mSupplierPhoneEditText;
 
-    /** Button to add image */
-    private Button mAddImageButton;
-
     /** ImageView for the product image */
     private ImageView mImageView;
 
@@ -141,7 +138,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
         mSupplierEmailEditText = findViewById(R.id.edit_supplier_email);
         mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
-        mAddImageButton = findViewById(R.id.edit_add_image_button);
+        Button addImageButton = findViewById(R.id.edit_add_image_button);
         mImageView = findViewById(R.id.edit_product_image);
 
         // Receive the data from the IsbnActivity. Check if an extra with "title" (or "author" or
@@ -193,7 +190,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         layoutSupplierName = findViewById(R.id.layout_supplier_name);
         layoutSupplierPhone = findViewById(R.id.layout_supplier_phone);
 
-        mAddImageButton.setOnClickListener(new View.OnClickListener() {
+        addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (EasyPermissions.hasPermissions(EditorActivity.this, galleryPermissions)) {
@@ -217,7 +214,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText.setOnTouchListener(mTouchListener);
         mSupplierEmailEditText.setOnTouchListener(mTouchListener);
         mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
-        mAddImageButton.setOnTouchListener(mTouchListener);
+        addImageButton.setOnTouchListener(mTouchListener);
         mImageView.setOnTouchListener(mTouchListener);
     }
 
