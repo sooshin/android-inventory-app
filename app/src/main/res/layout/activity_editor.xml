@@ -57,9 +57,9 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/layout_product_price"
                     style="@style/TextInputLayoutStyle"
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/editor_layout_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginEnd="@dimen/margin_horizontal">
 
                     <EditText
                         android:id="@+id/edit_product_price"
@@ -73,9 +73,9 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/layout_product_quantity"
                     style="@style/TextInputLayoutStyle"
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/editor_layout_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginEnd="@dimen/margin_horizontal">
 
                     <EditText
                         android:id="@+id/edit_product_quantity"
@@ -91,8 +91,8 @@
 
             <ImageView
                 android:id="@+id/edit_product_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/editor_image_width"
+                android:layout_height="@dimen/editor_image_width"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@string/content_desc"
                 android:scaleType="centerCrop" />
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/edit_product_image"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginRight="4dp"
+                android:layout_marginEnd="@dimen/margin_vertical"
                 android:layout_toStartOf="@+id/edit_product_image"
                 android:backgroundTint="@color/color_detail_button"
                 android:text="@string/add_image"
@@ -145,9 +145,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_horizontal"
             android:fontFamily="sans-serif"
-            android:padding="5dp"
+            android:padding="@dimen/editor_supplier_padding"
             android:text="@string/supplier"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
@@ -197,6 +197,6 @@
                 android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
 
-
     </LinearLayout>
+
 </ScrollView>

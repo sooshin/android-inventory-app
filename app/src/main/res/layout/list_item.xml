@@ -5,18 +5,18 @@
     android:layout_height="wrap_content"
     android:background="@color/color_list_item_bg"
     android:baselineAligned="false"
-    android:paddingBottom="4dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingTop="4dp">
+    android:paddingBottom="@dimen/margin_vertical"
+    android:paddingLeft="@dimen/list_layout_margin"
+    android:paddingRight="@dimen/list_layout_margin"
+    android:paddingTop="@dimen/margin_vertical">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="@dimen/margin_horizontal">
 
         <TextView
             android:id="@+id/product_name"
@@ -33,8 +33,8 @@
             android:id="@+id/product_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/margin_vertical"
+            android:layout_marginTop="@dimen/margin_vertical"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:maxLines="1"
@@ -59,8 +59,8 @@
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
+                android:layout_marginLeft="@dimen/margin_vertical"
+                android:layout_marginRight="@dimen/margin_vertical"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/color_detail_button"
                 android:textSize="16sp"
@@ -75,7 +75,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="@dimen/margin_horizontal">
 
         <TextView
             android:id="@+id/product_quantity"
@@ -91,7 +91,7 @@
         <Button
             android:id="@+id/product_sale_button"
             android:layout_width="wrap_content"
-            android:layout_height="46dp"
+            android:layout_height="@dimen/sale_button_height"
             android:layout_gravity="center"
             android:backgroundTint="@color/color_text_input_layout"
             android:focusable="false"
