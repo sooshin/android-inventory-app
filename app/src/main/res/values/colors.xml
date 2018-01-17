@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ab47bc</color>
     <color name="colorPrimaryDark">#790e8b</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ab47bc</color>
 
     <!-- Primary color for the editor -->
     <color name="editor_colorPrimary">#66bb6a</color>
