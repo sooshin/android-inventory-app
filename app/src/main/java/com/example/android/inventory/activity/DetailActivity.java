@@ -82,14 +82,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
     private boolean mProductHasChanged = false;
 
-    /** Button to increment quantity */
-    private Button mPlusButton;
-
-    /** Button to decrement quantity*/
-    private Button mMinusButton;
-
+    /** ImageButton for the supplier email */
     private ImageButton mSupplierEmailButton;
-    private ImageButton mSupplierPhoneButton;
+
     private static final int MY_PERMISSONS_REQUEST_READ_CONTACTS = 1;
 
     @Override
@@ -114,14 +109,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mImageView = findViewById(R.id.detail_product_image);
 
         // Find all relevant button that we will need to increment and decrement the quantity
-        mPlusButton = findViewById(R.id.detail_plus_button);
-        mMinusButton = findViewById(R.id.detail_minus_button);
+        Button plusButton = findViewById(R.id.detail_plus_button);
+        Button minusButton = findViewById(R.id.detail_minus_button);
 
         mSupplierEmailButton = findViewById(R.id.detail_email_button);
-        mSupplierPhoneButton = findViewById(R.id.detail_phone_button);
+        ImageButton supplierPhoneButton = findViewById(R.id.detail_phone_button);
 
         // Set OnClickListener on the plus button. We can increment the available quantity displayed.
-        mPlusButton.setOnClickListener(new View.OnClickListener() {
+        plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 increment();
@@ -129,7 +124,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         });
 
         // Set OnClickListener on the minus button. We can decrement the available quantity displayed.
-        mMinusButton.setOnClickListener(new View.OnClickListener() {
+        minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 decrement();
@@ -144,7 +139,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        mSupplierPhoneButton.setOnClickListener(new View.OnClickListener() {
+        supplierPhoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Make a phone call
