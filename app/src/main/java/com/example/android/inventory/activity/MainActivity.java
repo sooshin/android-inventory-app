@@ -97,15 +97,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * Helper method to insert hardcoded product data into the database. For debugging purpose only.
      */
-    private void insertProduct() {
+    private void insertDummyProduct() {
         // Create a ContentValues object where column names are the keys,
         // and product attributes are the values.
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, "The Little Prince");
         values.put(ProductEntry.COLUMN_PRODUCT_AUTHOR, "Antoine de Saint-Exupéry");
-        values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, "Reynal & Hitchcock ");
-        values.put(ProductEntry.COLUMN_PRODUCT_ISBN, "1234567890123");
-        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, 8);
+        values.put(ProductEntry.COLUMN_PRODUCT_PUBLISHER, "Houghton Mifflin Harcourt");
+        values.put(ProductEntry.COLUMN_PRODUCT_ISBN, "9780156012195");
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, 6.35);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 10);
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, "Neho & Becky Supplier");
         values.put(ProductEntry.COLUMN_SUPPLIER_EMAIL, "nehoandbecky@gmail.com");
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                insertProduct();
+                insertDummyProduct();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
