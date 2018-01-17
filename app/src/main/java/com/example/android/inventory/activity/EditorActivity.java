@@ -53,8 +53,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private static final String STATE_URI = "STATE_URI";
-
     /** URI for the product image */
     private Uri mImageUri;
 

@@ -79,9 +79,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     /** TextView field to enter supplier's phone number */
     private TextView mSupplierPhoneTextView;
 
-    /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
-    private boolean mProductHasChanged = false;
-
     /** ImageButton for the supplier email */
     private ImageButton mSupplierEmailButton;
 
