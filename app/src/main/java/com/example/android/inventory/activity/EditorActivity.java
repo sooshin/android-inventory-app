@@ -423,15 +423,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // Check user input is validated. No null values are accepted for the product name,
                 // author, isbn, price, quantity, supplier name, supplier phone.
                 if (isValidateInput()) {
-                    // If a user input is valid, save the product to database and exit activity.
+                    // If a user input is valid, save the product to database and navigate up to parent activity
+                    // which is the {@link MainActivity}.
                     saveProduct();
-                    //finish();
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                 } else if (!isValidate) {
-                    // If isValidate value is false, exit activity.
-                    // Since no fields were modified, we can finish activity without creating a new product.
+                    // If isValidate value is false, navigate up to parent activity.
+                    // Since no fields were modified, we can navigate up to parent activity without creating a new product.
                     // No need to create ContentValues and no need to do any ContentProvider operations.
-                    //finish();
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                 }
                 return true;
@@ -442,9 +441,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // If the product hasn't changed, close the activity.
+                // If the product hasn't changed, continue with navigating up to parent activity
+                // which is the {@link MainActivity}.
                 if (!mProductHasChanged) {
-                    //finish();
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
                 }
@@ -456,8 +455,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                // User clicked "Discard" button, close the activity
-                                //finish();
+                                // User clicked "Discard" button, navigate to parent activity
                                 NavUtils.navigateUpFromSameTask(EditorActivity.this);
                             }
                         };
@@ -487,8 +485,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // User clicked "Discard" button, close the current activity.
-                        //finish();
+                        // User clicked "Discard" button, navigate to parent activity
                         NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     }
                 };
