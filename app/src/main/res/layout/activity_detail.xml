@@ -11,110 +11,116 @@
         android:orientation="vertical"
         android:padding="8dp">
 
+        <ImageView
+            android:id="@+id/detail_product_image"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/content_desc"
+            android:scaleType="centerCrop" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/detail_product_image"
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/content_desc"
-                android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/title"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/category_product_title" />
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/detail_product_name"
+                style="@style/DetailTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/CategoryDetailTextStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/category_product_title" />
-
-                <TextView
-                    android:id="@+id/detail_product_name"
-                    style="@style/DetailTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/publisher"
-                    tools:text="The Little Prince" />
-
-                <TextView
-                    android:id="@+id/author"
-                    style="@style/CategoryDetailTextStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/title"
-                    android:text="@string/category_product_author" />
-
-                <TextView
-                    android:id="@+id/detail_product_author"
-                    style="@style/DetailTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/title"
-                    android:layout_toEndOf="@+id/publisher"
-                    tools:text="Antoine de Saint-Exupery" />
-
-
-                <TextView
-                    android:id="@+id/isbn"
-                    style="@style/CategoryDetailTextStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/author"
-                    android:text="@string/category_product_isbn" />
-
-                <TextView
-                    android:id="@+id/detail_product_isbn"
-                    style="@style/DetailTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/author"
-                    android:layout_toEndOf="@+id/publisher"
-                    tools:text="1234567890123" />
-
-                <TextView
-                    android:id="@+id/price"
-                    style="@style/CategoryDetailTextStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/isbn"
-                    android:text="@string/category_price" />
-
-                <TextView
-                    android:id="@+id/detail_product_price"
-                    style="@style/DetailTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/isbn"
-                    android:layout_toEndOf="@+id/publisher"
-                    tools:text="$ 8.0" />
-
-                <TextView
-                    android:id="@+id/publisher"
-                    style="@style/CategoryDetailTextStyle"
-                    android:layout_width="72dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/price"
-                    android:text="@string/category_product_publisher" />
-
-                <TextView
-                    android:id="@+id/detail_product_publisher"
-                    style="@style/DetailTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/price"
-                    android:layout_toEndOf="@+id/publisher"
-                    tools:text="Reynal and Hitchcock" />
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="The Little Prince" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/author"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/category_product_author" />
+
+            <TextView
+                android:id="@+id/detail_product_author"
+                style="@style/DetailTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Antoine de Saint-Exupery" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/isbn"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/category_product_isbn" />
+
+            <TextView
+                android:id="@+id/detail_product_isbn"
+                style="@style/DetailTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="1234567890123" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/category_price" />
+
+            <TextView
+                android:id="@+id/detail_product_price"
+                style="@style/DetailTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="8.0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/publisher"
+                style="@style/CategoryDetailTextStyle"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:text="@string/category_product_publisher" />
+
+            <TextView
+                android:id="@+id/detail_product_publisher"
+                style="@style/DetailTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Reynal and Hitchcock" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,7 +227,7 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -237,68 +243,69 @@
                 style="@style/DetailTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/name"
                 tools:text="Neho and Becky Supplier" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/email"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:layout_gravity="center_vertical"
                 android:text="@string/category_email" />
 
             <TextView
                 android:id="@+id/detail_supplier_email"
                 style="@style/DetailTextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:layout_gravity="center_vertical"
-                android:layout_toEndOf="@+id/name"
+                android:layout_weight="1"
                 tools:text="nehoandbecky@gmail.com" />
 
             <ImageButton
                 android:id="@+id/detail_email_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/name"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/color_detail_button"
                 android:contentDescription="@string/content_desc_email"
                 android:src="@drawable/ic_email" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/email"
-                android:layout_gravity="center_vertical"
                 android:text="@string/category_phone" />
 
             <TextView
                 android:id="@+id/detail_supplier_phone"
                 style="@style/DetailTextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/email"
-                android:layout_gravity="center_vertical"
-                android:layout_toEndOf="@id/name"
+                android:layout_weight="1"
                 tools:text="(200) 000-0000" />
 
             <ImageButton
                 android:id="@+id/detail_phone_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/email"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/color_detail_button"
                 android:contentDescription="@string/content_desc_phone"
                 android:src="@drawable/ic_phone" />
 
-        </RelativeLayout>
+        </LinearLayout>
+
     </LinearLayout>
+
 </ScrollView>
