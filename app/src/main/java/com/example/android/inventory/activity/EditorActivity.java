@@ -169,6 +169,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // This is a new product, so change the app bar to say "Add a Product"
             setTitle(R.string.editor_activity_title_new_product);
 
+            mImageView.setImageResource(R.drawable.ic_image_black_24dp);
+
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a product that hasn't been created yet.)
             invalidateOptionsMenu();
