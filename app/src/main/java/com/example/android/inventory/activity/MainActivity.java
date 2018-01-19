@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // the AlertDialog
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onShow(DialogInterface dialogInterface) {
+            public void onShow(final DialogInterface dialogInterface) {
                 // Find the isbn edit text
                 final EditText isbnEditText = alertDialog.findViewById(R.id.edit_dialog_isbn);
 
@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                             intent.putExtra(getString(R.string.isbn_in_a_dialog), isbnStringDialog);
                             // Start a new activity
                             startActivity(intent);
+                            dialogInterface.dismiss();
                         } else {
                             Toast.makeText(MainActivity.this, getString(R.string.enter_13_digit_isbn),
                                     Toast.LENGTH_SHORT).show();
