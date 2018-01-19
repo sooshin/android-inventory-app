@@ -55,7 +55,6 @@ public class ProductDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
+        // The database is still at version 1, so there's nothing to do be done here.
     }
 }
