@@ -646,16 +646,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 deleteProduct();
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the product.
-                if (dialogInterface != null) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
+
+        // The User clicked the "Cancel" button, so dismiss the dialog and continue editing the product.
+        // Any button will dismiss the popup dialog by default, so the whole OnClickListener is null.
+        builder.setNegativeButton(R.string.cancel, null);
 
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
