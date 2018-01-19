@@ -11,7 +11,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,16 +43,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Setup FAB to open EditorActivity
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Pop up isbn edit text dialog for adding a product
-                showIsbnDialog();
-            }
-        });
 
         // Find the ListView which will be populated with the product data
         ListView productListView = findViewById(R.id.list);
@@ -215,10 +204,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     /**
+     * Pop up ISBN edit text dialog for adding a product when a user press FAB button.
      * Prompt the user to select how to add a product. When a user wants to add a product,
      * the user can add a book by entering an ISBN in the edit text field or add it manually.
      */
-    private  void showIsbnDialog() {
+    public  void showIsbnDialog(View v) {
         // Create an AlertDialog.Builder and set the message.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.add_by_isbn_dialog_msg);
