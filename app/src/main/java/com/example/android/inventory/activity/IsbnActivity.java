@@ -20,6 +20,9 @@ import com.example.android.inventory.utils.Constants;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * IsbnActivity implements the LoaderManager.LoaderCallbacks interface in order for Activity to be a
  * client that interacts with the LoaderManager.
@@ -34,19 +37,18 @@ public class IsbnActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int BOOK_LOADER_ID = 1;
 
     /** TextView that is displayed when there is no data or when there is no internet connectivity */
-    private TextView mEmptyTextView;
+    @BindView(R.id.empty_isbn_view) TextView mEmptyTextView;
 
     /** Loading indicator that is displayed before the first load is completed */
-    private View mLoadingIndicator;
+    @BindView(R.id.loading_indicator) View mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_isbn);
 
-        mEmptyTextView = findViewById(R.id.empty_isbn_view);
-
-        mLoadingIndicator = findViewById(R.id.loading_indicator);
+        // Bind the view using ButterKnife
+        ButterKnife.bind(this);
 
         // Check for network connectivity and initialize the loader
         initializeLoader(isConnected());

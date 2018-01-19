@@ -35,6 +35,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * DetailActivity displays the product details which are stored in the database.
  */
@@ -50,37 +53,37 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private Uri mCurrentProductUri;
 
     /** TextView for the product name */
-    private TextView mProductNameTextView;
+    @BindView(R.id.detail_product_name) TextView mProductNameTextView;
 
     /** TextView field to enter the author */
-    private TextView mAuthorTextView;
+    @BindView(R.id.detail_product_author) TextView mAuthorTextView;
 
     /** TextView field to enter the publisher */
-    private TextView mPublisherTextView;
+    @BindView(R.id.detail_product_publisher) TextView mPublisherTextView;
 
     /** TextView field to enter the ISBN */
-    private TextView mIsbnTextView;
+    @BindView(R.id.detail_product_isbn) TextView mIsbnTextView;
 
     /** TextView field to enter the price of the product */
-    private TextView mPriceTextView;
+    @BindView(R.id.detail_product_price) TextView mPriceTextView;
 
     /** TextView field to enter the quantity of the product */
-    private TextView mQuantityTextView;
+    @BindView(R.id.detail_product_quantity) TextView mQuantityTextView;
 
     /** ImageView for the product */
-    private ImageView mImageView;
+    @BindView(R.id.detail_product_image) ImageView mImageView;
 
     /** TextView field to enter supplier's name */
-    private TextView mSupplierNameTextView;
+    @BindView(R.id.detail_supplier_name) TextView mSupplierNameTextView;
 
     /** TextView field to enter supplier's email */
-    private TextView mSupplierEmailTextView;
+    @BindView(R.id.detail_supplier_email) TextView mSupplierEmailTextView;
 
     /** TextView field to enter supplier's phone number */
-    private TextView mSupplierPhoneTextView;
+    @BindView(R.id.detail_supplier_phone) TextView mSupplierPhoneTextView;
 
     /** ImageButton for the supplier email */
-    private ImageButton mSupplierEmailButton;
+    @BindView(R.id.detail_email_button) ImageButton mSupplierEmailButton;
 
     private static final int MY_PERMISSONS_REQUEST_READ_CONTACTS = 1;
 
@@ -93,23 +96,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         Intent intent = getIntent();
         mCurrentProductUri = intent.getData();
 
-        // Find all relevant views that we will need to read text fields from
-        mProductNameTextView = findViewById(R.id.detail_product_name);
-        mAuthorTextView = findViewById(R.id.detail_product_author);
-        mPublisherTextView = findViewById(R.id.detail_product_publisher);
-        mIsbnTextView = findViewById(R.id.detail_product_isbn);
-        mPriceTextView = findViewById(R.id.detail_product_price);
-        mQuantityTextView = findViewById(R.id.detail_product_quantity);
-        mSupplierNameTextView = findViewById(R.id.detail_supplier_name);
-        mSupplierEmailTextView = findViewById(R.id.detail_supplier_email);
-        mSupplierPhoneTextView = findViewById(R.id.detail_supplier_phone);
-        mImageView = findViewById(R.id.detail_product_image);
+        // Bind the view using ButterKnife
+        ButterKnife.bind(this);
 
         // Find all relevant button that we will need to increment and decrement the quantity
         Button plusButton = findViewById(R.id.detail_plus_button);
         Button minusButton = findViewById(R.id.detail_minus_button);
-
-        mSupplierEmailButton = findViewById(R.id.detail_email_button);
         ImageButton supplierPhoneButton = findViewById(R.id.detail_phone_button);
 
         // Set OnClickListener on the plus button. We can increment the available quantity displayed.

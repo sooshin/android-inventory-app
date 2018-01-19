@@ -38,6 +38,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -60,46 +62,48 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Uri mCurrentProductUri;
 
     /** EditText field to enter the product name */
-    private EditText mProductNameEditText;
+    @BindView(R.id.edit_product_name) EditText mProductNameEditText;
 
     /** EditText field to enter the author */
-    private EditText mAuthorEditText;
+    @BindView(R.id.edit_product_author) EditText mAuthorEditText;
 
     /** EditText field to enter the publisher */
-    private EditText mPublisherEditText;
+    @BindView(R.id.edit_product_publisher) EditText mPublisherEditText;
 
     /** EditText field to enter the ISBN */
-    private EditText mIsbnEditText;
+    @BindView(R.id.edit_product_isbn) EditText mIsbnEditText;
 
     /** EditText field to enter the price of the product */
-    private EditText mPriceEditText;
+    @BindView(R.id.edit_product_price) EditText mPriceEditText;
 
     /** EditText field to enter the quantity of the product */
-    private EditText mQuantityEditText;
+    @BindView(R.id.edit_product_quantity) EditText mQuantityEditText;
 
     /** EditText field to enter supplier's name */
-    private  EditText mSupplierNameEditText;
+    @BindView(R.id.edit_supplier_name) EditText mSupplierNameEditText;
 
     /** EditText field to enter supplier's email */
-    private EditText mSupplierEmailEditText;
+    @BindView(R.id.edit_supplier_email) EditText mSupplierEmailEditText;
 
     /** EditText field to enter supplier's phone number */
-    private EditText mSupplierPhoneEditText;
+    @BindView(R.id.edit_supplier_phone) EditText mSupplierPhoneEditText;
 
     /** ImageView for the product image */
-    private ImageView mImageView;
+    @BindView(R.id.edit_product_image) ImageView mImageView;
+
+    @BindView(R.id.edit_add_image_button) Button addImageButton;
 
     /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
     private boolean mProductHasChanged = false;
 
     /** TextInputLayout to display the floating label on EditText */
-    private TextInputLayout layoutProductName;
-    private TextInputLayout layoutProductAuthor;
-    private TextInputLayout layoutProductIsbn;
-    private TextInputLayout layoutProductPrice;
-    private TextInputLayout layoutProductQuantity;
-    private TextInputLayout layoutSupplierName;
-    private TextInputLayout layoutSupplierPhone;
+    @BindView(R.id.layout_product_name) TextInputLayout layoutProductName;
+    @BindView(R.id.layout_product_author) TextInputLayout layoutProductAuthor;
+    @BindView (R.id.layout_product_isbn) TextInputLayout layoutProductIsbn;
+    @BindView (R.id.layout_product_price) TextInputLayout layoutProductPrice;
+    @BindView (R.id.layout_product_quantity) TextInputLayout layoutProductQuantity;
+    @BindView (R.id.layout_supplier_name) TextInputLayout layoutSupplierName;
+    @BindView (R.id.layout_supplier_phone) TextInputLayout layoutSupplierPhone;
 
     /** The boolean isValidate value is false if this is supposed to be a new product and
      * all the fields in the editor are blank. Otherwise, the isValidate value is true.
@@ -128,18 +132,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        // Find all relevant views that we will need to read user input from
-        mProductNameEditText = findViewById(R.id.edit_product_name);
-        mAuthorEditText = findViewById(R.id.edit_product_author);
-        mPublisherEditText = findViewById(R.id.edit_product_publisher);
-        mIsbnEditText = findViewById(R.id.edit_product_isbn);
-        mPriceEditText = findViewById(R.id.edit_product_price);
-        mQuantityEditText = findViewById(R.id.edit_product_quantity);
-        mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
-        mSupplierEmailEditText = findViewById(R.id.edit_supplier_email);
-        mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
-        Button addImageButton = findViewById(R.id.edit_add_image_button);
-        mImageView = findViewById(R.id.edit_product_image);
+        // Bind the view using ButterKnife
+        ButterKnife.bind(this);
 
         // Receive the data from the IsbnActivity. Check if an extra with "title" (or "author" or
         // "isbn" or "publisher") was passed in the intent.
@@ -182,15 +176,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER, null, this);
         }
-
-        // Find all relevant text input layout that we will need to set error messages.
-        layoutProductName = findViewById(R.id.layout_product_name);
-        layoutProductAuthor = findViewById(R.id.layout_product_author);
-        layoutProductIsbn = findViewById(R.id.layout_product_isbn);
-        layoutProductPrice = findViewById(R.id.layout_product_price);
-        layoutProductQuantity = findViewById(R.id.layout_product_quantity);
-        layoutSupplierName = findViewById(R.id.layout_supplier_name);
-        layoutSupplierPhone = findViewById(R.id.layout_supplier_phone);
 
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
