@@ -187,16 +187,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 deleteAllProducts();
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the product.
-                if (dialogInterface != null) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
+
+        // The User clicked the "Cancel" button, so dismiss the dialog and continue displaying
+        // the list of products. Any button will dismiss the popup dialog by default,
+        // so the whole OnClickListener is null.
+        builder.setNegativeButton(R.string.cancel, null);
 
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
@@ -208,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * Prompt the user to select how to add a product. When a user wants to add a product,
      * the user can add a book by entering an ISBN in the edit text field or add it manually.
      */
-    public  void showIsbnDialog(View v) {
+    public void showIsbnDialog(View v) {
         // Create an AlertDialog.Builder and set the message.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.add_by_isbn_dialog_msg);
