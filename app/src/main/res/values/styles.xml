@@ -97,8 +97,8 @@
 
     <style name="ViewStyle">
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_marginEnd">@dimen/activity_margin</item>
-        <item name="android:layout_marginStart">@dimen/activity_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_margin</item>
+        <item name="android:layout_marginLeft">@dimen/activity_margin</item>
     </style>
 
 </resources>
