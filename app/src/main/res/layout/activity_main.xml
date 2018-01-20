@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.inventory.activity.MainActivity">
 
-    <ListView
-        android:id="@+id/list"
+    <com.example.android.inventory.EmptyRecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/list_margin_bottom"

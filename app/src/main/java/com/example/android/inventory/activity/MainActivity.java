@@ -2,7 +2,6 @@ package com.example.android.inventory.activity;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -12,17 +11,18 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.android.inventory.ProductCursorAdapter;
+import com.example.android.inventory.EmptyRecyclerView;
+import com.example.android.inventory.ProductCursorRecyclerViewAdapter;
 import com.example.android.inventory.R;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int PRODUCT_LOADER = 0;
 
     /** Adapter for the ListView */
-    private ProductCursorAdapter mCursorAdapter;
+    //private ProductCursorAdapter mCursorAdapter;
+    private ProductCursorRecyclerViewAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         // Find the ListView which will be populated with the product data
         ListView productListView = findViewById(R.id.list);
 
@@ -78,6 +79,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(intent);
             }
         });
+*/
+
+        EmptyRecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        RelativeLayout mEmptyLayout = findViewById(R.id.empty_view);
+        recyclerView.setEmptyLayout(mEmptyLayout);
+
+        mCursorAdapter = new ProductCursorRecyclerViewAdapter(this, null);
+        recyclerView.setAdapter(mCursorAdapter);
 
         // Kick off the loader
         getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
