@@ -31,4 +31,9 @@
     <!-- Margin for the list item -->
     <dimen name="sale_button_height">46dp</dimen>
     <dimen name="list_layout_margin">5dp</dimen>
+
+    <!-- Margin for the card item -->
+    <dimen name="card_layout_margin">5dp</dimen>
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_padding">10dp</dimen>
 </resources>
