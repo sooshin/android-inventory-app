@@ -23,8 +23,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 /**
- * Created by sj on 1/20/2018.
- * Created by skyfishjy on 10/31/14.
+ * Created by skyfishjy on 10/31/14. [https://stackoverflow.com/questions/26517855/using-the-recyclerview-with-a-database]
+ * CursorRecyclerViewAdapter is an adapter for a recycler view that uses a {@link Cursor}
+ * of data as its data source.
  */
 
 public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {

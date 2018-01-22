@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /** Adapter for the ListView */
     //private ProductCursorAdapter mCursorAdapter;
+    /** Adapter for the RecyclerView */
     private ProductCursorRecyclerViewAdapter mCursorAdapter;
 
     @Override
@@ -80,18 +81,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 */
-
+        // Find a reference to the {@link RecyclerView} in the layout
+        // Replaced RecyclerView with EmptyRecyclerView
         EmptyRecyclerView recyclerView = findViewById(R.id.recycler_view);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
 
+        // Set the layoutManager on the {@link RecyclerView}
         recyclerView.setLayoutManager(layoutManager);
 
+        // Find the empty layout and set it on the new recycler view
         RelativeLayout mEmptyLayout = findViewById(R.id.empty_view);
         recyclerView.setEmptyLayout(mEmptyLayout);
 
+        // Setup a CursorRecyclerViewAdapter to create a card item for each row of product data in the Cursor.
+        // There is no product data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new ProductCursorRecyclerViewAdapter(this, null);
+        // Set the adapter on the {@link recyclerView}
         recyclerView.setAdapter(mCursorAdapter);
 
         // Kick off the loader

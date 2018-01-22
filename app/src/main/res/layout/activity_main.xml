@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.inventory.activity.MainActivity">
 
+    <!-- Replaced android.support.v7.widget.RecyclerView with the new EmptyRecyclerView -->
     <com.example.android.inventory.EmptyRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

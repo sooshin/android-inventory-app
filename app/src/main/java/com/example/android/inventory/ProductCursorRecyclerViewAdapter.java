@@ -19,11 +19,18 @@ import com.example.android.inventory.activity.DetailActivity;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
 /**
- * Created by sj on 1/20/2018.
+ * {@link ProductCursorRecyclerViewAdapter} is an adapter for a recycler view
+ * that uses a {@link Cursor} of product data as its data source. This adapter knows
+ * how to create card items for each row of product data in the {@link Cursor}.
  */
 
 public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
 
+    /**
+     * Constructs a new {@link ProductCursorRecyclerViewAdapter}
+     * @param context of the app
+     * @param cursor from which to get the data.
+     */
     public ProductCursorRecyclerViewAdapter(Context context, Cursor cursor) {
         super(context, cursor);
     }
@@ -45,6 +52,7 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
         cursor.moveToPosition(cursor.getPosition());
         holder.setData(cursor);
         final long id = cursor.getLong(cursor.getColumnIndex(ProductEntry._ID));
+        // Set an OnClickListener to open a DetailActivity
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,9 +74,9 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
             }
         });
 
-        // Find the columns of product attributes that we're interested in
+        // Find the columns of product quantity
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-
+        // Read the product quantity from the Cursor for the current product
         int quantity = cursor.getInt(quantityColumnIndex);
 
         // If the quantity is more than 0, set the text of a sale button to display 'sell'.
@@ -129,7 +137,6 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         private TextView productNameTextView;
         private TextView authorTextView;
         private TextView priceTextView;
@@ -139,21 +146,26 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
 
         public ViewHolder(View itemView) {
             super(itemView);
+            // Find individual views that we want to modify in the card item layout
             productNameTextView = itemView.findViewById(R.id.product_name_card);
             authorTextView = itemView.findViewById(R.id.product_author_card);
             priceTextView =itemView.findViewById(R.id.product_price_card);
             quantityTextView =itemView.findViewById(R.id.product_quantity_card);
             saleButton = itemView.findViewById(R.id.product_sale_button_card);
             cardView = itemView.findViewById(R.id.card_view);
-
         }
 
+        /**
+         * Find the columns of product attributes that we're interested in, then
+         * read the product attributes from the Cursor for the current product.
+         * Update the TextViews with the attributes for the current product
+         * @param c The cursor from which to get the data.
+         */
         public void setData(Cursor c) {
             productNameTextView.setText(c.getString(c.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME)));
             authorTextView.setText(c.getString(c.getColumnIndex(ProductEntry.COLUMN_PRODUCT_AUTHOR)));
-            priceTextView.setText(c.getString(c.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE)));
-            quantityTextView.setText(c.getString(c.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY)));
-
+            priceTextView.setText(String.valueOf(c.getDouble(c.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE))));
+            quantityTextView.setText(String.valueOf(c.getInt(c.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY))));
         }
     }
 }
