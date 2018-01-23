@@ -31,8 +31,6 @@ import com.example.android.inventory.data.ProductContract.ProductEntry;
  */
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
     /** Identifier for the product data loader */
     private static final int PRODUCT_LOADER = 0;
 

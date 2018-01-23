@@ -13,9 +13,6 @@
     <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
 
-    <!-- Label for main menu option to add a product [CHAR LIMIT=20]-->
-    <string name="action_add">Add</string>
-
     <!-- Label for overflow menu option that inserts fake product data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
 

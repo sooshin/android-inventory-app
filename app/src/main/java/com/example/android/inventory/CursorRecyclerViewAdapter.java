@@ -76,9 +76,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         super.setHasStableIds(true);
     }
 
-    public static final String TAG = CursorRecyclerViewAdapter.class.getSimpleName();
-
-    public abstract void onBindViewHolder(VH viewHolder, Cursor cursor);
+    protected abstract void onBindViewHolder(VH viewHolder, Cursor cursor);
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -137,7 +135,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         return oldCursor;
     }
 
-    public void setDataValid(boolean mDataValid) {
+    private void setDataValid(boolean mDataValid) {
         this.mDataValid = mDataValid;
     }
 

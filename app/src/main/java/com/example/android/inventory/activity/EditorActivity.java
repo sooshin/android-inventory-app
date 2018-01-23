@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.NavUtils;
@@ -206,10 +207,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void  pickImageFromGallery() {
-        // Allow the user to select and return existing documents.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        // Only files that can be opened are displayed
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            // Allow the user to select files
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        } else {
+            // Allow the user to select and return existing documents.
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            // Only files that can be opened are displayed
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+        }
+
         // Display image files of all format.
         intent.setType(getString(R.string.image_all_format));
         // Start a file picker activity with an intent to pick a file and receive a result back.

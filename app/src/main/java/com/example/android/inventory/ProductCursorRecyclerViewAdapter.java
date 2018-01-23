@@ -36,11 +36,6 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
     }
 
     @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.card_item, parent, false);
         return new ViewHolder(v);
@@ -127,11 +122,6 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
     }
 
     @Override
-    public int getItemCount() {
-        return super.getItemCount();
-    }
-
-    @Override
     public int getItemViewType(int position) {
         return 0;
     }
@@ -144,7 +134,7 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
         private Button saleButton;
         private CardView cardView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             // Find individual views that we want to modify in the card item layout
             productNameTextView = itemView.findViewById(R.id.product_name_card);

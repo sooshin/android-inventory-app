@@ -17,13 +17,11 @@ public class ProductDbHelper extends SQLiteOpenHelper {
     /** Database version. If you change the database schema, you must increment the database version. */
     private static final int DATABASE_VERSION = 1;
 
-    private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ProductEntry.TABLE_NAME;
-
     /**
      * Constructs a new instance of {@link ProductDbHelper}.
      * @param context of the app
      */
-    public ProductDbHelper(Context context) {
+    ProductDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

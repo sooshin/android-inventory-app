@@ -81,15 +81,6 @@ public class EmptyRecyclerView extends RecyclerView {
     }
 
     /**
-     * Set an empty view on the EmptyRecyclerView
-     * @param emptyView refers to the empty state of the view
-     */
-    public void setEmptyView(View emptyView) {
-        mEmptyView = emptyView;
-        checkIfEmpty();
-    }
-
-    /**
      * Set an empty layout on the EmptyRecyclerView
      * @param relativeLayout refers to the empty state of the relative layout
      */

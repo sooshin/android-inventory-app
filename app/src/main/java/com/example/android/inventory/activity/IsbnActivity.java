@@ -30,9 +30,6 @@ import butterknife.ButterKnife;
 
 public class IsbnActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
 
-    /** Tag for the log messages */
-    private static final String LOG_TAG = IsbnActivity.class.getName();
-
     /**Constant value for the book loader ID */
     private static final int BOOK_LOADER_ID = 1;
 
