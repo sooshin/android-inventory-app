@@ -24,7 +24,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/title"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
@@ -46,7 +45,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/author"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
@@ -66,7 +64,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/isbn"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
@@ -86,7 +83,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/price"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
@@ -106,7 +102,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/publisher"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
@@ -224,7 +219,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/name"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
@@ -244,7 +238,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/email"
                 style="@style/CategoryDetailTextStyle"
                 android:layout_width="@dimen/detail_width"
                 android:layout_height="wrap_content"
