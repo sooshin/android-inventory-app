@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,34 +20,51 @@ import com.example.android.inventory.activity.DetailActivity;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
 /**
- * {@link ProductCursorRecyclerViewAdapter} is an adapter for a recycler view
+ * {@link ProductCursorAdapter} is an adapter for a recycler view
  * that uses a {@link Cursor} of product data as its data source. This adapter knows
  * how to create card items for each row of product data in the {@link Cursor}.
  */
+public class ProductCursorAdapter extends RecyclerView.Adapter<ProductCursorAdapter.ProductViewHolder> {
 
-public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
+    // Declare variables for the Cursor that holds product data
+    private Cursor mCursor;
+    private Context mContext;
 
     /**
-     * Constructs a new {@link ProductCursorRecyclerViewAdapter}
-     * @param context of the app
-     * @param cursor from which to get the data.
+     * Constructor for the ProductCursorAdapter that initializes the Context.
+     *
+     * @param context Context of the app
      */
-    public ProductCursorRecyclerViewAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+    public ProductCursorAdapter(Context context) {
+        mContext = context;
     }
 
+    /**
+     * Called when ViewHolders are created to fill a RecyclerView.
+     *
+     * @return A new ProductViewHolder that holds the view for each product
+     */
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.card_item, parent, false);
-        return new ViewHolder(v);
+        return new ProductViewHolder(v);
     }
 
+    /**
+     * Called by the RecyclerView to display data at a specified position in the Cursor.
+     *
+     * @param viewHolder The ViewHolder to bind Cursor data to
+     * @param position The position of the data in the Cursor
+     */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Cursor cursor) {
-        final ViewHolder holder = (ViewHolder) viewHolder;
-        cursor.moveToPosition(cursor.getPosition());
-        holder.setData(cursor);
-        final long id = cursor.getLong(cursor.getColumnIndex(ProductEntry._ID));
+    public void onBindViewHolder(@NonNull ProductViewHolder viewHolder, int position) {
+        final ProductViewHolder holder = viewHolder;
+        mCursor.moveToPosition(position); // Get to the right location in the cursor
+        // Set data
+        holder.setData(mCursor);
+        // Indices for _id
+        final long id = mCursor.getLong(mCursor.getColumnIndex(ProductEntry._ID));
         // Set an OnClickListener to open a DetailActivity
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +88,9 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
         });
 
         // Find the columns of product quantity
-        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        int quantityColumnIndex = mCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
         // Read the product quantity from the Cursor for the current product
-        int quantity = cursor.getInt(quantityColumnIndex);
+        int quantity = mCursor.getInt(quantityColumnIndex);
 
         // If the quantity is more than 0, set the text of a sale button to display 'sell'.
         // Otherwise, set the text of a sale button to display 'sold out'.
@@ -121,12 +139,39 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
         });
     }
 
+    /**
+     * Returns the number of items to display
+     */
     @Override
-    public int getItemViewType(int position) {
-        return 0;
+    public int getItemCount() {
+        if (mCursor == null) {
+            return 0;
+        }
+        return mCursor.getCount();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * When data changes and a re-query occurs, this function swaps the old Cursor
+     * with a newly updated Cursor (Cursor c) that is passed in.
+     */
+    public Cursor swapCursor(Cursor cursor) {
+        // Check if this cursor is the same as the previous cursor (mCursor)
+        if (mCursor == cursor) {
+            return null;
+        }
+        Cursor temp = mCursor;
+        this.mCursor = cursor; // new cursor value assigned
+
+        // Check if this is a valid cursor, then update the cursor
+        if (cursor != null) {
+            this.notifyDataSetChanged();
+        }
+        return temp;
+    }
+
+    // Inner class for creating ViewHolders
+    class ProductViewHolder extends RecyclerView.ViewHolder {
+
         private TextView productNameTextView;
         private TextView authorTextView;
         private TextView priceTextView;
@@ -134,8 +179,14 @@ public class ProductCursorRecyclerViewAdapter extends CursorRecyclerViewAdapter{
         private Button saleButton;
         private CardView cardView;
 
-        ViewHolder(View itemView) {
+        /**
+         * Constructor for the ProductViewHolders.
+         *
+         * @param itemView The view inflated in onCreateViewHolder
+         */
+        ProductViewHolder(View itemView) {
             super(itemView);
+
             // Find individual views that we want to modify in the card item layout
             productNameTextView = itemView.findViewById(R.id.product_name_card);
             authorTextView = itemView.findViewById(R.id.product_author_card);

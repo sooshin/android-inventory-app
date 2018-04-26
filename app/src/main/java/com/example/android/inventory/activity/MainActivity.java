@@ -21,8 +21,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.android.inventory.ProductCursorAdapter;
 import com.example.android.inventory.EmptyRecyclerView;
-import com.example.android.inventory.ProductCursorRecyclerViewAdapter;
 import com.example.android.inventory.R;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int PRODUCT_LOADER = 0;
 
     /** Adapter for the RecyclerView */
-    private ProductCursorRecyclerViewAdapter mCursorAdapter;
+    private ProductCursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         RelativeLayout mEmptyLayout = findViewById(R.id.empty_view);
         recyclerView.setEmptyLayout(mEmptyLayout);
 
-        // Setup a CursorRecyclerViewAdapter to create a card item for each row of product data in the Cursor.
-        // There is no product data yet (until the loader finishes) so pass in null for the Cursor.
-        mCursorAdapter = new ProductCursorRecyclerViewAdapter(this, null);
+        // Setup a ProductCursorAdapter to create a card item for each row of product data in the Cursor.
+        mCursorAdapter = new ProductCursorAdapter(this);
         // Set the adapter on the {@link recyclerView}
         recyclerView.setAdapter(mCursorAdapter);
 
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link ProductCursorRecyclerViewAdapter} with this new cursor containing updated product data
+        // Update {@link ProductCursorAdapter} with this new cursor containing updated product data
         mCursorAdapter.swapCursor(data);
     }
 
